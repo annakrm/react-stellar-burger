@@ -1,10 +1,9 @@
-import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Modal } from "../../../../components";
-import styles from './order-modal.module.css';
+import { Modal } from "..";
+import styles from './order-details.module.css';
 
-import DoneImage from './done.png';
+import DoneImage from '../../images/done.png';
 
-export const OrderModal = ({ onClose }) => (
+export const OrderDetails = ({ onClose }) => (
     <Modal onClose={onClose}>
         <div className={`${styles.contentWrapper}`}>
             <span className="text text_type_digits-large mt-30">034536</span>

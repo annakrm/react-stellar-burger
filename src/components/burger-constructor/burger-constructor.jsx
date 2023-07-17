@@ -1,11 +1,11 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-configurator.module.css';
-import { mockedConfiguratorData, mockedConfiguratorPrice, mockedData } from '../../../utils/mockedData';
+import styles from './burger-constructor.module.css';
+import { mockedConfiguratorData, mockedConfiguratorPrice, mockedData } from '../../utils/mockedData';
 import { useState } from 'react';
-import { OrderModal } from './order-modal';
+import { OrderDetails } from '../order-details';
 
-export const BurgerConfigurator = () => {
-  const [isOrderModalOpened, setOrderModalOpened] = useState(false);
+export const BurgerConstructor = () => {
+  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
 
   return (
     <>
@@ -43,13 +43,13 @@ export const BurgerConfigurator = () => {
 
         <span className={`${styles.orderButtonWrapper} mt-10`}>
           <span className={`${styles.price} text text_type_main-large mr-10`}>{mockedConfiguratorPrice}<CurrencyIcon /></span>
-          <Button htmlType="button" type="primary" size="large" onClick={() => setOrderModalOpened(true)}>
+          <Button htmlType="button" type="primary" size="large" onClick={() => setOrderDetailsOpened(true)}>
             Оформить заказ
           </Button>
         </span>
       </div>
 
-      {isOrderModalOpened && <OrderModal onClose={() => setOrderModalOpened(false)} />}
+      {isOrderDetailsOpened && <OrderDetails onClose={() => setOrderDetailsOpened(false)} />}
     </>
   );
 }

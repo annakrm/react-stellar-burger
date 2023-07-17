@@ -1,7 +1,7 @@
-import { Modal } from "../../../../components";
-import styles from './ingredient-modal.module.css';
+import { Modal } from "../modal";
+import styles from './ingredient-details.module.css';
 
-export const IngredientModal = ({ onClose, data }) => {
+export const IngredientDetails = ({ onClose, data }) => {
     const { image, name, calories, proteins, fat, carbohydrates } = data;
 
     return (

@@ -2,11 +2,11 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 
 import styles from './ingredients-list-item.module.css';
 
-export const IngredientsListItem = ({ data, onOpenIngredientModal }) => {
+export const IngredientsListItem = ({ data, onOpenIngredientDetails }) => {
     const { image: imageUrl, name, price, added_count: addedCount } = data;
 
     return (
-        <div className={styles.wrapper} onClick={() => onOpenIngredientModal(data)}>
+        <div className={styles.wrapper} onClick={() => onOpenIngredientDetails(data)}>
             <img src={imageUrl} alt='Изображение ингредиента бургера' />
             <span className={`${styles.price} text text_type_digits-default mt-1 mb-1`}>{price}<CurrencyIcon type="primary" /></span>
             <span className="text text_type_main-default">{name}</span>

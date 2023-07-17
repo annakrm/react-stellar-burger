@@ -1,28 +1,18 @@
-.overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
 .modal {
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: column;
     
+    top: calc(50% - 200px);
+    left: calc(50% - 200px);
+
     min-width: 200px;
     min-height: 200px;
 
     border-radius: var(--common-border-radius-s);
     background-color: var(--background);
+
+    z-index: 5;
 }
 
 .closeButton {
