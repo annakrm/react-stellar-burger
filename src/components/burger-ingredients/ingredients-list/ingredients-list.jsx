@@ -1,15 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IngredientTypes } from '../../../utils/constants';
-import { mockedData } from '../../../utils/mockedData';
 import { IngredientDetails } from '../../ingredient-details';
 import { IngredientsCategory } from './ingredients-category';
 
 import styles from './ingredients-list.module.css';
+import { getData } from '../../../utils/api';
 
 export const IngredientsList = () => {
     const [ingredietDetailsData, setIngredientDetailsData] = useState(null);
+    const [ingredientsData, setIngredientsData] = useState([]);
 
-    const sortedIngredientLists = mockedData.reduce((targetLists, currentItem) => {
+    const loadData = async () => {
+        const { data } = await getData()
+        .catch((err) => { console.error(err); });
+
+        if (data) {
+            console.log(data);
+            setIngredientsData(data);
+        }
+        
+    }
+
+    useEffect (() => {
+        loadData();
+    }, []);
+
+    const sortedIngredientLists = ingredientsData.reduce((targetLists, currentItem) => {
         switch (currentItem.type) {
             case IngredientTypes.BUN:
                 return { ...targetLists, buns: [...targetLists.buns, currentItem] };
