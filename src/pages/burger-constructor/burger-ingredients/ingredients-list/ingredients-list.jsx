@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { IngredientTypes } from '../../../../utils/constants';
 import { mockedData } from '../../../../utils/mockedData';
+import { IngredientModal } from '../ingredient-modal';
 import { IngredientsCategory } from './ingredients-category';
 
 import styles from './ingredients-list.module.css';
 
 export const IngredientsList = () => {
+    const [ingredientModalData, setIngredientModalData] = useState(null);
+
     const sortedIngredientLists = mockedData.reduce((targetLists, currentItem) => {
         switch (currentItem.type) {
             case IngredientTypes.BUN:
@@ -25,10 +29,12 @@ export const IngredientsList = () => {
     const isMainVisible = Boolean(main && main.length);
 
     return (
-        <div className={styles.wrapper}>
-            {isBunsVisible && <IngredientsCategory title="Булки" items={buns} />}
-            {isSaucesVisible && <IngredientsCategory title="Соусы" items={sauces} />}
-            {isMainVisible && <IngredientsCategory title="Начинки" items={main} />}
+        <div className={`${styles.wrapper} custom-scroll`}>
+            {isBunsVisible && <IngredientsCategory title="Булки" items={buns} onOpenIngredientModal={setIngredientModalData} />}
+            {isSaucesVisible && <IngredientsCategory title="Соусы" items={sauces} onOpenIngredientModal={setIngredientModalData} />}
+            {isMainVisible && <IngredientsCategory title="Начинки" items={main} onOpenIngredientModal={setIngredientModalData} />}
+
+            {Boolean(ingredientModalData) && <IngredientModal data={ingredientModalData} onClose={() => setIngredientModalData(null)} />}
         </div>
     );
 }
