@@ -5,9 +5,10 @@ import { IngredientsCategory } from './ingredients-category';
 
 import styles from './ingredients-list.module.css';
 import { getData } from '../../../utils/api';
+import { Modal } from '../../modal';
 
 export const IngredientsList = () => {
-    const [ingredietDetailsData, setIngredientDetailsData] = useState(null);
+    const [ingredientDetailsData, setIngredientDetailsData] = useState(null);
     const [ingredientsData, setIngredientsData] = useState([]);
 
     const loadData = async () => {
@@ -50,7 +51,11 @@ export const IngredientsList = () => {
             {isSaucesVisible && <IngredientsCategory title="Соусы" items={sauces} onOpenIngredientDetails={setIngredientDetailsData} />}
             {isMainVisible && <IngredientsCategory title="Начинки" items={main} onOpenIngredientDetails={setIngredientDetailsData} />}
 
-            {Boolean(ingredietDetailsData) && <IngredientDetails data={ingredietDetailsData} onClose={() => setIngredientDetailsData(null)} />}
+            {Boolean(ingredientDetailsData) && (
+                <Modal onClose={() => setIngredientDetailsData(null)}>
+                    <IngredientDetails data={ingredientDetailsData} />
+                </Modal>
+            )}
         </div>
     );
 }

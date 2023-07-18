@@ -1,11 +1,11 @@
 import styles from "./app.module.css";
 import { AppHeader } from "..";
-import { BurgerConfigurator } from "../burger-configurator";
+import { BurgerConfiguration } from "../burger-configuration";
 
 export const App = () => (
   <div className={styles.app}>
     <AppHeader />
     {/* TODO: В будущем здесь будет релизован роутинг */}
-    <BurgerConfigurator />
+    <BurgerConfiguration />
   </div>
 );

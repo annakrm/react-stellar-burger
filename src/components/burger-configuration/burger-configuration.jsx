@@ -3,7 +3,7 @@ import { BurgerConstructor } from "../burger-constructor";
 import { BurgerIngredients } from "../burger-ingredients";
 
 
-export const BurgerConfigurator = () => (
+export const BurgerConfiguration = () => (
     <Page>
         <BurgerIngredients />
         <BurgerConstructor />

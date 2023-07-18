@@ -1,6 +1,6 @@
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { mockedConfiguratorData, mockedConfiguratorPrice, mockedData } from '../../utils/mockedData';
+import { mockedConfigurationData, mockedConfigurationPrice, mockedData } from '../../utils/mockedData';
 import { useState } from 'react';
 import { OrderDetails } from '../order-details';
 
@@ -20,7 +20,7 @@ export const BurgerConstructor = () => {
           />
         </div>
         <div className={`${styles.ingredientsList} custom-scroll pr-2`}>
-          {mockedConfiguratorData.map(({ _id: id, name, price, image }) => (
+          {mockedConfigurationData.map(({ _id: id, name, price, image }) => (
             <div key={id} className={styles.itemWrapper}>
               <DragIcon />
               <ConstructorElement
@@ -42,7 +42,7 @@ export const BurgerConstructor = () => {
         </div>
 
         <span className={`${styles.orderButtonWrapper} mt-10`}>
-          <span className={`${styles.price} text text_type_main-large mr-10`}>{mockedConfiguratorPrice}<CurrencyIcon /></span>
+          <span className={`${styles.price} text text_type_main-large mr-10`}>{mockedConfigurationPrice}<CurrencyIcon /></span>
           <Button htmlType="button" type="primary" size="large" onClick={() => setOrderDetailsOpened(true)}>
             Оформить заказ
           </Button>

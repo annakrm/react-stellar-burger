@@ -214,7 +214,7 @@ export const mockedData = [
   }
 ];
 
-export const mockedConfiguratorData = [
+export const mockedConfigurationData = [
    {
       "_id":"60666c42cc7b410027a1a9b9",
       "name":"Соус традиционный галактический",
@@ -385,4 +385,4 @@ export const mockedConfiguratorData = [
    },
 ];
 
-export const mockedConfiguratorPrice = mockedConfiguratorData.reduce((acc, currentItem) => acc + currentItem.price, 0);
+export const mockedConfigurationPrice = mockedConfigurationData.reduce((acc, currentItem) => acc + currentItem.price, 0);
