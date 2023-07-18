@@ -1,0 +1,33 @@
+.modalWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 200px;
+    min-height: 200px;
+
+    border-radius: var(--common-border-radius-s);
+    background-color: var(--background);
+
+    z-index: 5;
+}
+
+.closeButton {
+    position: absolute;
+    top: 48px;
+    left: calc(100% - 64px);
+
+    cursor: pointer;
+}

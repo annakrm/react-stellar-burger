@@ -1,17 +1,11 @@
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
+import { AppHeader } from "..";
+import { BurgerConfiguration } from "../burger-configuration";
 
-function App() {
-  return (
-    <div className={styles.app}>
-      <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
-      }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
-      </pre>
-    </div>
-  );
-}
-
-export default App;
+export const App = () => (
+  <div className={styles.app}>
+    <AppHeader />
+    {/* TODO: В будущем здесь будет релизован роутинг */}
+    <BurgerConfiguration />
+  </div>
+);

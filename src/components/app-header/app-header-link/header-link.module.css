@@ -1,0 +1,10 @@
+.headerLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 20px;
+
+    color: var(--text-primary-color);
+    text-decoration: none;
+}
