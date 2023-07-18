@@ -1,10 +1,19 @@
-.modal {
+.modalWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal {
     display: flex;
     flex-direction: column;
-    
-    top: calc(50% - 200px);
-    left: calc(50% - 200px);
 
     min-width: 200px;
     min-height: 200px;

@@ -22,11 +22,13 @@ export const Modal = ({ children, onClose }) => {
     return createPortal(
         (
             <>
-                <div className={styles.modal}>
-                    <div className={styles.closeButton}>
-                        <CloseIcon type="primary" onClick={onClose}/>
+                <div className={styles.modalWrapper}>
+                    <div className={styles.modal}>
+                        <div className={styles.closeButton}>
+                            <CloseIcon type="primary" onClick={onClose}/>
+                        </div>
+                        {children}  
                     </div>
-                    {children}  
                 </div>
                 <ModalOverlay onClose={onClose} />
             </>
