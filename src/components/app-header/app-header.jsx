@@ -7,12 +7,12 @@ import styles from './app-header.module.css';
 export const AppHeader = () => (
     <header className={styles.header}>
         <div className={styles.header_content}>
-            <div className={styles.link}><BurgerIcon type="primary" /><HeaderLink text="Конструктор" /></div>
-            <div className={styles.link}><ListIcon type="primary" /><HeaderLink text="Лента заказов" /></div>
+            <HeaderLink text="Конструктор" IconComponent={BurgerIcon} />
+            <HeaderLink text="Лента заказов" IconComponent={ListIcon} />
 
             <span className={styles.logo}><Logo /></span>
             
-            <div className={styles.link}><ProfileIcon type="primary" /><HeaderLink text="Личный кабинет" /></div>
+            <HeaderLink text="Личный кабинет" IconComponent={ProfileIcon} />
         </div>
     </header>
 )
