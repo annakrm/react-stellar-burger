@@ -1,4 +1,4 @@
-import { Page } from "..";
+import { Page } from "../page";
 import { BurgerConstructor } from "../burger-constructor";
 import { BurgerIngredients } from "../burger-ingredients";
 

@@ -1,38 +1,97 @@
-import { useEffect, useState } from 'react';
-import { IngredientTypes } from '../../../utils/constants';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { BurgerIngredientTab, CHANGE_ACTIVE_TAB_TOUCH_POINT, IngredientType } from '../../../utils/constants';
 import { IngredientDetails } from '../../ingredient-details';
 import { IngredientsCategory } from './ingredients-category';
 
 import styles from './ingredients-list.module.css';
 import { getData } from '../../../utils/api';
 import { Modal } from '../../modal';
+import { setBurgerIngredientDetails, setBurgerIngredientsActiveTab, setBurgerIngredientsData } from '../../../services/actions';
+
+
 
 export const IngredientsList = () => {
-    const [ingredientDetailsData, setIngredientDetailsData] = useState(null);
-    const [ingredientsData, setIngredientsData] = useState([]);
+    const dispatch = useDispatch();
+
+    const { data: ingredientsData, activeTab } = useSelector(({ burgerIngredients }) => burgerIngredients);
+    const { data: burgerIngredientDetails } = useSelector(({ burgerIngredientDetails }) => burgerIngredientDetails);
+
+    const wrapperRef = useRef(null);
+    const [categoryPositions, setCategoryPositions] = useState({});
 
     const loadData = async () => {
         const { data } = await getData()
         .catch((err) => { console.error(err); });
 
         if (data) {
-            console.log(data);
-            setIngredientsData(data);
+            dispatch(setBurgerIngredientsData(data));
         }
-        
     }
 
     useEffect (() => {
         loadData();
-    }, []);
+
+        const handleScroll = () => {
+            const bunsCategory = document.getElementById('buns-category');
+            const saucesCategory = document.getElementById('sauces-category');
+            const mainCategory = document.getElementById('main-category');
+
+            const bunsTopPosition =  bunsCategory.getBoundingClientRect().top;
+            const saucesTopPosition =  saucesCategory.getBoundingClientRect().top;
+            const mainTopPosition =  mainCategory.getBoundingClientRect().top;
+
+            setCategoryPositions({
+                bunsTopPosition,
+                saucesTopPosition,
+                mainTopPosition,
+            })
+        };
+
+        const element = wrapperRef.current;
+        element.addEventListener("scroll", handleScroll);
+
+        return () => {
+          element.removeEventListener("scroll", handleScroll);
+        };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (categoryPositions) {
+            const {
+                bunsTopPosition,
+                saucesTopPosition,
+                mainTopPosition,
+            } = categoryPositions;
+
+            const isBunsActiveTab = activeTab === BurgerIngredientTab.BUNS;
+            const isSaucesActiveTab = activeTab === BurgerIngredientTab.SAUCES;
+            const isMainActiveTab = activeTab === BurgerIngredientTab.MAIN;
+
+            if (bunsTopPosition < CHANGE_ACTIVE_TAB_TOUCH_POINT && bunsTopPosition > 0 && !isBunsActiveTab) {
+                dispatch(setBurgerIngredientsActiveTab(BurgerIngredientTab.BUNS));
+            }
+
+            if (saucesTopPosition < CHANGE_ACTIVE_TAB_TOUCH_POINT && saucesTopPosition > 0  && !isSaucesActiveTab) {
+                dispatch(setBurgerIngredientsActiveTab(BurgerIngredientTab.SAUCES));
+            }
+
+            if (mainTopPosition < CHANGE_ACTIVE_TAB_TOUCH_POINT && mainTopPosition > 0  && !isMainActiveTab) {
+                dispatch(setBurgerIngredientsActiveTab(BurgerIngredientTab.MAIN));
+            }
+        }
+    }, [categoryPositions, activeTab, dispatch]);
+
+    useEffect(() => {console.log(activeTab);}, [activeTab]);
 
     const sortedIngredientLists = ingredientsData.reduce((targetLists, currentItem) => {
         switch (currentItem.type) {
-            case IngredientTypes.BUN:
+            case IngredientType.BUN:
                 return { ...targetLists, buns: [...targetLists.buns, currentItem] };
-            case IngredientTypes.SAUCE:
+            case IngredientType.SAUCE:
                 return { ...targetLists, sauces: [...targetLists.sauces, currentItem] };
-            case IngredientTypes.MAIN:
+            case IngredientType.MAIN:
                 return { ...targetLists, main: [...targetLists.main, currentItem] };
             default: 
                 return targetLists;
@@ -45,15 +104,19 @@ export const IngredientsList = () => {
     const isSaucesVisible = Boolean(sauces && sauces.length);
     const isMainVisible = Boolean(main && main.length);
 
-    return (
-        <div className={`${styles.wrapper} custom-scroll`}>
-            {isBunsVisible && <IngredientsCategory title="Булки" items={buns} onOpenIngredientDetails={setIngredientDetailsData} />}
-            {isSaucesVisible && <IngredientsCategory title="Соусы" items={sauces} onOpenIngredientDetails={setIngredientDetailsData} />}
-            {isMainVisible && <IngredientsCategory title="Начинки" items={main} onOpenIngredientDetails={setIngredientDetailsData} />}
+    const handleBurgerIngredientClick = (data) => {
+        dispatch(setBurgerIngredientDetails(data));
+    };
 
-            {Boolean(ingredientDetailsData) && (
-                <Modal onClose={() => setIngredientDetailsData(null)}>
-                    <IngredientDetails data={ingredientDetailsData} />
+    return (
+        <div ref={wrapperRef} className={`${styles.wrapper} custom-scroll`}>
+            {isBunsVisible && <IngredientsCategory id='buns-category' title="Булки" items={buns} onOpenIngredientDetails={handleBurgerIngredientClick} />}
+            {isSaucesVisible && <IngredientsCategory id='sauces-category' title="Соусы" items={sauces} onOpenIngredientDetails={handleBurgerIngredientClick} />}
+            {isMainVisible && <IngredientsCategory id='main-category' title="Начинки" items={main} onOpenIngredientDetails={handleBurgerIngredientClick} />}
+
+            {Boolean(burgerIngredientDetails) && (
+                <Modal onClose={() => handleBurgerIngredientClick(null)}>
+                    <IngredientDetails data={burgerIngredientDetails} />
                 </Modal>
             )}
         </div>

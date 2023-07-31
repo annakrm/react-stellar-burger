@@ -1,5 +1,5 @@
 import styles from "./app.module.css";
-import { AppHeader } from "..";
+import { AppHeader } from "../app-header";
 import { BurgerConfiguration } from "../burger-configuration";
 
 export const App = () => (
