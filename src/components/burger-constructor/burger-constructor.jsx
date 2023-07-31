@@ -3,7 +3,6 @@ import styles from './burger-constructor.module.css';
 import { useCallback, useMemo, useState } from 'react';
 import { OrderDetails } from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { IngredientType } from '../../utils/constants';
 import { useDrop } from 'react-dnd';
 import { makeOrder } from '../../utils/api';
 import { setOrderDetails } from '../../services/actions/order-details';
