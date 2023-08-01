@@ -1,46 +1,35 @@
-const apiConfig = {
-    baseUrl: 'https://norma.nomoreparties.space/api',
-  }
+import { checkResponse } from "./utils";
 
-export const getData = () => {
-    return fetch(`${apiConfig.baseUrl}/ingredients`, {
-        headers: {
-          authorization: ''
-        }
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    });
+const apiConfig = {
+  baseUrl: 'https://norma.nomoreparties.space/api',
+  headers: {
+    authorization: '',
+    'Content-Type': 'application/json'
+  }
+}
+
+const request = (endpoint, options) => {
+	const { baseUrl, headers } = apiConfig;
+
+	return fetch(`${baseUrl}/${endpoint}`, { headers, ...options }).then(checkResponse);
+}
+
+export const getBurgerIngredients = () => {
+  return request('ingredients', { method: 'GET' });
 }
 
 export const makeOrder = (ingredientIds) => {
-  // TODO: Мокаем запрос т.к.  почему-то возврщает POST https://norma.nomoreparties.space/api/orders при корректном значении body все равно возвращает ошибку {"success":false,"message":"Ingredient ids must be provided"}
-  // Даже пример из документации не работает "ingredients": ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"]
-
-  return  {
-    "name": "Краторный метеоритный бургер",
-    "order": {
-        "number": 6257
-    },
-    "success": true
-  };
-
-  // return fetch(`${apiConfig.baseUrl}/orders`, {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: ''
-  //     },
-  //     body: JSON.stringify({ ingredients: ingredientIds }),
-  //   })
-  //   .then(res => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  // }).catch((error) => console.error(error));
+	return request('orders', {
+		method: 'POST',
+		body: JSON.stringify({ ingredients: ingredientIds }),
+	});
 }
 
+export const stellarBurgerApi = {
+  burgerIngredients: {
+    getBurgerIngredients,
+  },
+  burgerConstructor: {
+    makeOrder,
+  },
+};

@@ -1,21 +1,23 @@
 import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { OrderDetails } from '../order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { makeOrder } from '../../utils/api';
-import { setOrderDetails } from '../../services/actions/order-details';
+import { makeOrder } from '../../services/actions';
 
 import { BurgerConstructorDraggableItem as DraggableItem } from './burger-constructor-draggable-item';
 import { reorderSelectedBurgerIngredients } from '../../services/actions/selected-burger-ingredients';
+import { setOrderDetailesModalOpened } from '../../services/actions/order';
+import { IngredientType } from '../../utils/constants';
+import { BurgerConstructorBunPlaceholder } from './burger-constructor-bun-placeholder';
+import { hasBuns } from '../../utils/utils';
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const { data: selectedBurgerIngredients } = useSelector(({ selectedBurgerIngredients }) => selectedBurgerIngredients );
-
-  const [isOrderDetailsOpened, setOrderDetailsOpened] = useState(false);
+  const { orderDetailesModalOpened } = useSelector(({ order }) => order );
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'BurgerIngredientItem',
@@ -30,25 +32,35 @@ export const BurgerConstructor = () => {
 
   const ingredientsPrice = useMemo(() => selectedBurgerIngredients.reduce((sumIngredientsPrice, { price: ingredientPrice }) => sumIngredientsPrice + ingredientPrice, 0), [selectedBurgerIngredients])
 
-  const topBun = selectedBurgerIngredients[0];
-  const topBunName = `${topBun.name} (верх)`;
+  const bunInfo = useMemo(() => {
+    if (selectedBurgerIngredients.length !== 0) {
+      const bun = selectedBurgerIngredients.find(({ type }) => type === IngredientType.BUN);
 
-  const bottomBun = selectedBurgerIngredients[0];
-  const bottomBunName = `${topBun.name} (низ)`;
+      return bun !== -1 ? bun : null;
+    }
 
-  const bunImage = topBun.image;
+    return null;
+  }, [selectedBurgerIngredients]);
 
-  const itemWithoutBuns = useMemo(() => selectedBurgerIngredients.length > 2 ? selectedBurgerIngredients.slice(1, selectedBurgerIngredients.length - 1) : [], [selectedBurgerIngredients]);
+  const itemWithoutBuns = useMemo(() => {
+    if (selectedBurgerIngredients.length) {
+      return hasBuns(selectedBurgerIngredients) ? selectedBurgerIngredients.slice(1, selectedBurgerIngredients.length - 1) : selectedBurgerIngredients;
+    }
 
-  const canMakeOrder = useMemo(() => selectedBurgerIngredients.length > 2, [selectedBurgerIngredients]);
+    return [];
+  }, [selectedBurgerIngredients]);
+  const canMakeOrder = useMemo(() => {
+    if (selectedBurgerIngredients.length > 2) {
+      return hasBuns(selectedBurgerIngredients);
+    }
 
-  const handleMakeOrder = async () => {
+    return false;
+  }, [selectedBurgerIngredients]);
+
+  const handleMakeOrder = () => {
     const ingredientIds = selectedBurgerIngredients.map((({ _id: id }) => id));
 
-    const { name, order } = await makeOrder(ingredientIds);
-
-    dispatch(setOrderDetails({ name, order }));
-    setOrderDetailsOpened(true);
+    dispatch(makeOrder(ingredientIds));
   }
 
   const handleReorder = useCallback((dragIndex, hoverIndex) => {
@@ -56,38 +68,45 @@ export const BurgerConstructor = () => {
   }, [dispatch])
 
   return (
-    <>
+    <div ref={drop}>
       <div className={`${styles.wrapper} mt-25`}>
-        <div className={`${styles.itemWrapper} ${styles.boundariesItem}`}>
-          <ConstructorElement
-            type="top"
-            isLocked
-            text={topBunName}
-            price={topBun.price}
-            thumbnail={bunImage}
-          />
+        {bunInfo ? (
+          <div className={`${styles.itemWrapper} ${styles.boundariesItem}`}>
+            <ConstructorElement
+              type="top"
+              isLocked
+              text={`${bunInfo.name} (верх)`}
+              price={bunInfo.price}
+              thumbnail={bunInfo.image}
+            />
+          </div>
+        ) : <BurgerConstructorBunPlaceholder />}
+
+        <div
+          className={`${styles.ingredientsList} custom-scroll pr-2`}
+          style={isBurgerConstructorDnDActive ? { backgroundColor: '#1c1c21' } : undefined}
+        >
+          {itemWithoutBuns.length ? itemWithoutBuns.map((item, idx) => (
+            <DraggableItem
+              key={item.uniqueId}
+              data={item}
+              index={idx}
+              onReorder={handleReorder}
+            />
+          )) : <span className={`${styles.ingredientsPlaceholder} text`}>Добавьте ингредиенты в бургер</span>}
         </div>
 
-        <div ref={drop} className={`${styles.ingredientsList} custom-scroll pr-2`} style={isBurgerConstructorDnDActive ? { backgroundColor: '#1c1c21' } : undefined}>
-          {itemWithoutBuns.map((data, idx) => {
-            const { _id: id, name } = data;
-            const key = `${id}-${name}-${idx}`;
-
-            return (
-              <DraggableItem key={key} data={data} index={idx} onReorder={handleReorder} />
-            );
-          })}
-        </div>
-
-        <div className={`${styles.itemWrapper} ${styles.boundariesItem}`}>
-          <ConstructorElement
-            type="bottom"
-            isLocked
-            text={bottomBunName}
-            price={bottomBun.price}
-            thumbnail={bunImage}
-          />
-        </div>
+        {bunInfo ? (
+          <div className={`${styles.itemWrapper} ${styles.boundariesItem}`}>
+            <ConstructorElement
+              type="bottom"
+              isLocked
+              text={`${bunInfo.name} (низ)`}
+              price={bunInfo.price}
+              thumbnail={bunInfo.image}
+            />
+          </div>
+        ) : <BurgerConstructorBunPlaceholder />}
 
         <span className={`${styles.orderButtonWrapper} mt-10`}>
           <span className={`${styles.price} text text_type_main-large mr-10`}>{ingredientsPrice}<CurrencyIcon /></span>
@@ -97,8 +116,8 @@ export const BurgerConstructor = () => {
         </span>
       </div>
 
-      {isOrderDetailsOpened && <OrderDetails onClose={() => setOrderDetailsOpened(false)} />}
-    </>
+      {orderDetailesModalOpened && <OrderDetails onClose={() => dispatch(setOrderDetailesModalOpened(false))} />}
+    </div>
   );
 }
 

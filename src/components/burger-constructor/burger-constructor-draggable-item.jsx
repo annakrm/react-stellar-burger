@@ -58,8 +58,8 @@ export const BurgerConstructorDraggableItem = ({ data, index, onReorder }) => {
     }),
   })
 
-  const handleDeleteIngredient = (ingredientId) => {
-    dispatch(deleteSelectedBurgerIngredientsItem(ingredientId));
+  const handleDeleteIngredient = (ingredientIndex) => {
+    dispatch(deleteSelectedBurgerIngredientsItem(ingredientIndex));
   };
 
   const opacity = isDragging ? 0 : 1

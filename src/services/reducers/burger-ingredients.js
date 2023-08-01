@@ -2,7 +2,8 @@
 import { BurgerIngredientTab } from '../../utils/constants';
 import {
   BURGER_INGREDIENTS_SET_ACTIVE_TAB,
-  BURGER_INGREDIENTS_SET_DATA,
+  BURGER_INGREDIENTS_GET_DATA_SUCCESS,
+  BURGER_INGREDIENTS_GET_DATA_FAILED,
 } from '../constants';
 
 const initialState = {
@@ -12,13 +13,20 @@ const initialState = {
 
 export const burgerIngredientsReducer = (state = initialState, action) => {
   switch(action.type) {
-      case BURGER_INGREDIENTS_SET_DATA: {
+      case BURGER_INGREDIENTS_GET_DATA_SUCCESS: {
         const { data } = action;
 
           return {
               ...state,
               data,
           };
+      }
+      case BURGER_INGREDIENTS_GET_DATA_FAILED: {
+        const { error } = action;
+
+        console.error(`Ошибка при получении списка ингредиентов: ${error}`);
+
+          return state;
       }
       case BURGER_INGREDIENTS_SET_ACTIVE_TAB: {
         const { activeTab } = action;

@@ -1,42 +1,17 @@
+import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper'
 
 import { IngredientType } from '../../utils/constants';
 import {
+  BURGER_CONSTRUCTOR_RESET_DATA,
   REORDER_SELECTED_BURGER_INGREDIENTS,
   SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
   SELECTED_BURGER_INGREDIENTS_DELETE_ITEM
 } from '../constants';
+import { hasBuns } from '../../utils/utils';
 
 const initialState = {
-  data: [
-    {
-      "_id": "643d69a5c3f7b9001cfa093c",
-      "name": "Краторная булка N-200i",
-      "type": "bun",
-      "proteins": 80,
-      "fat": 24,
-      "carbohydrates": 53,
-      "calories": 420,
-      "price": 1255,
-      "image": "https://code.s3.yandex.net/react/code/bun-02.png",
-      "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-      "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-      "__v": 0
-  },
-  {
-    "_id": "643d69a5c3f7b9001cfa093c",
-    "name": "Краторная булка N-200i",
-    "type": "bun",
-    "proteins": 80,
-    "fat": 24,
-    "carbohydrates": 53,
-    "calories": 420,
-    "price": 1255,
-    "image": "https://code.s3.yandex.net/react/code/bun-02.png",
-    "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-    "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-    "__v": 0
-  }],
+  data: [],
 }
 
 export const selectedBurgerIngredientsReducer = (state = initialState, action) => {
@@ -44,14 +19,27 @@ export const selectedBurgerIngredientsReducer = (state = initialState, action) =
       case SELECTED_BURGER_INGREDIENTS_ADD_ITEM: {
           const { item } = action;
           const { data: currentData } = state;
-          const updatedData = [...currentData];
+          let updatedData = [...currentData];
 
-          if (item.type === IngredientType.BUN) {
-            updatedData[0] = item;
-            updatedData[updatedData.length - 1] = item;
+          const isBunItem = item.type === IngredientType.BUN;
+
+          if (hasBuns(updatedData)) {
+            if (isBunItem) {
+              updatedData[0] = item;
+              updatedData[updatedData.length - 1] = { ...item, uniqueId: uuidv4() };
+            } else {
+              updatedData[updatedData.length] = updatedData[updatedData.length - 1];
+              updatedData[updatedData.length - 2] = item;
+            }
           } else {
-            updatedData[updatedData.length] = updatedData[updatedData.length - 1];
-            updatedData[updatedData.length - 2] = item;
+            if (isBunItem && updatedData.length === 0) {
+              updatedData[0] = item;
+              updatedData[1] = { ...item, uniqueId: uuidv4() };
+            } else if (isBunItem && updatedData.length > 0) {
+              updatedData = [item, ...updatedData, { ...item, uniqueId: uuidv4() }]
+            } else {
+              updatedData.push(item);
+            }
           }
 
           return {
@@ -85,13 +73,13 @@ export const selectedBurgerIngredientsReducer = (state = initialState, action) =
 
         const updatedData = [currentData[0], ...reorderedData, currentData[0]]
 
-        console.log(currentDataWithoutBuns);
-        // console.log(updatedData, dragIndex, hoverIndex);
-
         return {
             ...state,
             data: updatedData,
         };
+      }
+      case BURGER_CONSTRUCTOR_RESET_DATA: {
+        return initialState;
       }
       default: {
           return state;

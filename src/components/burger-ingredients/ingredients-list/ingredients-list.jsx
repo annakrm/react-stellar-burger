@@ -6,11 +6,8 @@ import { IngredientDetails } from '../../ingredient-details';
 import { IngredientsCategory } from './ingredients-category';
 
 import styles from './ingredients-list.module.css';
-import { getData } from '../../../utils/api';
 import { Modal } from '../../modal';
-import { setBurgerIngredientDetails, setBurgerIngredientsActiveTab, setBurgerIngredientsData } from '../../../services/actions';
-
-
+import { getBurgerIngredients, setBurgerIngredientDetails, setBurgerIngredientsActiveTab } from '../../../services/actions';
 
 export const IngredientsList = () => {
     const dispatch = useDispatch();
@@ -21,17 +18,8 @@ export const IngredientsList = () => {
     const wrapperRef = useRef(null);
     const [categoryPositions, setCategoryPositions] = useState({});
 
-    const loadData = async () => {
-        const { data } = await getData()
-        .catch((err) => { console.error(err); });
-
-        if (data) {
-            dispatch(setBurgerIngredientsData(data));
-        }
-    }
-
     useEffect (() => {
-        loadData();
+        dispatch(getBurgerIngredients());
 
         const handleScroll = () => {
             const bunsCategory = document.getElementById('buns-category');
@@ -93,7 +81,7 @@ export const IngredientsList = () => {
                 return { ...targetLists, sauces: [...targetLists.sauces, currentItem] };
             case IngredientType.MAIN:
                 return { ...targetLists, main: [...targetLists.main, currentItem] };
-            default: 
+            default:
                 return targetLists;
         }
     }, { buns: [], sauces: [], main: [] })
