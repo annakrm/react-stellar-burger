@@ -7,7 +7,7 @@ export const IngredientDetails = ({ onClose, data }) => {
         <>
             <span className="text text_type_main-large pt-10 pl-10">Детали ингредиента</span>
             <div className={`${styles.contentWrapper} pb-15`}>
-                <img className={styles.ingredientImage} src={image} alt="Изображение ингредиента бургера" />
+                <img className={styles.ingredientImage} src={image} alt={`Изображение ингредиента бургера: ${name}`} />
 
                 <span className="text text_type_main-medium mt-4 mb-8">{name}</span>
 

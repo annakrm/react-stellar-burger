@@ -13,6 +13,8 @@ const closeByEsc = (evt, onClose) => {
 export const Modal = ({ children, onClose }) => {
     const handleCloseModal = (evt) => closeByEsc(evt, onClose);
 
+    const modalsContainerElement = document.getElementById("modals");
+
     useEffect(() => {
         document.addEventListener('keydown', handleCloseModal);
 
@@ -33,6 +35,6 @@ export const Modal = ({ children, onClose }) => {
                 <ModalOverlay onClose={onClose} />
             </>
         ),
-        document.body
+        modalsContainerElement
     );
 };

@@ -36,7 +36,7 @@ export const IngredientsListItem = ({ data, onOpenIngredientDetails }) => {
 
     return (
         <div ref={drag} className={styles.wrapper} onClick={() => onOpenIngredientDetails(data)}>
-            <img src={imageUrl} alt='Изображение ингредиента бургера' />
+            <img src={imageUrl} alt={`Изображение ингредиента бургера: ${name}`} />
             <span className={`${styles.price} text text_type_digits-default mt-1 mb-1`}>{price}<CurrencyIcon type="primary" /></span>
             <span className="text text_type_main-default">{name}</span>
 
