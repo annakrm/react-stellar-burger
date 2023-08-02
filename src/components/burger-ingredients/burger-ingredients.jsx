@@ -1,30 +1,25 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
-import { useState } from 'react';
 import { IngredientsList } from './ingredients-list';
-
-const BurgerIngredientTabs = {
-  BUNS: 'BUNS',
-  SAUCES: 'SAUCES',
-  MAIN: 'MAIN',
-}
+import { useSelector } from 'react-redux';
+import { BurgerIngredientTab } from '../../utils/constants';
 
 export const BurgerIngredients = () => {
-  const [activeTab, setActiveTab] = useState(BurgerIngredientTabs.BUNS);
+  const { activeTab } = useSelector(({ burgerIngredients }) => burgerIngredients);
 
   return (
     <div className={styles.wrapper}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
 
       <div className={styles.tabBar}>
-        <Tab value="one" active={activeTab === BurgerIngredientTabs.BUNS} onClick={() => setActiveTab(BurgerIngredientTabs.BUNS)}>
+        <Tab value="one" active={activeTab === BurgerIngredientTab.BUNS}>
           Булки
         </Tab>
-        <Tab value="two" active={activeTab === BurgerIngredientTabs.SAUCES} onClick={() => setActiveTab(BurgerIngredientTabs.SAUCES)}>
+        <Tab value="two" active={activeTab === BurgerIngredientTab.SAUCES}>
           Соусы
         </Tab>
-        <Tab value="three" active={activeTab === BurgerIngredientTabs.MAIN} onClick={() => setActiveTab(BurgerIngredientTabs.MAIN)}>
+        <Tab value="three" active={activeTab === BurgerIngredientTab.MAIN}>
           Начинки
         </Tab>
       </div>

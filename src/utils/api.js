@@ -1,18 +1,35 @@
-const apiConfig = {
-    baseUrl: 'https://norma.nomoreparties.space/api',
-  }
+import { checkResponse } from "./utils";
 
-export const getData = () => {
-    return fetch(`${apiConfig.baseUrl}/ingredients`, {
-        headers: {
-          authorization: ''
-        }
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-        
-    });
+const apiConfig = {
+  baseUrl: 'https://norma.nomoreparties.space/api',
+  headers: {
+    authorization: '',
+    'Content-Type': 'application/json'
+  }
 }
+
+const request = (endpoint, options) => {
+	const { baseUrl, headers } = apiConfig;
+
+	return fetch(`${baseUrl}/${endpoint}`, { headers, ...options }).then(checkResponse);
+}
+
+export const getBurgerIngredients = () => {
+  return request('ingredients', { method: 'GET' });
+}
+
+export const makeOrder = (ingredientIds) => {
+	return request('orders', {
+		method: 'POST',
+		body: JSON.stringify({ ingredients: ingredientIds }),
+	});
+}
+
+export const stellarBurgerApi = {
+  burgerIngredients: {
+    getBurgerIngredients,
+  },
+  burgerConstructor: {
+    makeOrder,
+  },
+};

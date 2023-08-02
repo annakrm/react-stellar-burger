@@ -27,7 +27,7 @@
     width: 100%;
     height: 80px;
 
-    gap: 8px
+    gap: 8px;
 }
 
 .boundariesItem {
@@ -37,13 +37,33 @@
 .orderButtonWrapper {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .price {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 
     gap: 8px;
+}
+
+.burgerBunPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 80px;
+    margin: 0 0 0 16px;
+
+    border: dashed 2px  var(--background);
+}
+
+.ingredientsPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
 }
