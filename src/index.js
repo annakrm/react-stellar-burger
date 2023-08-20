@@ -11,6 +11,8 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BrowserRouter } from 'react-router-dom';
 
+// import { store } from "./utils/store";
+
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -29,6 +31,7 @@ ReactDOM.render(
         </BrowserRouter>
       </DndProvider>
     </Provider>
+
   </React.StrictMode>,
   document.getElementById('root')
 );

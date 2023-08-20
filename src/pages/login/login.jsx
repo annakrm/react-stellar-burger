@@ -4,17 +4,34 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 
 import { useNavigate } from 'react-router-dom';
 
+import { login } from "../../utils/actions";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 export const Login = () => {
+
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
     const [value, setValue] = React.useState('')
     const onChange = e => {
     setValue(e.target.value)
     }
 
-    const navigate = useNavigate();
 
-    const onClick = () => {
-      navigate(onClick);
-    };
+  const onChangeEmail = (evt) => {
+    setEmail(evt.target.value);
+  };
+  const onChangePass = (evt) => {
+    setPassword(evt.target.value);
+  };
+
+  const onClick = () => {
+    dispatch(login(email, password));
+  };
+
+  
     return (
         <>
         <div className={styles.login}>
@@ -22,23 +39,25 @@ export const Login = () => {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
 
           <EmailInput
-            onChange={onChange}
-            value={value}
+            type="email"
+            value={email}
             name={'email'}
             placeholder="E-mail"
             isIcon={false}
             extraClass="mb-6"
+            onChange={onChangeEmail}
           />
           <EmailInput
-            onChange={onChange}
-            value={value}
+           type="password"
+           onChange={onChangePass}
+            value={password}
             name={'password'}
             placeholder="Пароль"
             isIcon={true}
           />
         </div>
         <div className="mt-6 mb-20">
-        <Button htmlType="button" type="primary" size="large">
+        <Button onClick={onClick} htmlType="button" type="primary" size="large">
         Войти
         </Button>
         </div>

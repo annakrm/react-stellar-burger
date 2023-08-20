@@ -1,20 +1,22 @@
 import React from "react";
 import styles from "./profile.module.css";
-import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-    const [value, setValue] = React.useState('')
-    const onChange = e => {
-    setValue(e.target.value)
-    }
+
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate("/");
+  };
     
     const setActiveText = ({isActive}) => {
       return isActive ? styles.link_active : styles.link
     }
 
     return (
-        <>
         <div className={styles.profile}>
           <div className={styles.navbar_container}>
               <div className={styles.navbar}>
@@ -28,9 +30,8 @@ export const Profile = () => {
               </div>
           </div>
 
-        <Outlet />
-
+          <div> <Outlet /></div>
+          <div />
         </div>
-        </>
       )
 }
