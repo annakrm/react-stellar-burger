@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
+
 import { setAuthChecked } from "../../utils/user";
 import { checkUserAuth } from "../../utils/actions";
 
@@ -25,6 +26,7 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
     // Пользователь авторизован, но запрос предназначен только для неавторизованных пользователей
     // Нужно сделать редирект на главную страницу или на тот адрес, что записан в location.state.from
     const { from } = location.state || { from: { pathname: "/" } };
+
     return <Navigate to={from} />;
   }
 
@@ -37,5 +39,7 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
   return component;
 };
 
-export const OnlyAuth = (props) => <ProtectedRoute onlyUnAuth={false} {...props} />;
-export const OnlyUnAuth = (props) => <ProtectedRoute onlyUnAuth={true} {...props} />;
+export const OnlyAuth = (props) => (
+  <ProtectedRoute onlyUnAuth={false} {...props} />
+);
+export const OnlyUnAuth = (props) => <ProtectedRoute onlyUnAuth {...props} />;

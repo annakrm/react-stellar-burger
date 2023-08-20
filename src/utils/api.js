@@ -25,50 +25,50 @@ export const makeOrder = (ingredientIds) => {
 	});
 }
 
-// TODO: refactor it
-fetch ('https://norma.nomoreparties.space/api/password-reset', {
-  method: 'POST',
-  body: JSON.stringify({
-    "email": ""
-  })
-});
+// // TODO: refactor it
+// fetch ('https://norma.nomoreparties.space/api/password-reset', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     "email": ""
+//   })
+// });
 
-fetch ('https://norma.nomoreparties.space/api/password-reset/reset', {
-  method: 'POST',
-  body: JSON.stringify({
-    "password": "",
-    "token": ""
-  })
-});
+// fetch ('https://norma.nomoreparties.space/api/password-reset/reset', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     "password": "",
+//     "token": ""
+//   })
+// });
 
-fetch ('https://norma.nomoreparties.space/api/auth/register', {
-  method: 'POST',
-  body: JSON.stringify({
-    "email": "test-data@yandex.ru", 
-    "password": "password", 
-    "name": "Username" 
-  })
-});
+// fetch ('https://norma.nomoreparties.space/api/auth/register', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     "email": "test-data@yandex.ru", 
+//     "password": "password", 
+//     "name": "Username" 
+//   })
+// });
 
-fetch ('https://norma.nomoreparties.space/api/auth/register', {
-  method: 'POST',
-  body: JSON.stringify({
-    "email": "", 
-    "password": "", 
-    "name": "" 
-  })
-});
+// fetch ('https://norma.nomoreparties.space/api/auth/register', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     "email": "", 
+//     "password": "", 
+//     "name": "" 
+//   })
+// });
 
-fetch ('https://norma.nomoreparties.space/api/auth/logout', {
-  method: 'POST',
-  body: JSON.stringify({
-    "token": "значение refreshToken" 
-  })
-});
+// fetch ('https://norma.nomoreparties.space/api/auth/logout', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     "token": "значение refreshToken" 
+//   })
+// });
 
-fetch ('https://norma.nomoreparties.space/api/auth/user', {
-  method: 'PATCH',
-});
+// fetch ('https://norma.nomoreparties.space/api/auth/user', {
+//   method: 'PATCH',
+// });
 
 export const stellarBurgerApi = {
   burgerIngredients: {

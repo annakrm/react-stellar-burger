@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 
-export const Registration = () => {
+export const RegistrationPage = () => {
     const [value, setValue] = React.useState('')
     const onChange = e => {
     setValue(e.target.value)

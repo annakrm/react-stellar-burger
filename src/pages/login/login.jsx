@@ -8,7 +8,7 @@ import { login } from "../../utils/actions";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
-export const Login = () => {
+export const LoginPage = () => {
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");

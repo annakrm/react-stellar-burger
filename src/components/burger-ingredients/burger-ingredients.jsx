@@ -1,12 +1,16 @@
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from './burger-ingredients.module.css';
-import { IngredientsList } from './ingredients-list';
-import { useSelector } from 'react-redux';
-import { BurgerIngredientTab } from '../../utils/constants';
+import { useSelector } from "react-redux";
+
+import { BurgerIngredientTab } from "../../utils/constants";
+
+import styles from "./burger-ingredients.module.css";
+import { IngredientsList } from "./ingredients-list";
 
 export const BurgerIngredients = () => {
-  const { activeTab } = useSelector(({ burgerIngredients }) => burgerIngredients);
+  const { activeTab } = useSelector(
+    ({ burgerIngredients }) => burgerIngredients
+  );
 
   return (
     <div className={styles.wrapper}>
