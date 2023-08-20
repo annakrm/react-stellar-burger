@@ -1,8 +1,24 @@
 import styles from './header-link.module.css';
+import { NavLink } from 'react-router-dom';
 
-export const HeaderLink = ({ IconComponent, text }) => (
-    <a href="/" className={styles.headerLink}>
-        <IconComponent type="primary" />
-        <span className="text text_type_main-default ml-2">{text}</span>
-    </a>
-);
+export const HeaderLink = ({ IconComponent, text, link }) => {
+        const setActiveText = ({isActive}) => {
+            return isActive ? styles.headerLink_active : styles.headerLink
+        }
+
+        const setActiveIcon = ({isActive}) => {
+            return isActive ? "primary" : "secondary"
+        }
+
+    return (
+        <NavLink to={link} className={setActiveText} >
+        <IconComponent type={setActiveIcon} />
+        <span className='ml-2'>{text}</span>
+        </NavLink>
+    )
+}
+
+{/* 
+`$
+*/}
+
