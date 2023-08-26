@@ -1,6 +1,6 @@
 import styles from "./ingredient-details.module.css";
 
-export const IngredientDetails = ({ onClose, data }) => {
+export const IngredientDetails = ({ data }) => {
   const { image, name, calories, proteins, fat, carbohydrates } = data;
 
   return (

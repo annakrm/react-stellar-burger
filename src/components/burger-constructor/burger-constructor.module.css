@@ -57,7 +57,7 @@
     height: 80px;
     margin: 0 0 0 16px;
 
-    border: dashed 2px  var(--background);
+    border: dashed 2px grey;
 }
 
 .ingredientsPlaceholder {

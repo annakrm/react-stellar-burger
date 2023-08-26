@@ -8,3 +8,8 @@
 .link {
     text-decoration: none;
 }
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+}

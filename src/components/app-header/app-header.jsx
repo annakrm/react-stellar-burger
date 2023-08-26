@@ -4,7 +4,7 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 import { HeaderLink } from "./app-header-link";
 import styles from "./app-header.module.css";
@@ -19,10 +19,15 @@ export const AppHeader = () => (
           IconComponent={ListIcon}
           link="/feed"
         />
-        <span className={styles.logo}>
-          <Logo />
-        </span>
+
+        <NavLink to="/">
+          <span className={styles.logo}>
+            <Logo />
+          </span>
+        </NavLink>
+
         <HeaderLink
+          className="pl-4"
           text="Личный кабинет"
           IconComponent={ProfileIcon}
           link="/profile"

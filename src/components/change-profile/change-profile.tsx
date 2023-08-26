@@ -3,6 +3,7 @@ import React from "react";
 import {
   Button,
   EmailInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./change-profile.module.css";
@@ -17,26 +18,27 @@ export const ChangeProfile = () => {
   return (
     <>
       <div className={styles.inputs_container}>
-        <EmailInput
-          onChange={onChange}
-          value={value}
-          name="email"
+        <Input
+          //onChange={onChangeName}
+          //value={name}
+          name="name"
           placeholder="Имя"
-          isIcon
+          isIcon={false}
           extraClass="mb-6"
         />
         <EmailInput
-          onChange={onChange}
-          value={value}
+          //onChange={onChangeEmail}
+          //value={email}
           name="email"
           placeholder="Логин"
           isIcon
           extraClass="mb-6"
         />
-        <EmailInput
-          onChange={onChange}
-          value={value}
-          name="email"
+        <Input
+          type="password"
+          //onChange={onChangePass}
+          //value={password}
+          name="password"
           placeholder="Пароль"
           isIcon
         />

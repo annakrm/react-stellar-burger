@@ -1,2 +1,1 @@
-export { BurgerConfigurationPage } from './burger-configuration';
-
+export { BurgerConfigurationPage } from "./burger-configuration";

@@ -133,7 +133,9 @@ export const BurgerConstructor = () => {
               />
             ))
           ) : (
-            <span className={`${styles.ingredientsPlaceholder} text`}>
+            <span
+              className={`${styles.ingredientsPlaceholder} text text_type_main-small text_color_inactive`}
+            >
               Добавьте ингредиенты в бургер
             </span>
           )}
