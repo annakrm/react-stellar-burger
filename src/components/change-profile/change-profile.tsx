@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Button,
   EmailInput,
@@ -9,26 +7,25 @@ import {
 import styles from "./change-profile.module.css";
 
 export const ChangeProfile = () => {
-  const [value, setValue] = React.useState("");
+  // const [value, setValue] = React.useState("");
 
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+  // const onChange = (e) => {
+  //   setValue(e.target.value);
+  // };
 
   return (
     <>
       <div className={styles.inputs_container}>
         <Input
-          //onChange={onChangeName}
-          //value={name}
+          onChange={() => null}
+          value=""
           name="name"
           placeholder="Имя"
-          isIcon={false}
           extraClass="mb-6"
         />
         <EmailInput
-          //onChange={onChangeEmail}
-          //value={email}
+          onChange={() => null}
+          value=""
           name="email"
           placeholder="Логин"
           isIcon
@@ -36,11 +33,10 @@ export const ChangeProfile = () => {
         />
         <Input
           type="password"
-          //onChange={onChangePass}
-          //value={password}
+          onChange={() => null}
+          value=""
           name="password"
           placeholder="Пароль"
-          isIcon
         />
 
         <div className={styles.buttons_container}>

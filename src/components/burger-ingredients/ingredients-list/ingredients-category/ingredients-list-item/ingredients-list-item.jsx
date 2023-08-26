@@ -21,7 +21,7 @@ export const IngredientsListItem = ({ data, onOpenIngredientDetails }) => {
 
   const { _id: ingredientId, image: imageUrl, name, price } = data;
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const [_, drag] = useDrag(
     () => ({
       type: "BurgerIngredientItem",

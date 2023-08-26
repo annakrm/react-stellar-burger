@@ -99,10 +99,6 @@ export const IngredientsList = () => {
     }
   }, [categoryPositions, activeTab, dispatch]);
 
-  useEffect(() => {
-    console.log(activeTab);
-  }, [activeTab]);
-
   const sortedIngredientLists = ingredientsData.reduce(
     (targetLists, currentItem) => {
       switch (currentItem.type) {

@@ -1,6 +1,13 @@
+import { FC } from "react";
+
 import styles from "./page.module.css";
 
-export const Page = ({
+type Props = {
+  columnContentAlignment?: boolean;
+  contentClassNames?: boolean;
+};
+
+export const Page: FC<Props> = ({
   columnContentAlignment,
   children,
   contentClassNames = "",

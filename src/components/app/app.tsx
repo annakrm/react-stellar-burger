@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 
-// import { useDispatch } from "react-redux";
-
 import { AppHeader } from "../app-header";
 import { NotFound } from "../not-found/not-found";
 import { ChangeProfile } from "../change-profile";
@@ -17,19 +15,11 @@ import {
   RegistrationPage,
 } from "../../pages";
 
-// import { useEffect } from "react";
-// import { checkUserAuth } from "../../utils/actions";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
 import styles from "./app.module.css";
 
 export const App = () => {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(checkUserAuth());
-  // }, []);
-
   return (
     <div className={styles.app}>
       <Routes>
@@ -44,7 +34,7 @@ export const App = () => {
             {/* <Route path="change-profile" element={<ChangeProfile />} /> */}
             <Route path="orders" element={<OrdersPage />} />
           </Route>
-          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          <Route path="/ingredients/:id" element={<IngredientDetails data />} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route

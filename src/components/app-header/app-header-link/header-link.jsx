@@ -13,12 +13,6 @@ export const HeaderLink = ({ IconComponent, text, link }) => {
     return isActive ? styles.headerLink_active : styles.headerLink;
   };
 
-  const setActiveIcon = ({ isActive }) => {
-    console.log("dwsd", isActive);
-
-    return;
-  };
-
   return (
     <NavLink to={link} className={setActiveText}>
       <IconComponent type={iconType} />

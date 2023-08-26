@@ -5,7 +5,7 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import styles from "./forgot-password.module.css";
 
@@ -16,10 +16,10 @@ export const ForgotPasswordPage = () => {
     setValue(e.target.value);
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(onClick);
+    // navigate();
   };
 
   return (
@@ -28,7 +28,7 @@ export const ForgotPasswordPage = () => {
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className={styles.inputWrapper}>
           <EmailInput
             onChange={onChange}
             value={value}

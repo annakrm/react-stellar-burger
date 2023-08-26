@@ -9,7 +9,7 @@ import { IngredientsList } from "./ingredients-list";
 
 export const BurgerIngredients = () => {
   const { activeTab } = useSelector(
-    ({ burgerIngredients }) => burgerIngredients
+    ({ burgerIngredients }: any) => burgerIngredients // TODO: fix any
   );
 
   return (
@@ -17,13 +17,25 @@ export const BurgerIngredients = () => {
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
 
       <div className={styles.tabBar}>
-        <Tab value="one" active={activeTab === BurgerIngredientTab.BUNS}>
+        <Tab
+          value="one"
+          active={activeTab === BurgerIngredientTab.BUNS}
+          onClick={() => null}
+        >
           Булки
         </Tab>
-        <Tab value="two" active={activeTab === BurgerIngredientTab.SAUCES}>
+        <Tab
+          value="two"
+          active={activeTab === BurgerIngredientTab.SAUCES}
+          onClick={() => null}
+        >
           Соусы
         </Tab>
-        <Tab value="three" active={activeTab === BurgerIngredientTab.MAIN}>
+        <Tab
+          value="three"
+          active={activeTab === BurgerIngredientTab.MAIN}
+          onClick={() => null}
+        >
           Начинки
         </Tab>
       </div>

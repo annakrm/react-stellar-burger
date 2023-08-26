@@ -7,7 +7,7 @@ import DoneImage from "../../images/done.png";
 import styles from "./order-details.module.css";
 
 export const OrderDetails = ({ onClose }) => {
-  const { details: orderDetails } = useSelector(({ order }) => order);
+  const { details: orderDetails } = useSelector(({ order }: any) => order); // TODO: Fix any
 
   return (
     <Modal onClose={onClose}>

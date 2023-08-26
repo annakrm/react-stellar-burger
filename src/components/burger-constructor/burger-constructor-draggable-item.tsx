@@ -29,7 +29,7 @@ export const BurgerConstructorDraggableItem = ({ data, index, onReorder }) => {
         return;
       }
 
-      const dragIndex = item.index;
+      const dragIndex = (item as any).index;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) {
@@ -52,7 +52,7 @@ export const BurgerConstructorDraggableItem = ({ data, index, onReorder }) => {
       }
 
       onReorder(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+      (item as any).index = hoverIndex;
     },
   });
 
@@ -80,7 +80,7 @@ export const BurgerConstructorDraggableItem = ({ data, index, onReorder }) => {
       style={{ opacity }}
       data-handler-id={handlerId}
     >
-      <DragIcon />
+      <DragIcon type="primary" />
       <ConstructorElement
         text={name}
         price={price}

@@ -26,10 +26,10 @@ export const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const { data: selectedBurgerIngredients } = useSelector(
-    ({ selectedBurgerIngredients }) => selectedBurgerIngredients
+    ({ selectedBurgerIngredients }: any) => selectedBurgerIngredients // TODO: fix any
   );
 
-  const { orderDetailesModalOpened } = useSelector(({ order }) => order);
+  const { orderDetailesModalOpened } = useSelector(({ order }: any) => order); // TODO: fix any
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "BurgerIngredientItem",
@@ -158,7 +158,7 @@ export const BurgerConstructor = () => {
         <span className={`${styles.orderButtonWrapper} mt-10`}>
           <span className={`${styles.price} text text_type_main-large mr-10`}>
             {ingredientsPrice}
-            <CurrencyIcon />
+            <CurrencyIcon type="primary" />
           </span>
           <Button
             htmlType="button"

@@ -2,16 +2,16 @@ import React from "react";
 
 import { NavLink, Outlet } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import styles from "./profile.module.css";
 
 export const ProfilePage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const onClick = () => {
-    navigate("/");
-  };
+  // const onClick = () => {
+  //   navigate("/");
+  // };
 
   const setActiveText = ({ isActive }) => {
     return isActive ? styles.link_active : styles.link;

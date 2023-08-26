@@ -40,7 +40,6 @@ export const LoginPage = () => {
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
         <div className={styles.inputWrapper}>
           <EmailInput
-            type="email"
             value={email}
             name="email"
             placeholder="E-mail"
@@ -54,7 +53,6 @@ export const LoginPage = () => {
             value={password}
             name="password"
             placeholder="Пароль"
-            isIcon
           />
         </div>
         <div className="mt-6 mb-20">

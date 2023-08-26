@@ -48,11 +48,9 @@ export const RegistrationPage = () => {
             value={name}
             name="name"
             placeholder="Имя"
-            isIcon={false}
             extraClass="mb-6"
           />
           <EmailInput
-            type="email"
             onChange={onChangeEmail}
             value={email}
             name="email"
@@ -66,7 +64,6 @@ export const RegistrationPage = () => {
             value={password}
             name="password"
             placeholder="Пароль"
-            isIcon
           />
         </div>
 
