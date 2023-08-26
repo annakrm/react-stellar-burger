@@ -1,4 +1,4 @@
-import { stellarBurgerApi } from "../../utils/api";
+import { stellarBurgerApi } from "../../shared/lib/api";
 import {
   BURGER_INGREDIENTS_GET_DATA_FAILED,
   BURGER_INGREDIENTS_GET_DATA_SUCCESS,

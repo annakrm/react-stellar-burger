@@ -1,7 +1,12 @@
 // reducer.js
+import { BurgerIngredient } from "../../shared/lib/types";
 import { BURGER_INGREDIENT_DETAILS_SET_DATA } from "../constants";
 
-const initialState = {
+type InitialState = {
+  data: BurgerIngredient | null;
+};
+
+const initialState: InitialState = {
   data: null,
 };
 

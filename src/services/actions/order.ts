@@ -1,4 +1,4 @@
-import { stellarBurgerApi } from "../../utils/api";
+import { stellarBurgerApi } from "../../shared/lib/api";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
   MAKE_ORDER_FAILED,

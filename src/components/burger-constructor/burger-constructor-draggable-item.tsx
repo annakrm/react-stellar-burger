@@ -3,15 +3,27 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
 import { deleteSelectedBurgerIngredientsItem } from "../../services/actions";
 
+import { BurgerIngredient } from "../../shared/lib/types";
+
 import styles from "./burger-constructor.module.css";
 
-export const BurgerConstructorDraggableItem = ({ data, index, onReorder }) => {
+type Props = {
+  data: BurgerIngredient;
+  index: number;
+  onReorder: (dragIndex: number, hoverIndex: number) => void;
+};
+
+export const BurgerConstructorDraggableItem: FC<Props> = ({
+  data,
+  index,
+  onReorder,
+}) => {
   const dispatch = useDispatch();
 
   const { _id: ingredientId, name, price, image } = data;

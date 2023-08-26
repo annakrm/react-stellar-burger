@@ -1,16 +1,20 @@
 import { v4 as uuidv4 } from "uuid";
 import update from "immutability-helper";
 
-import { IngredientType } from "../../utils/constants";
+import { BurgerIngredient, BurgerIngredientType } from "../../shared/lib/types";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
   REORDER_SELECTED_BURGER_INGREDIENTS,
   SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
   SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
 } from "../constants";
-import { hasBuns } from "../../utils/utils";
+import { hasBuns } from "../../shared/lib/hasBuns";
 
-const initialState = {
+type InitialState = {
+  data: BurgerIngredient[];
+};
+
+const initialState: InitialState = {
   data: [],
 };
 
@@ -24,7 +28,7 @@ export const selectedBurgerIngredientsReducer = (
       const { data: currentData } = state;
       let updatedData = [...currentData];
 
-      const isBunItem = item.type === IngredientType.BUN;
+      const isBunItem = item.type === BurgerIngredientType.BUN;
 
       if (hasBuns(updatedData)) {
         if (isBunItem) {

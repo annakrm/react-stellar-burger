@@ -1,12 +1,17 @@
 // reducer.js
-import { BurgerIngredientTab } from "../../utils/constants";
+import { BurgerIngredient, BurgerIngredientTab } from "../../shared/lib/types";
 import {
   BURGER_INGREDIENTS_GET_DATA_FAILED,
   BURGER_INGREDIENTS_GET_DATA_SUCCESS,
   BURGER_INGREDIENTS_SET_ACTIVE_TAB,
 } from "../constants";
 
-const initialState = {
+type InitialState = {
+  data: BurgerIngredient[];
+  activeTab: BurgerIngredientTab;
+};
+
+const initialState: InitialState = {
   data: [],
   activeTab: BurgerIngredientTab.BUNS,
 };

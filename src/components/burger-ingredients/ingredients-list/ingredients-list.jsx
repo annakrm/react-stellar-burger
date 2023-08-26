@@ -5,7 +5,7 @@ import {
   BurgerIngredientTab,
   CHANGE_ACTIVE_TAB_TOUCH_POINT,
   IngredientType,
-} from "../../../utils/constants";
+} from "../../../shared/lib/constants";
 import { IngredientDetails } from "../../ingredient-details";
 
 import { Modal } from "../../modal";

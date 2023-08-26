@@ -1,8 +1,13 @@
 import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
 
-const initialState = {
+type InitialState = {
+  userData: null;
+  authChecked: boolean;
+};
+
+const initialState: InitialState = {
   userData: null,
-  isAuthChecked: false,
+  authChecked: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -14,9 +19,9 @@ export const userReducer = (state = initialState, action) => {
     }
 
     case USER_SET_AUTH_CHECKED: {
-      const { isAuthChecked } = action;
+      const { authChecked } = action;
 
-      return { ...state, isAuthChecked };
+      return { ...state, authChecked };
     }
 
     default: {

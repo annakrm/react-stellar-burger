@@ -1,5 +1,3 @@
-import React from "react";
-
 import styles from "./feed.module.css";
 
 export const FeedPage = () => {

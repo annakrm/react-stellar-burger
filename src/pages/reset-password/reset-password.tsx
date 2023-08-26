@@ -1,14 +1,14 @@
-import React from "react";
-
 import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useState } from "react";
+
 import styles from "./reset-password.module.css";
 
 export const ResetPasswordPage = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const onChange = (e) => {
     setValue(e.target.value);

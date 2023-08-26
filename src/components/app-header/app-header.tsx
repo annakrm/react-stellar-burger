@@ -12,8 +12,9 @@ import styles from "./app-header.module.css";
 export const AppHeader = () => (
   <>
     <header className={styles.header}>
-      <div className={styles.header_content}>
+      <div className={styles.headerContent}>
         <HeaderLink text="Конструктор" IconComponent={BurgerIcon} link="/" />
+
         <HeaderLink
           text="Лента заказов"
           IconComponent={ListIcon}
@@ -27,13 +28,13 @@ export const AppHeader = () => (
         </NavLink>
 
         <HeaderLink
-          className="pl-4"
           text="Личный кабинет"
           IconComponent={ProfileIcon}
           link="/profile"
         />
       </div>
     </header>
+
     <Outlet />
   </>
 );

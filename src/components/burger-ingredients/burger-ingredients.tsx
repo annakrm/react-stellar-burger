@@ -2,7 +2,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useSelector } from "react-redux";
 
-import { BurgerIngredientTab } from "../../utils/constants";
+import { BurgerIngredientTab } from "../../shared/lib/types";
 
 import styles from "./burger-ingredients.module.css";
 import { IngredientsList } from "./ingredients-list";

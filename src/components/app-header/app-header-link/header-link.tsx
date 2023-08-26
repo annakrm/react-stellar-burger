@@ -1,11 +1,22 @@
+import { BurgerIcon as UIKitIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import type { FC } from "react";
 import { useState } from "react";
 
 import { NavLink } from "react-router-dom";
 
 import styles from "./header-link.module.css";
 
-export const HeaderLink = ({ IconComponent, text, link }) => {
-  const [iconType, setIconType] = useState("secondary");
+type IconType = "secondary" | "primary" | "error" | "success";
+
+type Props = {
+  IconComponent: typeof UIKitIcon;
+  text: string;
+  link: string;
+};
+
+export const HeaderLink: FC<Props> = ({ IconComponent, text, link }) => {
+  const [iconType, setIconType] = useState<IconType>();
 
   const setActiveText = ({ isActive }) => {
     setIconType(isActive ? "primary" : "secondary");

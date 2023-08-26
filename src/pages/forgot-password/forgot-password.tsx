@@ -1,26 +1,20 @@
-import React from "react";
-
 import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import styles from "./forgot-password.module.css";
 
 export const ForgotPasswordPage = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
-  // const navigate = useNavigate();
-
-  const onClick = () => {
-    // navigate();
-  };
+  const onClick = () => {};
 
   return (
     <>

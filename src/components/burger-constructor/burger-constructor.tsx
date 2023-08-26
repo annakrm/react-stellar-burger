@@ -14,9 +14,9 @@ import { makeOrder } from "../../services/actions";
 
 import { reorderSelectedBurgerIngredients } from "../../services/actions/selected-burger-ingredients";
 import { setOrderDetailesModalOpened } from "../../services/actions/order";
-import { IngredientType } from "../../utils/constants";
+import { BurgerIngredientType } from "../../shared/lib/types";
 
-import { hasBuns } from "../../utils/utils";
+import { hasBuns } from "../../shared/lib/hasBuns";
 
 import { BurgerConstructorBunPlaceholder } from "./burger-constructor-bun-placeholder";
 import { BurgerConstructorDraggableItem as DraggableItem } from "./burger-constructor-draggable-item";
@@ -55,7 +55,7 @@ export const BurgerConstructor = () => {
   const bunInfo = useMemo(() => {
     if (selectedBurgerIngredients.length !== 0) {
       const bun = selectedBurgerIngredients.find(
-        ({ type }) => type === IngredientType.BUN
+        ({ type }) => type === BurgerIngredientType.BUN
       );
 
       return bun !== -1 ? bun : null;

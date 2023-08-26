@@ -7,7 +7,7 @@ export const setUserData = (userData) => ({
 
 export const setAuthChecked = (authChecked) => ({
   type: USER_SET_AUTH_CHECKED,
-  isAuthChecked: authChecked,
+  authChecked,
 });
 
 const checkResponse = (res) => {

@@ -1,10 +1,18 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 import { checkUserAuth, setAuthChecked } from "../../services/actions";
 
-export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
+type Props = {
+  onlyUnauth: boolean;
+  component: JSX.Element;
+};
+
+export const ProtectedRoute: FC<Props> = ({
+  onlyUnauth = false,
+  component,
+}): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,21 +28,15 @@ export const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
     return null;
   }
 
-  if (onlyUnAuth && user) {
+  if (onlyUnauth && user) {
     const { from } = location.state || { from: { pathname: "/" } };
 
     return <Navigate to={from} />;
   }
 
-  if (!onlyUnAuth && !user) {
+  if (!onlyUnauth && !user) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
-  // !onlyUnAuth && user
   return component;
 };
-
-export const OnlyAuth = (props) => (
-  <ProtectedRoute onlyUnAuth={false} {...props} />
-);
-export const OnlyUnAuth = (props) => <ProtectedRoute onlyUnAuth {...props} />;

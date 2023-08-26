@@ -1,4 +1,4 @@
-import { IngredientType } from "./constants";
+import { BurgerIngredientType } from "./types";
 
 export const checkResponse = (response) => {
   if (response.ok) {
@@ -9,4 +9,6 @@ export const checkResponse = (response) => {
 };
 
 export const hasBuns = (burgerIngresients) =>
-  burgerIngresients.findIndex(({ type }) => type === IngredientType.BUN) !== -1;
+  burgerIngresients.findIndex(
+    ({ type }) => type === BurgerIngredientType.BUN
+  ) !== -1;

@@ -5,7 +5,18 @@ import {
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
 
-const initialState = {
+type OrderDetails = {
+  order: {
+    number: number;
+  };
+};
+
+type InitialState = {
+  details: OrderDetails | null;
+  orderDetailesModalOpened: boolean;
+};
+
+const initialState: InitialState = {
   details: null,
   orderDetailesModalOpened: false,
 };

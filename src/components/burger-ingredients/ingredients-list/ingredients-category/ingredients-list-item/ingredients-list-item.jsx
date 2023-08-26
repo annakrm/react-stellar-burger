@@ -3,16 +3,26 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import type { FC } from "react";
 import { useDrag } from "react-dnd";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
 
+import { BurgerIngredient } from "../../../../../shared/lib/types";
 import { addSelectedBurgerIngredientsItem } from "../../../../../services/actions";
 
 import styles from "./ingredients-list-item.module.css";
 
-export const IngredientsListItem = ({ data, onOpenIngredientDetails }) => {
+type Props = {
+  data: BurgerIngredient,
+  onOpenIngredientDetails: (data: BurgerIngredient) => void,
+};
+
+export const IngredientsListItem: FC<Props> = ({
+  data,
+  onOpenIngredientDetails,
+}) => {
   const dispatch = useDispatch();
 
   const { data: selectedBurgerIngredients } = useSelector(
