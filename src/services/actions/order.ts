@@ -1,4 +1,4 @@
-import { stellarBurgerApi } from "../../shared/lib/api";
+import { apiInstance } from "../../shared/api";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
   MAKE_ORDER_FAILED,
@@ -6,14 +6,16 @@ import {
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
 
-export const setOrderDetailesModalOpened = (value) => ({
+export const setOrderDetailesModalOpened = (
+  orderDetailesModalOpened: boolean
+) => ({
   type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
-  value,
+  orderDetailesModalOpened,
 });
 
 export const makeOrder = (ingredientIds) => {
   return (dispatch) => {
-    stellarBurgerApi.burgerConstructor
+    apiInstance.burgerConstructor
       .makeOrder(ingredientIds)
       .then(({ name, order }) => {
         dispatch({

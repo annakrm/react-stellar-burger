@@ -1,0 +1,29 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 720px;
+}
+
+.ingredientImage {
+  width: 480px;
+}
+
+.ingredientProperties {
+  display: flex;
+
+  gap: 20px;
+}
+
+.ingredientProperty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 112px;
+
+  color: var(--text-inactive-color);
+}

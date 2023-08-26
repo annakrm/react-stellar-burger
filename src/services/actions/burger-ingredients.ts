@@ -1,4 +1,8 @@
-import { stellarBurgerApi } from "../../shared/lib/api";
+import { Dispatch } from "redux";
+
+import { BurgerIngredientTab } from "~/shared/lib/types";
+import { apiInstance } from "~shared/api";
+
 import {
   BURGER_INGREDIENTS_GET_DATA_FAILED,
   BURGER_INGREDIENTS_GET_DATA_SUCCESS,
@@ -6,8 +10,8 @@ import {
 } from "../constants";
 
 export const getBurgerIngredients = () => {
-  return (dispatch) => {
-    stellarBurgerApi.burgerIngredients
+  return (dispatch: Dispatch<any>) => {
+    apiInstance.burgerIngredients
       .getBurgerIngredients()
       .then(({ data }) => {
         dispatch({
@@ -24,7 +28,9 @@ export const getBurgerIngredients = () => {
   };
 };
 
-export const setBurgerIngredientsActiveTab = (activeTab) => ({
+export const setBurgerIngredientsActiveTab = (
+  activeTab: BurgerIngredientTab
+): { type: string; activeTab: BurgerIngredientTab } => ({
   type: BURGER_INGREDIENTS_SET_ACTIVE_TAB,
   activeTab,
 });

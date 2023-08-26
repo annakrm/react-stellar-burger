@@ -1,37 +1,32 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import {
   Button,
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import type { ChangeEvent, FC } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { registration } from "../../services/actions";
 
-import styles from "./registration.module.css";
+import styles from "./Registration.module.css";
 
-export const RegistrationPage = () => {
-  // const [value, setValue] = useState("");
-
-  // const onChange = (e) => {
-  //   setValue(e.target.value);
-  // };
-
+export const Registration: FC = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const onChangeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
 
-  const onChangePass = (evt) => {
-    setPassword(evt.target.value);
+  const onChangePass = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
-  const onChangeName = (evt) => {
-    setName(evt.target.value);
+  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
   const onClick = () => {

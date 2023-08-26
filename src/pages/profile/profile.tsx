@@ -1,15 +1,16 @@
+import type { FC } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
-import styles from "./profile.module.css";
+import styles from "./Profile.module.css";
 
-export const ProfilePage = () => {
+export const Profile: FC = () => {
   const setActiveText = ({ isActive }) => {
     return isActive ? styles.link_active : styles.link;
   };
 
   return (
     <div className={styles.profile}>
-      <div className={styles.navbar_container}>
+      <div className={styles.navbarContainer}>
         <div className={styles.navbar}>
           <NavLink to="/profile" className={setActiveText}>
             Профиль
@@ -22,7 +23,7 @@ export const ProfilePage = () => {
           </NavLink>
         </div>
 
-        <div className={styles.info_container}>
+        <div className={styles.infoContainer}>
           <span className="text text_type_main-default">
             В этом разделе вы можете
           </span>

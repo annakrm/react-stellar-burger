@@ -1,6 +1,8 @@
-import styles from "./orders.module.css";
+import type { FC } from "react";
 
-export const OrdersPage = () => {
+import styles from "./Orders.module.css";
+
+export const Orders: FC = () => {
   return (
     <>
       <div className={styles.container}>

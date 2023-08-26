@@ -5,9 +5,10 @@ export enum BurgerIngredientType {
 }
 
 export type BurgerIngredient = {
-  _id: number;
+  _id: string;
+  __v: number;
   name: string;
-  type: BurgerIngredientType;
+  type: BurgerIngredientType | string;
   price: number;
   proteins: number;
   fat: number;
@@ -17,3 +18,7 @@ export type BurgerIngredient = {
   image_mobile: string;
   image_large: string;
 };
+
+export type AddedBurgerIngredient = {
+  uniqueId: string;
+} & BurgerIngredient;

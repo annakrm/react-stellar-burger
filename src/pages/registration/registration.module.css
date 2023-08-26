@@ -1,15 +1,15 @@
 .registration {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 180px;
 }
 
 .link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .inputWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

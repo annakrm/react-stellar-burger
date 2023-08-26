@@ -3,24 +3,18 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import { useDispatch } from "react-redux";
+import type { FC } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { login } from "../../services/actions";
 
-import styles from "./login.module.css";
+import styles from "./Login.module.css";
 
-export const LoginPage = () => {
+export const Login: FC = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // const [value, setValue] = React.useState("");
-
-  // const onChange = (e) => {
-  //   setValue(e.target.value);
-  // };
 
   const onChangeEmail = (evt) => {
     setEmail(evt.target.value);
@@ -38,6 +32,7 @@ export const LoginPage = () => {
     <>
       <div className={styles.login}>
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
+
         <div className={styles.inputWrapper}>
           <EmailInput
             value={email}
@@ -55,6 +50,7 @@ export const LoginPage = () => {
             placeholder="Пароль"
           />
         </div>
+
         <div className="mt-6 mb-20">
           <Button
             onClick={onClick}
@@ -65,6 +61,7 @@ export const LoginPage = () => {
             Войти
           </Button>
         </div>
+
         <span className="text text_type_main-default text_color_inactive mb-4">
           Вы - новый пользователь?{" "}
           <a
@@ -75,6 +72,7 @@ export const LoginPage = () => {
             Зарегистрироваться
           </a>
         </span>
+
         <span className="text text_type_main-default text_color_inactive">
           Забыли пароль?{" "}
           <a

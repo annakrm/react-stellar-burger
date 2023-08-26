@@ -1,16 +1,23 @@
+import { Action } from "redux";
+
 import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
 
-type InitialState = {
+type ReducerState = {
   userData: null;
   authChecked: boolean;
 };
 
-const initialState: InitialState = {
+type ReducerAction = Action<string> & Partial<ReducerState>;
+
+const initialState: ReducerState = {
   userData: null,
   authChecked: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (
+  state = initialState,
+  action: ReducerAction
+): ReducerState => {
   switch (action.type) {
     case USER_SET_USER_DATA: {
       const { userData } = action;

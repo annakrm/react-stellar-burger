@@ -1,4 +1,6 @@
 // reducer.js
+import { Action } from "redux";
+
 import { BurgerIngredient, BurgerIngredientTab } from "../../shared/lib/types";
 import {
   BURGER_INGREDIENTS_GET_DATA_FAILED,
@@ -6,17 +8,24 @@ import {
   BURGER_INGREDIENTS_SET_ACTIVE_TAB,
 } from "../constants";
 
-type InitialState = {
+type ReducerState = {
   data: BurgerIngredient[];
   activeTab: BurgerIngredientTab;
+  error: string;
 };
 
-const initialState: InitialState = {
+type ReducerAction = Action<string> & ReducerState;
+
+const initialState: ReducerState = {
   data: [],
   activeTab: BurgerIngredientTab.BUNS,
+  error: "",
 };
 
-export const burgerIngredientsReducer = (state = initialState, action) => {
+export const burgerIngredientsReducer = (
+  state = initialState,
+  action: ReducerAction
+): ReducerState => {
   switch (action.type) {
     case BURGER_INGREDIENTS_GET_DATA_SUCCESS: {
       const { data } = action;
