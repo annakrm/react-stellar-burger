@@ -1,4 +1,5 @@
 import { checkResponse } from "../lib/checkResponse";
+import { BurgerIngredient, OrderDetails } from "../lib/types";
 
 const apiConfig = {
   baseUrl: "https://norma.nomoreparties.space/api",
@@ -8,20 +9,23 @@ const apiConfig = {
   },
 };
 
-const request = (endpoint, options) => {
+const request = <T>(endpoint, options) => {
   const { baseUrl, headers } = apiConfig;
 
-  return fetch(`${baseUrl}/${endpoint}`, { headers, ...options }).then(
-    checkResponse
-  );
+  return fetch(`${baseUrl}/${endpoint}`, {
+    headers,
+    ...options,
+  }).then((response: Response) => checkResponse<T>(response));
 };
 
-export const getBurgerIngredients = (): Promise<string> => {
+export const getBurgerIngredients = (): Promise<{
+  data: BurgerIngredient[];
+}> => {
   return request("ingredients", { method: "GET" });
 };
 
-export const makeOrder = (ingredientIds: string[]): Promise<string> => {
-  return request("orders", {
+export const makeOrder = (ingredientIds: string[]): Promise<OrderDetails> => {
+  return request<OrderDetails>("orders", {
     method: "POST",
     body: JSON.stringify({ ingredients: ingredientIds }),
   });

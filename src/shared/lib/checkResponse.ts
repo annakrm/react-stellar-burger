@@ -1,4 +1,4 @@
-export const checkResponse = (response: Response): Promise<string> => {
+export const checkResponse = <T>(response: Response): Promise<T> => {
   if (response.ok) {
     return response.json();
   }

@@ -1,11 +1,10 @@
 import type { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { AppHeader } from "~/components/AppHeader";
-import { ChangeProfile } from "~/components/ChangeProfile";
-import { IngredientDetails } from "~/components/IngredientDetails";
-import { OnlyAuth, OnlyUnauth } from "~/components/ProtectedRoute";
-import { PageNotFound } from "~/shared/ui/PageNotFound";
+import { AppHeader } from "~components/AppHeader";
+import { ChangeProfile } from "~components/ChangeProfile";
+import { IngredientDetails } from "~components/IngredientDetails";
+import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
 import { BurgerConfiguration } from "~pages/BurgerConfiguration";
 import { ForgotPassword } from "~pages/ForgotPassword";
 import { Login } from "~pages/Login";
@@ -13,6 +12,7 @@ import { Orders } from "~pages/Orders";
 import { OrdersFeed } from "~pages/OrdersFeed";
 import { Profile } from "~pages/Profile";
 import { Registration } from "~pages/Registration";
+import { PageNotFound } from "~shared/ui/PageNotFound";
 
 import styles from "./App.module.css";
 

@@ -1,17 +1,13 @@
 // reducer.js
 import { Action } from "redux";
 
+import { OrderDetails } from "~/shared/lib/types";
+
 import {
   MAKE_ORDER_FAILED,
   MAKE_ORDER_SUCCESS,
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
-
-type OrderDetails = {
-  order: {
-    number: number;
-  };
-};
 
 type ReducerState = {
   details: OrderDetails | null;

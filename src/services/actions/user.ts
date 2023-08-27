@@ -1,11 +1,23 @@
+import { Dispatch } from "redux";
+
 import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
 
-export const setUserData = (userData) => ({
+export const setUserData = (
+  userData: object
+): {
+  type: string;
+  userData: object;
+} => ({
   type: USER_SET_USER_DATA,
   userData,
 });
 
-export const setAuthChecked = (authChecked) => ({
+export const setAuthChecked = (
+  authChecked: boolean
+): {
+  type: string;
+  authChecked: boolean;
+} => ({
   type: USER_SET_AUTH_CHECKED,
   authChecked,
 });
@@ -57,7 +69,8 @@ const fetchWithRefresh = async (url, options) => {
 };
 
 export const getUser = () => {
-  return (dispatch) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): Promise<any> => {
     return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
       method: "GET",
       headers: {
@@ -74,8 +87,9 @@ export const getUser = () => {
   };
 };
 
-export const login = (email, password) => {
-  return (dispatch) => {
+export const login = (email: string, password: string) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): Promise<any> => {
     return fetch("https://norma.nomoreparties.space/api/auth/login", {
       method: "POST",
       headers: {
@@ -106,8 +120,9 @@ export const login = (email, password) => {
   };
 };
 
-export const registration = (email, password, name) => {
-  return (dispatch) => {
+export const registration = (email: string, password: string, name: string) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): Promise<any> => {
     return fetch("https://norma.nomoreparties.space/api/auth/register", {
       method: "POST",
       headers: {
@@ -141,9 +156,10 @@ export const registration = (email, password, name) => {
 };
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): void => {
     if (localStorage.getItem("accessToken")) {
-      dispatch(getUser())
+      ((dispatch(getUser()) as unknown) as Promise<any>)
         .catch((error) => {
           console.error(error);
 

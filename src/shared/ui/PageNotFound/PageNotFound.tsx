@@ -1,6 +1,8 @@
-import styles from "./not-found.module.css";
+import type { FC } from "react";
 
-export const PageNotFound = () => {
+import styles from "./PageNotFound.module.css";
+
+export const PageNotFound: FC = () => {
   return (
     <>
       <div className={styles.container}>

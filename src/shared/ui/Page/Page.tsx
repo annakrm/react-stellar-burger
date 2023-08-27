@@ -1,6 +1,6 @@
-import { FC } from "react";
+import type { FC } from "react";
 
-import styles from "./page.module.css";
+import styles from "./Page.module.css";
 
 type Props = {
   columnContentAlignment?: boolean;

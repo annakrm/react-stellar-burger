@@ -1,3 +1,7 @@
+import { Dispatch } from "redux";
+
+import { OrderDetails } from "~/shared/lib/types";
+
 import { apiInstance } from "../../shared/api";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
@@ -8,16 +12,20 @@ import {
 
 export const setOrderDetailesModalOpened = (
   orderDetailesModalOpened: boolean
-) => ({
+): {
+  type: string;
+  orderDetailesModalOpened: boolean;
+} => ({
   type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
   orderDetailesModalOpened,
 });
 
-export const makeOrder = (ingredientIds) => {
-  return (dispatch) => {
+export const makeOrder = (ingredientIds: string[]) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): void => {
     apiInstance.burgerConstructor
       .makeOrder(ingredientIds)
-      .then(({ name, order }) => {
+      .then(({ name, order }: OrderDetails) => {
         dispatch({
           type: MAKE_ORDER_SUCCESS,
           details: { name, order },

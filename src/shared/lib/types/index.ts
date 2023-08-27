@@ -4,3 +4,5 @@ export type {
   BurgerIngredient,
   AddedBurgerIngredient,
 } from "./burgerIngredient";
+
+export type { OrderDetails } from "./order";

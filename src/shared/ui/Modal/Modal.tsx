@@ -1,12 +1,11 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import { createPortal } from "react-dom";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
-import { ModalOverlay } from "./ModalOverlay";
+import { closeByEsc } from "../../lib/closeByEsc";
 
 import styles from "./Modal.module.css";
-import { closeByEsc } from "./lib";
+import { ModalOverlay } from "./ModalOverlay";
 
 export const Modal = ({ children, onClose }) => {
   const handleCloseModal = (evt) => closeByEsc(evt, onClose);
