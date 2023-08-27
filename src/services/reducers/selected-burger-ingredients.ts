@@ -1,31 +1,21 @@
 import update from "immutability-helper";
-import { Action } from "redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { hasBuns } from "~shared/lib/hasBuns";
 
-import {
-  AddedBurgerIngredient,
-  BurgerIngredientType,
-} from "../../shared/lib/types";
+import { BurgerIngredientType } from "../../shared/lib/types";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
   REORDER_SELECTED_BURGER_INGREDIENTS,
   SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
   SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
 } from "../constants";
+import {
+  SelectedBurgerIngredientsAction,
+  SelectedBurgerIngredientsState,
+} from "../types";
 
-type ReducerState = {
-  data: AddedBurgerIngredient[];
-  item: AddedBurgerIngredient | null;
-  itemIndex: number;
-  dragIndex: number;
-  hoverIndex: number;
-};
-
-type ReducerAction = Action<string> & Partial<ReducerState>;
-
-const initialState: ReducerState = {
+const initialState: SelectedBurgerIngredientsState = {
   data: [],
   item: null,
   itemIndex: -1,
@@ -35,8 +25,8 @@ const initialState: ReducerState = {
 
 export const selectedBurgerIngredientsReducer = (
   state = initialState,
-  action: ReducerAction
-): ReducerState => {
+  action: SelectedBurgerIngredientsAction
+): SelectedBurgerIngredientsState => {
   switch (action.type) {
     case SELECTED_BURGER_INGREDIENTS_ADD_ITEM: {
       const { item } = action;

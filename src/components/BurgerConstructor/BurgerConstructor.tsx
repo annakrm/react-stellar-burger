@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { makeOrder } from "~/services/actions";
 import { setOrderDetailesModalOpened } from "~/services/actions/order";
 import { reorderSelectedBurgerIngredients } from "~/services/actions/selected-burger-ingredients";
+import { RootState } from "~/services/types";
 import { hasBuns } from "~/shared/lib/hasBuns";
 import { BurgerIngredientType } from "~/shared/lib/types";
 
@@ -24,10 +25,12 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
 
   const { data: selectedBurgerIngredients } = useSelector(
-    ({ selectedBurgerIngredients }: any) => selectedBurgerIngredients // TODO: fix any
+    ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 
-  const { orderDetailesModalOpened } = useSelector(({ order }: any) => order); // TODO: fix any
+  const { orderDetailesModalOpened } = useSelector(
+    ({ order }: RootState) => order
+  );
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "BurgerIngredientItem",
@@ -56,7 +59,7 @@ export const BurgerConstructor: FC = () => {
         ({ type }) => type === BurgerIngredientType.BUN
       );
 
-      return bun !== -1 ? bun : null;
+      return bun ?? null;
     }
 
     return null;

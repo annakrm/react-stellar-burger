@@ -1,23 +1,11 @@
-// reducer.js
-import { Action } from "redux";
-
-import { OrderDetails } from "~/shared/lib/types";
-
 import {
   MAKE_ORDER_FAILED,
   MAKE_ORDER_SUCCESS,
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
+import { OrderAction, OrderState } from "../types";
 
-type ReducerState = {
-  details: OrderDetails | null;
-  orderDetailesModalOpened: boolean;
-  error: string;
-};
-
-type ReducerAction = Action<string> & ReducerState;
-
-const initialState: ReducerState = {
+const initialState: OrderState = {
   details: null,
   orderDetailesModalOpened: false,
   error: "",
@@ -25,8 +13,8 @@ const initialState: ReducerState = {
 
 export const orderReducer = (
   state = initialState,
-  action: ReducerAction
-): ReducerState => {
+  action: OrderAction
+): OrderState => {
   switch (action.type) {
     case MAKE_ORDER_SUCCESS: {
       const { details } = action;

@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 
+import { RootState } from "~/services/types";
 import { addSelectedBurgerIngredientsItem } from "~services/actions";
 import { BurgerIngredient } from "~shared/lib/types";
 
@@ -24,7 +25,7 @@ export const IngredientsListItem: FC<Props> = ({
   const dispatch = useDispatch();
 
   const { data: selectedBurgerIngredients } = useSelector(
-    ({ selectedBurgerIngredients }: any) => selectedBurgerIngredients // TODO: fix any
+    ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 
   const { _id: ingredientId, image: imageUrl, name, price } = data;

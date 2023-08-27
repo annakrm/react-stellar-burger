@@ -1,23 +1,17 @@
-// reducer.js
-import { Action } from "redux";
-
-import { BurgerIngredient } from "../../shared/lib/types";
 import { BURGER_INGREDIENT_DETAILS_SET_DATA } from "../constants";
+import {
+  BurgerIngredientDetailsState,
+  BurgerIngredientDetailsAction,
+} from "../types";
 
-type ReducerState = {
-  data: BurgerIngredient | null;
-};
-
-type ReducerAction = Action<string> & ReducerState;
-
-const initialState: ReducerState = {
+const initialState: BurgerIngredientDetailsState = {
   data: null,
 };
 
 export const burgerIngredientDetailsReducer = (
   state = initialState,
-  action: ReducerAction
-): ReducerState => {
+  action: BurgerIngredientDetailsAction
+): BurgerIngredientDetailsState => {
   switch (action.type) {
     case BURGER_INGREDIENT_DETAILS_SET_DATA: {
       const { data } = action;

@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
+import { RootState } from "~/services/types";
+
 import { checkUserAuth, setAuthChecked } from "../../services/actions";
 
 export type ProtectedRouteProps = {
@@ -21,21 +23,20 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
     dispatch(checkUserAuth());
   }, [dispatch]);
 
-  const isAuthChecked = useSelector((store: any) => store.user.isAuthChecked); // TODO: fix any
-  const user = useSelector((store: any) => store.user.user); // TODO: fix any
+  const { userData, authChecked } = useSelector(({ user }: RootState) => user);
   const location = useLocation();
 
-  if (!isAuthChecked) {
+  if (!authChecked) {
     return null;
   }
 
-  if (onlyUnauth && user) {
+  if (onlyUnauth && userData) {
     const { from } = location.state || { from: { pathname: "/" } };
 
     return <Navigate to={from} />;
   }
 
-  if (!onlyUnauth && !user) {
+  if (!onlyUnauth && !userData) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

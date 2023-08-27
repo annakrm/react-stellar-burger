@@ -7,6 +7,7 @@ import {
   setBurgerIngredientDetails,
   setBurgerIngredientsActiveTab,
 } from "~/services/actions";
+import { RootState } from "~/services/types";
 import { BurgerIngredientTab, BurgerIngredientType } from "~/shared/lib/types";
 import { Modal } from "~/shared/ui/Modal";
 
@@ -20,11 +21,11 @@ export const IngredientsList: FC = () => {
   const dispatch = useDispatch();
 
   const { data: ingredientsData, activeTab } = useSelector(
-    ({ burgerIngredients }: any) => burgerIngredients // TODO: fix any
+    ({ burgerIngredients }: RootState) => burgerIngredients
   );
 
   const { data: burgerIngredientDetails } = useSelector(
-    ({ burgerIngredientDetails }: any) => burgerIngredientDetails // TODO: fix any
+    ({ burgerIngredientDetails }: RootState) => burgerIngredientDetails
   );
 
   const wrapperRef = useRef(null);
