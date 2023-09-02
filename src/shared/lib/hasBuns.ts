@@ -1,6 +1,7 @@
-import { BurgerIngredient, BurgerIngredientType } from "./types";
+import type { BurgerIngredientDto } from "../api/dto";
+import { BurgerIngredientType } from "../api/dto";
 
-export const hasBuns = (burgerIngresients: BurgerIngredient[]): boolean =>
+export const hasBuns = (burgerIngresients: BurgerIngredientDto[]): boolean =>
   burgerIngresients.findIndex(
     ({ type }) => type === BurgerIngredientType.BUN
   ) !== -1;

@@ -8,7 +8,8 @@ import {
   setBurgerIngredientsActiveTab,
 } from "~/services/actions";
 import { RootState } from "~/services/types";
-import { BurgerIngredientTab, BurgerIngredientType } from "~/shared/lib/types";
+import { BurgerIngredientType } from "~/shared/api/dto";
+import { BurgerIngredientTab } from "~/shared/lib/types";
 import { Modal } from "~/shared/ui/Modal";
 
 import { IngredientDetails } from "../../IngredientDetails";

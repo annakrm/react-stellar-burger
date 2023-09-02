@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Fragment } from "react";
 
-import { BurgerIngredient } from "~/shared/lib/types";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
 
 import styles from "./IngredientsCategory.module.css";
 import { IngredientsListItem } from "./IngredientsListItem";
@@ -9,8 +9,8 @@ import { IngredientsListItem } from "./IngredientsListItem";
 type Props = {
   id: string;
   title: string;
-  items: BurgerIngredient[];
-  onOpenIngredientDetails: (data: BurgerIngredient) => void;
+  items: BurgerIngredientDto[];
+  onOpenIngredientDetails: (data: BurgerIngredientDto) => void;
 };
 
 export const IngredientsCategory: FC<Props> = ({

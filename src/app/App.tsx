@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -12,6 +13,7 @@ import { Orders } from "~pages/Orders";
 import { OrdersFeed } from "~pages/OrdersFeed";
 import { Profile } from "~pages/Profile";
 import { Registration } from "~pages/Registration";
+import { ResetPassword } from "~pages/ResetPassword";
 import { PageNotFound } from "~shared/ui/PageNotFound";
 
 import styles from "./App.module.css";
@@ -22,7 +24,8 @@ export const App: FC = () => {
       <Routes>
         <Route path="/" element={<AppHeader />}>
           <Route path="/" element={<BurgerConfiguration />} />
-          <Route path="feed" element={<OrdersFeed />} />
+
+          <Route path="feed" element={<OnlyAuth component={<OrdersFeed />} />} />
 
           <Route path="profile" element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<ChangeProfile />} />
@@ -30,13 +33,12 @@ export const App: FC = () => {
           </Route>
 
           {/* TODO: pass data prop */}
-          <Route
-            path="/ingredients/:id"
-            element={<IngredientDetails data={null} />}
-          />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/ingredients/:id" element={<IngredientDetails data={null} />} />
+          <Route path="/register" element={<OnlyUnauth component={<Registration />} />} />
+          <Route path="/forgot-password" element={<OnlyUnauth component={<ForgotPassword />} />} />
+          <Route path="/reset-password" element={<OnlyUnauth component={<ResetPassword />} />} />
 
+          <Route path="/login" element={<OnlyUnauth component={<Login />} />} />
           <Route path="/login" element={<OnlyUnauth component={<Login />} />} />
 
           <Route path="*" element={<PageNotFound />} />

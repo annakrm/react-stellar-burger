@@ -7,13 +7,12 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 
 import { deleteSelectedBurgerIngredientsItem } from "~/services/actions";
-
-import { BurgerIngredient } from "../../shared/lib/types";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
 
 import styles from "./BurgerConstructor.module.css";
 
 type Props = {
-  data: BurgerIngredient;
+  data: BurgerIngredientDto;
   index: number;
   onReorder: (dragIndex: number, hoverIndex: number) => void;
 };

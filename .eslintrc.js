@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ["prettier", "jest", "@typescript-eslint"],
+  plugins: ["prettier", "jest", "@typescript-eslint", "cypress"],
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
@@ -12,6 +12,7 @@ module.exports = {
     "plugin:import/react",
     "plugin:import/typescript",
     "plugin:jest/recommended",
+    "plugin:cypress/recommended"
   ],
   env: {
     browser: true,

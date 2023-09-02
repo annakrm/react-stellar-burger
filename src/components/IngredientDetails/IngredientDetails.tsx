@@ -1,11 +1,11 @@
 import { FC } from "react";
 
-import { BurgerIngredient } from "~/shared/lib/types";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
 
 import styles from "./IngredientDetails.module.css";
 
 type Props = {
-  data: BurgerIngredient;
+  data: BurgerIngredientDto;
 };
 
 export const IngredientDetails: FC<Props> = ({ data }) => {

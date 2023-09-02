@@ -5,7 +5,7 @@ import styles from "./Profile.module.css";
 
 export const Profile: FC = () => {
   const setActiveText = ({ isActive }) => {
-    return isActive ? styles.link_active : styles.link;
+    return isActive ? styles.linkActive : styles.link;
   };
 
   return (

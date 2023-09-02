@@ -1,23 +1,19 @@
 import { Action } from "redux";
 
-import {
-  AddedBurgerIngredient,
-  BurgerIngredient,
-  BurgerIngredientTab,
-  OrderDetails,
-} from "~/shared/lib/types";
+import type { OrderDetailsDto, BurgerIngredientDto } from "~/shared/api/dto";
+import { AddedBurgerIngredient, BurgerIngredientTab } from "~/shared/lib/types";
 
 import type { rootReducer } from "./reducers";
 
 export type BurgerIngredientDetailsState = {
-  data: BurgerIngredient | null;
+  data: BurgerIngredientDto | null;
 };
 
 export type BurgerIngredientDetailsAction = Action<string> &
   BurgerIngredientDetailsState;
 
 export type BurgerIngredientsState = {
-  data: BurgerIngredient[];
+  data: BurgerIngredientDto[];
   activeTab: BurgerIngredientTab;
   error: string;
 };
@@ -25,7 +21,7 @@ export type BurgerIngredientsState = {
 export type BurgerIngredientsAction = Action<string> & BurgerIngredientsState;
 
 export type OrderState = {
-  details: OrderDetails | null;
+  details: OrderDetailsDto | null;
   orderDetailesModalOpened: boolean;
   error: string;
 };

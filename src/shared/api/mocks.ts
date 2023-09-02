@@ -1,6 +1,6 @@
-import { BurgerIngredient } from "../lib/types";
+import type { BurgerIngredientDto } from "./dto";
 
-export const mockedBurgerIngredients: BurgerIngredient[] = [
+export const mockedBurgerIngredients: BurgerIngredientDto[] = [
   {
     _id: "60666c42cc7b410027a1a9b1",
     name: "Краторная булка N-200i",
@@ -215,7 +215,7 @@ export const mockedBurgerIngredients: BurgerIngredient[] = [
   },
 ];
 
-export const mockedConfigurationData: BurgerIngredient[] = [
+export const mockedConfigurationData: BurgerIngredientDto[] = [
   {
     _id: "60666c42cc7b410027a1a9b9",
     name: "Соус традиционный галактический",

@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 
-import { BurgerIngredient, BurgerIngredientTab } from "~/shared/lib/types";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
+import { BurgerIngredientTab } from "~/shared/lib/types";
 import { apiInstance } from "~shared/api";
 
 import {
@@ -11,9 +12,9 @@ import {
 
 export const getBurgerIngredients = () => {
   return (dispatch: Dispatch<any>) => {
-    apiInstance.burgerIngredients
+    apiInstance.burgerIngredientsApi
       .getBurgerIngredients()
-      .then(({ data }: { data: BurgerIngredient[] }) => {
+      .then(({ data }: { data: BurgerIngredientDto[] }) => {
         dispatch({
           type: BURGER_INGREDIENTS_GET_DATA_SUCCESS,
           data,

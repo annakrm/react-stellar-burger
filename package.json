@@ -70,19 +70,21 @@
     "@babel/preset-react": "7.12.13",
     "@babel/preset-typescript": "7.13.0",
     "@babel/register": "^7.12.13",
+    "@types/history": "^4.7.8",
     "@types/jest": "^29.5.4",
     "@types/node": "^20.5.6",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@types/history": "^4.7.8",
     "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.7",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "5.1.0",
     "@typescript-eslint/parser": "5.1.0",
+    "cypress": "^12.17.4",
     "eslint": "7.32.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-import": "2.25.4",
     "eslint-plugin-jest": "26.1.0",
     "eslint-plugin-jsx-a11y": "6.5.1",
@@ -99,7 +101,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [

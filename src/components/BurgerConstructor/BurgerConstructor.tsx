@@ -12,8 +12,8 @@ import { makeOrder } from "~/services/actions";
 import { setOrderDetailesModalOpened } from "~/services/actions/order";
 import { reorderSelectedBurgerIngredients } from "~/services/actions/selected-burger-ingredients";
 import { RootState } from "~/services/types";
+import { BurgerIngredientType } from "~/shared/api/dto";
 import { hasBuns } from "~/shared/lib/hasBuns";
-import { BurgerIngredientType } from "~/shared/lib/types";
 
 import { OrderDetails } from "../OrderDetails";
 

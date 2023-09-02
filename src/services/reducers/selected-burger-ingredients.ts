@@ -1,9 +1,9 @@
 import update from "immutability-helper";
 import { v4 as uuidv4 } from "uuid";
 
+import { BurgerIngredientType } from "~/shared/api/dto";
 import { hasBuns } from "~shared/lib/hasBuns";
 
-import { BurgerIngredientType } from "../../shared/lib/types";
 import {
   BURGER_CONSTRUCTOR_RESET_DATA,
   REORDER_SELECTED_BURGER_INGREDIENTS,

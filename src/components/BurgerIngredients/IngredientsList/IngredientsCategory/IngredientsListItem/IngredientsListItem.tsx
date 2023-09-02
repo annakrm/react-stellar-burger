@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "~/services/types";
 import { addSelectedBurgerIngredientsItem } from "~services/actions";
-import { BurgerIngredient } from "~shared/lib/types";
+import type { BurgerIngredientDto } from "~shared/api/dto";
 
 import styles from "./IngredientsListItem.module.css";
 
 type Props = {
-  data: BurgerIngredient;
-  onOpenIngredientDetails: (data: BurgerIngredient) => void;
+  data: BurgerIngredientDto;
+  onOpenIngredientDetails: (data: BurgerIngredientDto) => void;
 };
 
 export const IngredientsListItem: FC<Props> = ({
