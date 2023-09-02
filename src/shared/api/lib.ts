@@ -25,8 +25,6 @@ export const request = <T>(
     ...(options.headers ? ((options.headers as unknown) as object) : {}),
   };
 
-  console.log(">>>", apiConfig, options);
-
   return fetch(`${baseUrl}/${endpoint}`, {
     headers,
     ...options,

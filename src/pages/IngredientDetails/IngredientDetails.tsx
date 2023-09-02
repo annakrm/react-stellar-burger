@@ -26,8 +26,6 @@ export const IngredientDetails: FC = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log(">>>", data);
-
     if (data) {
       const currentUrl = window.location.href;
       const ingredientId = currentUrl.substring(
