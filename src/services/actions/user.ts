@@ -1,11 +1,28 @@
 import { Dispatch } from "redux";
 
 import { apiInstance } from "~/shared/api";
-import { LoginRequest, RegisterRequest } from "~/shared/api/dto";
+import {
+  InitPasswordResetRequest,
+  LoginRequest,
+  RegisterRequest,
+  ResetPasswordRequest,
+  UpdateUserRequest,
+} from "~/shared/api/dto";
+import { getAccessToken, updateLocalStorageTokens } from "~/shared/lib/auth";
+import { removeLocalStorageTokens } from "~/shared/lib/auth/removeLocalStorageTokens";
 import { SERVER_ERROR_MESSAGE } from "~/shared/lib/constants";
-import { updateLocalStorageTokens } from "~/shared/lib/updateLocalStorageTokens";
 
-import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
+import {
+  USER_SET_AUTH_CHECKED,
+  USER_SET_USER_DATA,
+  USER_RESET_DATA,
+} from "../constants";
+
+export const resetUserData = (): {
+  type: string;
+} => ({
+  type: USER_RESET_DATA,
+});
 
 export const setUserData = (
   userData: object
@@ -27,22 +44,31 @@ export const setAuthChecked = (
   authChecked,
 });
 
-export const getUser = () => {
-  // TODO: fix any
-  return (dispatch: Dispatch<any>): Promise<any> => {
-    return apiInstance.userApi.getUser().then((res) => {
-      if (res.success) {
-        dispatch(setUserData(res));
-      }
+export const register = (requestData: RegisterRequest) => {
+  return (dispatch: Dispatch): Promise<void> => {
+    return apiInstance.userApi
+      .register(requestData)
+      .then((response) => {
+        if (response.success) {
+          const { accessToken, refreshToken, user } = response;
 
-      return Promise.reject(SERVER_ERROR_MESSAGE);
-    });
+          updateLocalStorageTokens(accessToken, refreshToken);
+          dispatch(setUserData(user));
+        } else {
+          return Promise.reject(SERVER_ERROR_MESSAGE);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        dispatch(setAuthChecked(true));
+      });
   };
 };
 
 export const login = (requestData: LoginRequest) => {
-  // TODO: fix any
-  return (dispatch: Dispatch<any>): Promise<any> => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
       .login(requestData)
       .then((response) => {
@@ -51,9 +77,9 @@ export const login = (requestData: LoginRequest) => {
 
           updateLocalStorageTokens(accessToken, refreshToken);
           dispatch(setUserData(user));
+        } else {
+          return Promise.reject(SERVER_ERROR_MESSAGE);
         }
-
-        return Promise.reject(SERVER_ERROR_MESSAGE);
       })
       .catch((err) => {
         console.error(err);
@@ -64,20 +90,19 @@ export const login = (requestData: LoginRequest) => {
   };
 };
 
-export const registration = (requestData: RegisterRequest) => {
-  // TODO: fix any
-  return (dispatch: Dispatch<any>): Promise<any> => {
+export const logout = () => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
-      .register(requestData)
+      .logout()
       .then((response) => {
-        if (response) {
-          const { accessToken, refreshToken, user } = response;
+        if (response.success) {
+          window.location.href = "/login";
 
-          updateLocalStorageTokens(accessToken, refreshToken);
-          dispatch(setUserData(user));
+          dispatch(resetUserData());
+          removeLocalStorageTokens();
+        } else {
+          return Promise.reject(SERVER_ERROR_MESSAGE);
         }
-
-        return Promise.reject(SERVER_ERROR_MESSAGE);
       })
       .catch((err) => {
         console.error(err);
@@ -85,19 +110,69 @@ export const registration = (requestData: RegisterRequest) => {
       .finally(() => {
         dispatch(setAuthChecked(true));
       });
+  };
+};
+
+export const initPasswordReset = (requestData: InitPasswordResetRequest) => {
+  return (): Promise<void> => {
+    return apiInstance.userApi
+      .initPasswordReset(requestData)
+      .then((response) => {
+        if (response.success) {
+          window.location.href = "/reset-password";
+        } else {
+          return Promise.reject(SERVER_ERROR_MESSAGE);
+        }
+      });
+  };
+};
+
+export const resetPassword = (requestData: ResetPasswordRequest) => {
+  return (): Promise<void> => {
+    return apiInstance.userApi.resetPassword(requestData).then((response) => {
+      if (response.success) {
+        window.location.href = "/login";
+      } else {
+        return Promise.reject(SERVER_ERROR_MESSAGE);
+      }
+    });
+  };
+};
+
+export const getUser = () => {
+  return (dispatch: Dispatch): Promise<void> => {
+    return apiInstance.userApi.getUser().then((response) => {
+      if (response.success) {
+        dispatch(setUserData(response.user));
+      } else {
+        return Promise.reject(SERVER_ERROR_MESSAGE);
+      }
+    });
+  };
+};
+
+export const updateUser = (requestData: UpdateUserRequest) => {
+  return (dispatch: Dispatch): Promise<void> => {
+    return apiInstance.userApi.updateUser(requestData).then((response) => {
+      if (response.success) {
+        dispatch(setUserData(response.user));
+      } else {
+        return Promise.reject(SERVER_ERROR_MESSAGE);
+      }
+    });
   };
 };
 
 export const checkUserAuth = () => {
-  // TODO: fix any
-  return (dispatch: Dispatch<any>): void => {
-    if (localStorage.getItem("accessToken")) {
-      ((dispatch(getUser()) as unknown) as Promise<any>)
+  return (dispatch: Dispatch): void => {
+    const accessToken = getAccessToken();
+
+    if (accessToken) {
+      dispatch<any>(getUser()) // TODO: fix any
         .catch((error) => {
           console.error(error);
 
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
+          removeLocalStorageTokens();
 
           dispatch(setUserData(null));
         })

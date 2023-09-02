@@ -32,6 +32,8 @@ export const BurgerConstructor: FC = () => {
     ({ order }: RootState) => order
   );
 
+  const userData = useSelector(({ user }: RootState) => user.userData);
+
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "BurgerIngredientItem",
     drop: () => ({ name: "BurgerConstructor" }),
@@ -87,9 +89,13 @@ export const BurgerConstructor: FC = () => {
   }, [selectedBurgerIngredients]);
 
   const handleMakeOrder = () => {
-    const ingredientIds = selectedBurgerIngredients.map(({ _id: id }) => id);
+    if (userData) {
+      const ingredientIds = selectedBurgerIngredients.map(({ _id: id }) => id);
 
-    dispatch(makeOrder(ingredientIds));
+      dispatch(makeOrder(ingredientIds));
+    } else {
+      window.location.href = "/login";
+    }
   };
 
   const handleReorder = useCallback(

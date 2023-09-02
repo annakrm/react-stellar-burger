@@ -15,7 +15,7 @@
     text-decoration: none;
 }
 
-.headerLink_active {
+.headerLinkActive {
   display: flex;
   align-items: center;
   justify-content: center;

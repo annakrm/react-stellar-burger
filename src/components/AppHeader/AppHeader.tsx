@@ -19,7 +19,7 @@ export const AppHeader: FC = () => (
         <AppHeaderLink
           text="Лента заказов"
           IconComponent={ListIcon}
-          link="/feed"
+          link="/profile/orders"
         />
 
         <NavLink to="/">

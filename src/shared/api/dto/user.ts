@@ -44,6 +44,8 @@ export type GetUserResponse = ResponseSuccess & {
   user: UserDto;
 };
 
+export type UpdateUserRequest = UserData;
+
 export type UpdateUserResponse = ResponseSuccess & {
   user: UserDto;
 };

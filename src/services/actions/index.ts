@@ -13,6 +13,6 @@ export {
   setAuthChecked,
   getUser,
   login,
-  registration,
+  register,
   checkUserAuth,
 } from "./user";

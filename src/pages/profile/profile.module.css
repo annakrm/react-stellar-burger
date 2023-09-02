@@ -5,6 +5,7 @@
   margin-top: 180px;
   justify-content: flex-start;
   width: calc(100% - 420px);
+  height: 320px;
 }
 
 .link {
@@ -48,4 +49,8 @@
   flex-direction: column;
   margin-top: 90px;
   color: #8585AD
+}
+
+.contentWeapper {
+  height: 100%;
 }

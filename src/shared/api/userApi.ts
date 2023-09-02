@@ -1,12 +1,15 @@
-import { ACCESS_TOKEN_LS_KEY, JWT_EXPIRED } from "../lib/constants";
-import { updateLocalStorageTokens } from "../lib/updateLocalStorageTokens";
+import {
+  getAccessToken,
+  getRefreshToken,
+  updateLocalStorageTokens,
+} from "../lib/auth";
+import { JWT_EXPIRED } from "../lib/constants";
 
 import type {
   RegisterRequest,
   RegisterResponse,
   LoginRequest,
   LoginResponse,
-  LogoutRequest,
   LogoutResponse,
   InitPasswordResetRequest,
   InitPasswordResetResponse,
@@ -15,21 +18,23 @@ import type {
   RefreshTokenResponse,
   GetUserResponse,
   UpdateUserResponse,
+  UpdateUserRequest,
 } from "./dto";
 import { request } from "./lib";
+import type { RequestOptions } from "./lib";
 
 const refreshToken = (): Promise<RefreshTokenResponse> => {
   return request<RefreshTokenResponse>("auth/token", {
     method: "POST",
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
+      token: getRefreshToken(),
     }),
   });
 };
 
 const requestWithRefresh = async <T>(
   endpoint: string,
-  options: Record<string, string>
+  options: RequestOptions
 ): Promise<T> => {
   try {
     const response = await request<T>(endpoint, options);
@@ -78,17 +83,17 @@ const login = ({ email, password }: LoginRequest): Promise<LoginResponse> => {
   });
 };
 
-const logout = ({ token }: LogoutRequest): Promise<LogoutResponse> => {
+const logout = (): Promise<LogoutResponse> => {
   return requestWithRefresh<LogoutResponse>("auth/logout", {
     method: "POST",
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ token: getRefreshToken() }),
   });
 };
 
 const initPasswordReset = ({
   email,
 }: InitPasswordResetRequest): Promise<InitPasswordResetResponse> => {
-  return request<InitPasswordResetResponse>("auth/password-reset", {
+  return request<InitPasswordResetResponse>("password-reset", {
     method: "POST",
     body: JSON.stringify({ email }),
   });
@@ -98,7 +103,7 @@ const resetPassword = ({
   password,
   token,
 }: ResetPasswordRequest): Promise<ResetPasswordResponse> => {
-  return request<ResetPasswordResponse>("auth/password-reset/reset", {
+  return request<ResetPasswordResponse>("password-reset/reset", {
     method: "POST",
     body: JSON.stringify({ password, token }),
   });
@@ -107,14 +112,23 @@ const resetPassword = ({
 const getUser = (): Promise<GetUserResponse> => {
   return requestWithRefresh<GetUserResponse>("auth/user", {
     method: "GET",
-    headers: localStorage.getItem(ACCESS_TOKEN_LS_KEY),
+    headers: {
+      authorization: getAccessToken(),
+    },
   });
 };
 
-const updateUser = (): Promise<UpdateUserResponse> => {
+const updateUser = ({
+  name,
+  email,
+  password,
+}: UpdateUserRequest): Promise<UpdateUserResponse> => {
   return requestWithRefresh<UpdateUserResponse>("auth/user", {
     method: "PATCH",
-    headers: localStorage.getItem(ACCESS_TOKEN_LS_KEY),
+    headers: {
+      authorization: getAccessToken(),
+    },
+    body: JSON.stringify({ name, email, password }),
   });
 };
 

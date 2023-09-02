@@ -1,6 +1,10 @@
 import { Action } from "redux";
 
-import type { OrderDetailsDto, BurgerIngredientDto } from "~/shared/api/dto";
+import type {
+  OrderDetailsDto,
+  BurgerIngredientDto,
+  UserDto,
+} from "~/shared/api/dto";
 import { AddedBurgerIngredient, BurgerIngredientTab } from "~/shared/lib/types";
 
 import type { rootReducer } from "./reducers";
@@ -40,7 +44,7 @@ export type SelectedBurgerIngredientsAction = Action<string> &
   SelectedBurgerIngredientsState;
 
 export type UserState = {
-  userData: null;
+  userData: UserDto | null;
   authChecked: boolean;
 };
 

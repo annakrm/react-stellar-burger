@@ -26,6 +26,7 @@ export type {
   RefreshTokenRequest,
   RefreshTokenResponse,
   GetUserResponse,
+  UpdateUserRequest,
   UpdateUserResponse,
   UserDto,
 } from "./user";

@@ -1,4 +1,8 @@
-import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
+import {
+  USER_SET_AUTH_CHECKED,
+  USER_SET_USER_DATA,
+  USER_RESET_DATA,
+} from "../constants";
 import { UserAction, UserState } from "../types";
 
 const initialState: UserState = {
@@ -21,6 +25,10 @@ export const userReducer = (
       const { authChecked } = action;
 
       return { ...state, authChecked };
+    }
+
+    case USER_RESET_DATA: {
+      return initialState;
     }
 
     default: {

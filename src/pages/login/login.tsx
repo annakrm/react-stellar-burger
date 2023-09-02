@@ -24,7 +24,7 @@ export const Login: FC = () => {
     setPassword(evt.target.value);
   };
 
-  const onClick = () => {
+  const handleLogin = () => {
     dispatch(login({ email, password }));
   };
 
@@ -53,7 +53,7 @@ export const Login: FC = () => {
 
         <div className="mt-6 mb-20">
           <Button
-            onClick={onClick}
+            onClick={handleLogin}
             htmlType="button"
             type="primary"
             size="large"
@@ -66,7 +66,6 @@ export const Login: FC = () => {
           Вы - новый пользователь?{" "}
           <a
             href="/register"
-            onClick={onClick}
             className={`${styles.link} text text_color_accent`}
           >
             Зарегистрироваться
@@ -77,7 +76,6 @@ export const Login: FC = () => {
           Забыли пароль?{" "}
           <a
             href="/forgot-password"
-            onClick={onClick}
             className={`${styles.link} text text_color_accent`}
           >
             Восстановить пароль

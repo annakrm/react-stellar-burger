@@ -11,8 +11,8 @@ import {
 } from "../constants";
 
 export const getBurgerIngredients = () => {
-  return (dispatch: Dispatch<any>) => {
-    apiInstance.burgerIngredientsApi
+  return (dispatch: Dispatch): Promise<void> => {
+    return apiInstance.burgerIngredientsApi
       .getBurgerIngredients()
       .then(({ data }: { data: BurgerIngredientDto[] }) => {
         dispatch({

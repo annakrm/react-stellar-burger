@@ -7,7 +7,7 @@ import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { registration } from "../../services/actions";
+import { register } from "../../services/actions";
 
 import styles from "./Registration.module.css";
 
@@ -31,7 +31,7 @@ export const Registration: FC = () => {
   };
 
   const onClick = () => {
-    dispatch(registration({ email, password, name }));
+    dispatch(register({ email, password, name }));
   };
 
   return (

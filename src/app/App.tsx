@@ -3,11 +3,11 @@ import type { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { AppHeader } from "~components/AppHeader";
-import { ChangeProfile } from "~components/ChangeProfile";
-import { IngredientDetails } from "~components/IngredientDetails";
+import { EditProfile } from "~components/EditProfile";
 import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
 import { BurgerConfiguration } from "~pages/BurgerConfiguration";
 import { ForgotPassword } from "~pages/ForgotPassword";
+import { IngredientDetails } from "~pages/IngredientDetails";
 import { Login } from "~pages/Login";
 import { Orders } from "~pages/Orders";
 import { OrdersFeed } from "~pages/OrdersFeed";
@@ -17,6 +17,7 @@ import { ResetPassword } from "~pages/ResetPassword";
 import { PageNotFound } from "~shared/ui/PageNotFound";
 
 import styles from "./App.module.css";
+
 
 export const App: FC = () => {
   return (
@@ -28,12 +29,11 @@ export const App: FC = () => {
           <Route path="feed" element={<OnlyAuth component={<OrdersFeed />} />} />
 
           <Route path="profile" element={<OnlyAuth component={<Profile />} />}>
-            <Route index element={<ChangeProfile />} />
+            <Route index element={<EditProfile />} />
             <Route path="orders" element={<Orders />} />
           </Route>
 
-          {/* TODO: pass the data prop */}
-          <Route path="/ingredients/:id" element={<IngredientDetails data={null} />} />
+          <Route path="/ingredients/:id" element={<IngredientDetails />} />
           <Route path="/register" element={<OnlyUnauth component={<Registration />} />} />
           <Route path="/forgot-password" element={<OnlyUnauth component={<ForgotPassword />} />} />
           <Route path="/reset-password" element={<OnlyUnauth component={<ResetPassword />} />} />

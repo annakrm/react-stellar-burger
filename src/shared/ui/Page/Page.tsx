@@ -4,7 +4,7 @@ import styles from "./Page.module.css";
 
 type Props = {
   columnContentAlignment?: boolean;
-  contentClassNames?: boolean;
+  contentClassNames?: string;
 };
 
 export const Page: FC<Props> = ({

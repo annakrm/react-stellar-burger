@@ -1,17 +1,36 @@
 import {
   Button,
-  EmailInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { resetPassword } from "~/services/actions/user";
 
 import styles from "./ResetPassword.module.css";
 
 export const ResetPassword: FC = () => {
-  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  const [passwordInputValue, setPasswordInputValue] = useState("");
+  const [codeInputValue, setCodeInputValue] = useState("");
+
+  const handlePasswordInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPasswordInputValue(event.target.value);
+  };
+
+  const handleCodeInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCodeInputValue(event.target.value);
+  };
+
+  const handleResetPassword = () => {
+    const requestData = {
+      password: passwordInputValue,
+      token: codeInputValue,
+    };
+
+    dispatch(resetPassword(requestData));
   };
 
   return (
@@ -20,26 +39,29 @@ export const ResetPassword: FC = () => {
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
+
         <div className={styles.inputWrapper}>
-          <EmailInput
-            onChange={onChange}
-            value={value}
+          <Input
+            onChange={handlePasswordInputChange}
+            value={passwordInputValue}
             name="password"
             placeholder="Введите новый пароль"
-            isIcon
             extraClass="mb-6"
           />
-          <EmailInput
-            onChange={onChange}
-            value={value}
-            name="email"
+          <Input
+            onChange={handleCodeInputChange}
+            value={codeInputValue}
             placeholder="Введите код из письма"
-            isIcon={false}
           />
         </div>
 
         <div className="mt-6 mb-20">
-          <Button htmlType="button" type="primary" size="large">
+          <Button
+            htmlType="button"
+            type="primary"
+            size="large"
+            onClick={handleResetPassword}
+          >
             Сохранить
           </Button>
         </div>

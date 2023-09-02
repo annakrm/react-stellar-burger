@@ -9,6 +9,7 @@ import {
 } from "~/services/actions";
 import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
 import { BurgerIngredientTab } from "~/shared/lib/types";
 import { Modal } from "~/shared/ui/Modal";
 
@@ -126,7 +127,13 @@ export const IngredientsList: FC = () => {
   const isSaucesVisible = Boolean(sauces && sauces.length);
   const isMainVisible = Boolean(main && main.length);
 
-  const handleBurgerIngredientClick = (data) => {
+  const handleBurgerIngredientClick = (data: BurgerIngredientDto) => {
+    window.history.replaceState(
+      {},
+      "",
+      data ? `/ingredients/${data._id}` : "/"
+    );
+
     dispatch(setBurgerIngredientDetails(data));
   };
 
@@ -161,7 +168,7 @@ export const IngredientsList: FC = () => {
 
       {Boolean(burgerIngredientDetails) && (
         <Modal onClose={() => handleBurgerIngredientClick(null)}>
-          <IngredientDetails data={burgerIngredientDetails} />
+          <IngredientDetails />
         </Modal>
       )}
     </div>

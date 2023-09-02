@@ -19,7 +19,7 @@ export const AppHeaderLink: FC<Props> = ({ IconComponent, text, link }) => {
   const setActiveText = ({ isActive }) => {
     setIconType(isActive ? "primary" : "secondary");
 
-    return isActive ? styles.headerLink_active : styles.headerLink;
+    return isActive ? styles.headerLinkActive : styles.headerLink;
   };
 
   return (

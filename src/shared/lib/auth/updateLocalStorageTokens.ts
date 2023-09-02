@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_LS_KEY, REFRESH_TOKEN_LS_KEY } from "./constants";
+import { ACCESS_TOKEN_LS_KEY, REFRESH_TOKEN_LS_KEY } from "../constants";
 
 export const updateLocalStorageTokens = (
   accessToken: string,
