@@ -1,5 +1,10 @@
 import { Dispatch } from "redux";
 
+import { apiInstance } from "~/shared/api";
+import { LoginRequest, RegisterRequest } from "~/shared/api/dto";
+import { SERVER_ERROR_MESSAGE } from "~/shared/lib/constants";
+import { updateLocalStorageTokens } from "~/shared/lib/updateLocalStorageTokens";
+
 import { USER_SET_AUTH_CHECKED, USER_SET_USER_DATA } from "../constants";
 
 export const setUserData = (
@@ -22,94 +27,33 @@ export const setAuthChecked = (
   authChecked,
 });
 
-const checkResponse = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-
-  return res.json().then((err) => Promise.reject(err));
-};
-
-const refreshToken = () => {
-  return fetch("https://norma.nomoreparties.space/api/auth/token", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  }).then(checkResponse);
-};
-
-const fetchWithRefresh = async (url, options) => {
-  try {
-    const res = await fetch(url, options);
-
-    return await checkResponse(res);
-  } catch (err) {
-    if (err.message === "jwt expired") {
-      const refreshData = await refreshToken();
-
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
-      }
-
-      localStorage.setItem("accessToken", refreshData.accessToken);
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
-      options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options);
-
-      return await checkResponse(res);
-    }
-
-    return Promise.reject(err);
-  }
-};
-
 export const getUser = () => {
   // TODO: fix any
   return (dispatch: Dispatch<any>): Promise<any> => {
-    return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem("accessToken"),
-      },
-    }).then((res) => {
+    return apiInstance.userApi.getUser().then((res) => {
       if (res.success) {
-        dispatch(setUserData(res.user));
-      } else {
-        return Promise.reject("Ошибка данных c сервера");
+        dispatch(setUserData(res));
       }
+
+      return Promise.reject(SERVER_ERROR_MESSAGE);
     });
   };
 };
 
-export const login = (email: string, password: string) => {
+export const login = (requestData: LoginRequest) => {
   // TODO: fix any
   return (dispatch: Dispatch<any>): Promise<any> => {
-    return fetch("https://norma.nomoreparties.space/api/auth/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-          dispatch(setUserData(res.user));
-        } else {
-          return Promise.reject("Ошибка данных c сервера");
+    return apiInstance.userApi
+      .login(requestData)
+      .then((response) => {
+        if (response.success) {
+          const { accessToken, refreshToken, user } = response;
+
+          updateLocalStorageTokens(accessToken, refreshToken);
+          dispatch(setUserData(user));
         }
+
+        return Promise.reject(SERVER_ERROR_MESSAGE);
       })
       .catch((err) => {
         console.error(err);
@@ -120,31 +64,20 @@ export const login = (email: string, password: string) => {
   };
 };
 
-export const registration = (email: string, password: string, name: string) => {
+export const registration = (requestData: RegisterRequest) => {
   // TODO: fix any
   return (dispatch: Dispatch<any>): Promise<any> => {
-    return fetch("https://norma.nomoreparties.space/api/auth/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        name: name,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
+    return apiInstance.userApi
+      .register(requestData)
+      .then((response) => {
+        if (response) {
+          const { accessToken, refreshToken, user } = response;
 
-          dispatch(setUserData(res.user));
-        } else {
-          return Promise.reject("Ошибка данных c сервера");
+          updateLocalStorageTokens(accessToken, refreshToken);
+          dispatch(setUserData(user));
         }
+
+        return Promise.reject(SERVER_ERROR_MESSAGE);
       })
       .catch((err) => {
         console.error(err);
@@ -165,6 +98,7 @@ export const checkUserAuth = () => {
 
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
+
           dispatch(setUserData(null));
         })
         .finally(() => dispatch(setAuthChecked(true)));

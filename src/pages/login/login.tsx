@@ -25,7 +25,7 @@ export const Login: FC = () => {
   };
 
   const onClick = () => {
-    dispatch(login(email, password));
+    dispatch(login({ email, password }));
   };
 
   return (

@@ -1,12 +1,12 @@
 export {
   getBurgerIngredients,
   setBurgerIngredientsActiveTab,
-} from "./burger-ingredients";
-export { setBurgerIngredientDetails } from "./burger-ingredient-details";
+} from "./burgerIngredients";
+export { setBurgerIngredientDetails } from "./burgerIngredientDetails";
 export {
   addSelectedBurgerIngredientsItem,
   deleteSelectedBurgerIngredientsItem,
-} from "./selected-burger-ingredients";
+} from "./selectedBurgerIngredients";
 export { makeOrder } from "./order";
 export {
   setUserData,

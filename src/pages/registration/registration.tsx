@@ -13,6 +13,7 @@ import styles from "./Registration.module.css";
 
 export const Registration: FC = () => {
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -30,7 +31,7 @@ export const Registration: FC = () => {
   };
 
   const onClick = () => {
-    dispatch(registration(email, password, name));
+    dispatch(registration({ email, password, name }));
   };
 
   return (

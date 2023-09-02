@@ -25,9 +25,7 @@ export type {
   ResetPasswordResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
-  GetUserRequest,
   GetUserResponse,
-  UpdateUserRequest,
   UpdateUserResponse,
   UserDto,
 } from "./user";

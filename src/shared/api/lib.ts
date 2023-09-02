@@ -12,7 +12,11 @@ export const request = <T>(
   endpoint: string,
   options: Record<string, string>
 ): Promise<T> => {
-  const { baseUrl, headers } = apiConfig;
+  const { baseUrl } = apiConfig;
+  const headers = {
+    ...apiConfig.headers,
+    ...(options.headers ? ((options.headers as unknown) as object) : {}),
+  };
 
   return fetch(`${baseUrl}/${endpoint}`, {
     headers,

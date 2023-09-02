@@ -40,16 +40,13 @@ export type RefreshTokenRequest = {
 
 export type RefreshTokenResponse = ResponseSuccess & ResponseTokens;
 
-export type GetUserRequest = {
-  authorization: string;
-};
-export type GetUserResponse = ResponseSuccess & UserDto;
-
-export type UpdateUserRequest = {
-  authorization: string;
+export type GetUserResponse = ResponseSuccess & {
+  user: UserDto;
 };
 
-export type UpdateUserResponse = ResponseSuccess & UserDto;
+export type UpdateUserResponse = ResponseSuccess & {
+  user: UserDto;
+};
 
 export type UserDto = Omit<UserData, "password">;
 

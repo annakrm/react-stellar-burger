@@ -1,3 +1,6 @@
+import { ACCESS_TOKEN_LS_KEY, JWT_EXPIRED } from "../lib/constants";
+import { updateLocalStorageTokens } from "../lib/updateLocalStorageTokens";
+
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -10,9 +13,7 @@ import type {
   ResetPasswordRequest,
   ResetPasswordResponse,
   RefreshTokenResponse,
-  GetUserRequest,
   GetUserResponse,
-  UpdateUserRequest,
   UpdateUserResponse,
 } from "./dto";
 import { request } from "./lib";
@@ -35,15 +36,16 @@ const requestWithRefresh = async <T>(
 
     return response;
   } catch (err) {
-    if (err.message === "jwt expired") {
+    if (err.message === JWT_EXPIRED) {
       const refreshData = await refreshToken();
 
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
 
-      localStorage.setItem("accessToken", refreshData.accessToken);
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
+      const { accessToken, refreshToken: refreshTokenValue } = refreshData;
+
+      updateLocalStorageTokens(accessToken, refreshTokenValue);
 
       ((options.headers as unknown) as {
         authorization: string;
@@ -102,21 +104,17 @@ const resetPassword = ({
   });
 };
 
-const getUser = ({
-  authorization,
-}: GetUserRequest): Promise<GetUserResponse> => {
+const getUser = (): Promise<GetUserResponse> => {
   return requestWithRefresh<GetUserResponse>("auth/user", {
     method: "GET",
-    body: JSON.stringify({ authorization }),
+    headers: localStorage.getItem(ACCESS_TOKEN_LS_KEY),
   });
 };
 
-const updateUser = ({
-  authorization,
-}: UpdateUserRequest): Promise<UpdateUserResponse> => {
+const updateUser = (): Promise<UpdateUserResponse> => {
   return requestWithRefresh<UpdateUserResponse>("auth/user", {
     method: "PATCH",
-    body: JSON.stringify({ authorization }),
+    headers: localStorage.getItem(ACCESS_TOKEN_LS_KEY),
   });
 };
 

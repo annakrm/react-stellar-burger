@@ -32,7 +32,7 @@ export const App: FC = () => {
             <Route path="orders" element={<Orders />} />
           </Route>
 
-          {/* TODO: pass data prop */}
+          {/* TODO: pass the data prop */}
           <Route path="/ingredients/:id" element={<IngredientDetails data={null} />} />
           <Route path="/register" element={<OnlyUnauth component={<Registration />} />} />
           <Route path="/forgot-password" element={<OnlyUnauth component={<ForgotPassword />} />} />
