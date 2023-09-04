@@ -32,7 +32,13 @@ export const OrdersFeed: FC = () => {
     <Page contentClassNames={styles.wrapper}>
       {isOrdersLoaded && (
         <>
-          <OrdersList orders={orders} />
+          <div>
+            <h1 className="text text_type_main-large mt-10 mb-5">
+              Лента заказов
+            </h1>
+            <OrdersList orders={orders} />
+          </div>
+
           <OrdersFeedInfo
             orders={orders}
             total={total}

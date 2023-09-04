@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { RootState } from "~/services/types";
-import { OrderDto } from "~/shared/api/dto";
+import { OrderDto, OrderStatus } from "~/shared/api/dto";
 
 import styles from "./OrdersListItem.module.css";
 
@@ -16,18 +16,17 @@ const MAX_VISIBLE_INGREDIENT_IMAGES = 6;
 const LAST_VISIBLE_INGREDIENT_IMAGE_INDEX = 5;
 const TOP_INGREDIENT_IMAGE_Z_INDEX = 8;
 
+const DEFAULT_HEIGHT_PX = "214px";
+const PROFILE_VIEW_HEIGHT_PX = "246px";
+
 type Props = {
   data: OrderDto;
-  height?: string;
+  profileView: boolean;
   onClick: () => void;
 };
 
-export const OrdersListItem: FC<Props> = ({
-  data,
-  onClick,
-  height = "214px",
-}) => {
-  const { ingredients, name, createdAt, number: orderNumber } = data;
+export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
+  const { ingredients, name, createdAt, number: orderNumber, status } = data;
 
   const burderIngredientsData = useSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
@@ -66,6 +65,12 @@ export const OrdersListItem: FC<Props> = ({
     [] as Array<{ id: string; name: string; image: string }>
   );
 
+  const height = profileView ? PROFILE_VIEW_HEIGHT_PX : DEFAULT_HEIGHT_PX;
+
+  const isDone = status === OrderStatus.DONE;
+  const isPending = status === OrderStatus.PENDING;
+  const isCreated = status === OrderStatus.CREATED;
+
   return (
     <div
       className={styles.wrapper}
@@ -82,11 +87,24 @@ export const OrdersListItem: FC<Props> = ({
         />
       </div>
 
-      <span
-        className={`${styles.orderName} text text_type_main-medium pl-6 pr-6`}
-      >
-        {name}
-      </span>
+      <div className={styles.description}>
+        <span
+          className={`${styles.orderName} text text_type_main-medium pl-6 pr-6`}
+        >
+          {name}
+        </span>
+        {profileView && (
+          <span
+            className={`${
+              isDone ? styles.statusDone : ""
+            } text text_type_main-default pl-6`}
+          >
+            {isDone && "Выполнен"}
+            {isPending && "Готовится"}
+            {isCreated && "Создан"}
+          </span>
+        )}
+      </div>
 
       <div className={`${styles.footer} mb-6 pl-6 pr-6`}>
         <div className={styles.ingredientImagesWrapper}>

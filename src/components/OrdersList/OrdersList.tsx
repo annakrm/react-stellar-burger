@@ -14,9 +14,10 @@ import { OrdersListItem } from "./OrdersListItem";
 
 type Props = {
   orders: OrderDto[];
+  profileView?: boolean;
 };
 
-export const OrdersList: FC<Props> = ({ orders }) => {
+export const OrdersList: FC<Props> = ({ orders, profileView }) => {
   const dispatch = useDispatch();
 
   const burgerIngredients = useSelector(
@@ -34,30 +35,37 @@ export const OrdersList: FC<Props> = ({ orders }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOrderClick = (data: OrderDto) => {
-    window.history.replaceState({}, "", data ? `/feed/${data._id}` : "/");
+    const parentRoute = profileView ? "profile" : "feed";
+    window.history.replaceState(
+      {},
+      "",
+      data ? `/${parentRoute}/${data._id}` : "/"
+    );
 
     dispatch(setOrderDetails(data));
   };
 
   return (
-    <div>
-      <h1 className="text text_type_main-large mt-10 mb-5">Лента заказов</h1>
-      <div className={`${styles.list} custom-scroll`}>
-        {orders.map((data) => (
-          <Fragment key={data._id}>
-            <OrdersListItem
-              data={data}
-              onClick={() => handleOrderClick(data)}
-            />
-          </Fragment>
-        ))}
+    <div
+      className={`${styles.list} ${
+        profileView ? styles.listProfile : ""
+      } custom-scroll`}
+    >
+      {orders.map((data) => (
+        <Fragment key={data._id}>
+          <OrdersListItem
+            data={data}
+            profileView={profileView}
+            onClick={() => handleOrderClick(data)}
+          />
+        </Fragment>
+      ))}
 
-        {Boolean(orderDetails) && (
-          <Modal onClose={() => handleOrderClick(null)}>
-            <OrderDetails />
-          </Modal>
-        )}
-      </div>
+      {Boolean(orderDetails) && (
+        <Modal onClose={() => handleOrderClick(null)}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 };

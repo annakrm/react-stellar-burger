@@ -2,9 +2,9 @@
 import type { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { EditProfile } from "~/pages/EditProfile";
 import { OrderDetails } from "~/pages/OrderDetails";
 import { AppHeader } from "~components/AppHeader";
-import { EditProfile } from "~components/EditProfile";
 import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
 import { BurgerConfiguration } from "~pages/BurgerConfiguration";
 import { ForgotPassword } from "~pages/ForgotPassword";
