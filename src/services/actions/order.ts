@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import type { OrderDetailsDto } from "~/shared/api/dto";
+import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
 
 import { apiInstance } from "../../shared/api";
 import {
@@ -25,7 +25,7 @@ export const makeOrder = (ingredientIds: string[]) => {
   return (dispatch: Dispatch<any>): void => {
     apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
-      .then(({ name, order }: OrderDetailsDto) => {
+      .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {
         dispatch({
           type: MAKE_ORDER_SUCCESS,
           details: { name, order },

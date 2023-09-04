@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 616px;
+  height: calc(100vh - 88px - 100px - 64px);
+  overflow-y: auto;
+}

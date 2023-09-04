@@ -4,13 +4,14 @@ export type MakeOrderRequest = {
   ingredientIds: string[];
 };
 
-export type MakeOrderResponse = ResponseSuccess & OrderDetailsDto;
+export type MakeOrderResponse = ResponseSuccess &
+  BurgerConstructorOrderDetailsDto;
 
-export type OrderDetailsDto = {
+export type BurgerConstructorOrderDetailsDto = {
   name: string;
-  order: OrderDto;
+  order: BurgerConstructorOrderDto;
 };
 
-export type OrderDto = {
+export type BurgerConstructorOrderDto = {
   number: number;
 };
