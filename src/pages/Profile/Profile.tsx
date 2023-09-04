@@ -27,7 +27,7 @@ export const Profile: FC = () => {
           <NavLink to="/profile/orders" className={setActiveText}>
             История заказов
           </NavLink>
-          <NavLink to="#" className={setActiveText} onClick={handleLogout}>
+          <NavLink to="#" className={styles.link} onClick={handleLogout}>
             Выход
           </NavLink>
         </div>
@@ -42,7 +42,7 @@ export const Profile: FC = () => {
         </div>
       </div>
 
-      <div className={styles.contentWeapper}>
+      <div className={styles.contentWrapper}>
         {" "}
         <Outlet />
       </div>

@@ -10,7 +10,11 @@
   gap: 16px;
 
   width: 616px;
-  height: calc(100vh - 88px - 100px - 64px);
+  height: calc(100vh - 88px - 92px);
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.listProfile {
+  width: 100%;
 }

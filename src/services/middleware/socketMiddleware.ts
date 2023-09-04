@@ -49,7 +49,8 @@ export const socketMiddleware = (
 
       if (type === wsInit) {
         if (userData) {
-          const accessToken = getAccessToken();
+          const accessToken = getAccessToken().split(" ")[1];
+
           const targetUrl = allOrdersMode
             ? `${wsUrl}/all`
             : `${wsUrl}?token=${accessToken}`;
