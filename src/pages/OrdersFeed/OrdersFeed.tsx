@@ -24,7 +24,7 @@ export const OrdersFeed: FC = () => {
     dispatch(ordersAllWsConnectionStart());
 
     return () => dispatch(ordersWsConnectionClosed());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const isOrdersLoaded = orders.length > 0;
 

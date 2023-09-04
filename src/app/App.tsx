@@ -2,6 +2,7 @@
 import type { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { OrderDetails } from "~/pages/OrderDetails";
 import { AppHeader } from "~components/AppHeader";
 import { EditProfile } from "~components/EditProfile";
 import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
@@ -9,7 +10,6 @@ import { BurgerConfiguration } from "~pages/BurgerConfiguration";
 import { ForgotPassword } from "~pages/ForgotPassword";
 import { IngredientDetails } from "~pages/IngredientDetails";
 import { Login } from "~pages/Login";
-import { Order } from "~pages/Order";
 import { Orders } from "~pages/Orders";
 import { OrdersFeed } from "~pages/OrdersFeed";
 import { Profile } from "~pages/Profile";
@@ -28,7 +28,7 @@ export const App: FC = () => {
           <Route path="/" element={<BurgerConfiguration />} />
 
           <Route path="feed" element={<OrdersFeed />} />
-          <Route path="feed/:id" element={<Order />} />
+          <Route path="feed/:id" element={<OrderDetails />} />
 
           <Route path="profile" element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<EditProfile />} />
