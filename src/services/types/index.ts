@@ -11,6 +11,9 @@ export type {
 } from "./burgerIngredients";
 
 export type { OrderAction, OrderState } from "./order";
+
+export type { OrderDetailsAction, OrderDetailsState } from "./orderDetails";
+
 export type {
   OrdersWebSocketAction,
   OrdersWebSocketState,

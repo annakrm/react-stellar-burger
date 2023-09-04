@@ -1,42 +1,13 @@
 .wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  position: relative;
-
-  width: calc(100% - 8px);
-
-  cursor: pointer;
-
-  background-color: var(--background);
-  border-radius: 40px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.orderName {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.footer {
-  display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-
-.ingredientImagesWrapper {
+.description {
   display: flex;
-}
-
-.ingredientImagePositionWrapper {
-  width: 48px;
+  align-items: center;
+  gap: 16px;
 }
 
 .ingredientImageWrapper {

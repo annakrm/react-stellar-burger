@@ -2,58 +2,61 @@ import type { FC } from "react";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  getBurgerIngredients,
-  ordersAllWsConnectionStart,
-  ordersWsConnectionClosed,
-} from "~/services/actions";
+import { getBurgerIngredients, setOrderDetails } from "~/services/actions";
 import { RootState } from "~/services/types";
 import { OrderDto } from "~/shared/api/dto";
-import { mockedOrders } from "~/shared/api/mocks";
+import { Modal } from "~/shared/ui/Modal";
+
+import { OrderDetails } from "../OrderDetails";
 
 import styles from "./OrdersList.module.css";
 import { OrdersListItem } from "./OrdersListItem";
 
-export const OrdersList: FC = () => {
+type Props = {
+  orders: OrderDto[];
+};
+
+export const OrdersList: FC<Props> = ({ orders }) => {
   const dispatch = useDispatch();
 
   const burgerIngredients = useSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 
-  useEffect(() => {
-    // dispatch(ordersAllWsConnectionStart());
+  const orderDetails = useSelector(
+    ({ orderDetails }: RootState) => orderDetails.data
+  );
 
+  useEffect(() => {
     if (burgerIngredients.length === 0) {
       dispatch(getBurgerIngredients());
     }
-
-    // return () => dispatch(ordersWsConnectionClosed());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOrderClick = (data: OrderDto) => {
     window.history.replaceState({}, "", data ? `/feed/${data._id}` : "/");
 
-    // dispatch(setBurgerIngredientDetails(data));
+    dispatch(setOrderDetails(data));
   };
-
-  console.log(mockedOrders);
 
   return (
     <div>
       <h1 className="text text_type_main-large mt-10 mb-5">Лента заказов</h1>
       <div className={`${styles.list} custom-scroll`}>
-        {mockedOrders.map((data) => (
+        {orders.map((data) => (
           <Fragment key={data._id}>
-            <OrdersListItem data={data} onClick={handleOrderClick} />
+            <OrdersListItem
+              data={data}
+              onClick={() => handleOrderClick(data)}
+            />
           </Fragment>
         ))}
 
-        {/* {Boolean(burgerIngredientDetails) && (
-        <Modal onClose={() => handleBurgerIngredientClick(null)}>
-          <IngredientDetails />
-        </Modal>
-      )} */}
+        {Boolean(orderDetails) && (
+          <Modal onClose={() => handleOrderClick(null)}>
+            <OrderDetails />
+          </Modal>
+        )}
       </div>
     </div>
   );

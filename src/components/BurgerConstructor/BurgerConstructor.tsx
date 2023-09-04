@@ -15,7 +15,7 @@ import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import { hasBuns } from "~/shared/lib/hasBuns";
 
-import { OrderDetails } from "../OrderDetails";
+import { BurgerConstructorOrderDetailsModal } from "../BurgerConstructorOrderDetailsModal";
 
 import styles from "./BurgerConstructor.module.css";
 import { BurgerConstructorBunPlaceholder } from "./BurgerConstructorBunPlaceholder";
@@ -180,7 +180,7 @@ export const BurgerConstructor: FC = () => {
       </div>
 
       {orderDetailesModalOpened && (
-        <OrderDetails
+        <BurgerConstructorOrderDetailsModal
           onClose={() => dispatch(setOrderDetailesModalOpened(false))}
         />
       )}
