@@ -11,5 +11,6 @@
 
   width: 616px;
   height: calc(100vh - 88px - 100px - 64px);
+  overflow-x: hidden;
   overflow-y: auto;
 }

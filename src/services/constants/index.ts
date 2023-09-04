@@ -12,6 +12,8 @@ export {
   MAKE_ORDER_FAILED,
 } from "./order";
 
+export { ORDER_DETAILS_SET_DATA } from "./orderDetails";
+
 export {
   ORDERS_WS_CONNECTION_START,
   ORDERS_WS_CONNECTION_SUCCESS,

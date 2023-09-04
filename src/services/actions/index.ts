@@ -12,6 +12,8 @@ export {
 
 export { makeOrder } from "./order";
 
+export { setOrderDetails } from "./orderDetails";
+
 export {
   ordersAllWsConnectionStart,
   ordersWsConnectionStart,
