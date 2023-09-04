@@ -1,0 +1,13 @@
+.wrapper {
+    width: 1240px;
+    height: calc(100vh - 112px);
+}
+
+.content {
+    display: flex;
+    gap: 40px;
+}
+
+.contentColumnAligned {
+    flex-direction: column;
+}

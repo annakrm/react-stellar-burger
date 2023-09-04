@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  padding-left: 80px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+
+  margin-top: 24px;
+}

@@ -1,0 +1,1 @@
+export const CHANGE_ACTIVE_TAB_TOUCH_POINT = 240;
