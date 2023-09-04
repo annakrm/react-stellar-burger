@@ -11,7 +11,11 @@ import { OrderStatus } from "~/shared/api/dto";
 import { IngredientsList } from "./IngredientsList";
 import styles from "./OrderDetails.module.css";
 
-export const OrderDetails: FC = () => {
+type Props = {
+  pageView?: boolean;
+};
+
+export const OrderDetails: FC<Props> = ({ pageView }) => {
   const data = useSelector(({ orderDetails }: RootState) => orderDetails.data);
 
   const burgerIngredients = useSelector(
@@ -35,15 +39,21 @@ export const OrderDetails: FC = () => {
     );
 
     return (
-      <>
+      <div
+        className={`${styles.wrapper} ${
+          pageView ? "" : styles.wrapperWithPadding
+        }`}
+      >
         <div className={styles.header}>
           <span
-            className={`${styles.orderNumber} text text_type_digits-default ml-10 mt-10`}
+            className={`${styles.orderNumber} ${
+              pageView ? styles.orderNumberCentered : ""
+            } text text_type_digits-default`}
           >
             {`#${orderNumber}`}
           </span>
 
-          <div className={`${styles.description} ml-10 mr-10`}>
+          <div className={`${styles.description}`}>
             <span className={`${styles.orderName} text text_type_main-medium`}>
               {name}
             </span>
@@ -59,12 +69,12 @@ export const OrderDetails: FC = () => {
           </div>
         </div>
 
-        <div className={`${styles.content} mt-15 ml-10 mr-10`}>
+        <div className={`${styles.content} mt-15`}>
           <span className="text text_type_main-medium">Состав:</span>
           <IngredientsList data={ingredientsData} />
         </div>
 
-        <div className={`${styles.footer} mt-10 mb-10 ml-10 mr-10`}>
+        <div className={`${styles.footer} mt-10 mb-10`}>
           <FormattedDate
             className="text text_type_main-default text_color_inactive"
             date={new Date(createdAt)}
@@ -75,7 +85,7 @@ export const OrderDetails: FC = () => {
             <CurrencyIcon type="primary" />
           </span>
         </div>
-      </>
+      </div>
     );
   }
 
