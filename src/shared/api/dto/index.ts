@@ -8,9 +8,12 @@ export { BurgerIngredientType } from "./burgerIngredients";
 export type {
   MakeOrderRequest,
   MakeOrderResponse,
-  OrderDetailsDto,
-  OrderDto,
+  BurgerConstructorOrderDetailsDto,
+  BurgerConstructorOrderDto,
 } from "./burgerConstructor";
+
+export type { OrderDto } from "./order";
+export { OrderStatus } from "./order";
 
 export type {
   RegisterRequest,
