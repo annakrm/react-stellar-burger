@@ -7,7 +7,6 @@ import {
   ORDERS_WS_CONNECTION_START,
 } from "../constants";
 import {
-  OrdersAllWsConnectionStartAction,
   OrdersWsConnectionStartAction,
   OrdersWsConnectionSuccessAction,
   OrdersWsConnectionErrorAction,
@@ -16,16 +15,10 @@ import {
   OrdersWsSendMessageAction,
 } from "../types";
 
-export const ordersAllWsConnectionStart: OrdersAllWsConnectionStartAction = () => {
+export const ordersWsConnectionStart: OrdersWsConnectionStartAction = (url) => {
   return {
     type: ORDERS_WS_CONNECTION_START,
-    allOrdersMode: true,
-  };
-};
-
-export const ordersWsConnectionStart: OrdersWsConnectionStartAction = () => {
-  return {
-    type: ORDERS_WS_CONNECTION_START,
+    payload: url,
   };
 };
 

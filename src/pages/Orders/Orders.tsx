@@ -7,6 +7,7 @@ import {
 } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
+import { getAccessToken } from "~/shared/lib/auth";
 import { Page } from "~/shared/ui/Page";
 import { OrdersList } from "~components/OrdersList";
 
@@ -20,7 +21,9 @@ export const Orders: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(ordersWsConnectionStart());
+    const accessToken = getAccessToken().split(" ")[1];
+
+    dispatch(ordersWsConnectionStart(`?token=${accessToken}`));
 
     return () => dispatch(ordersWsConnectionClosed());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
