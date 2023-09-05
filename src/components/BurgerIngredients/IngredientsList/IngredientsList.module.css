@@ -1,4 +1,4 @@
 .wrapper {
-  height: calc(100vh - 88px - 100px - 112px);
+  height: calc(100vh - 88px - 100px - 82px);
   overflow-y: auto;
 }

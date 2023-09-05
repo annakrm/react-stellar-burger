@@ -4,7 +4,7 @@ import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
 
 export type OrderState = {
   details: BurgerConstructorOrderDetailsDto | null;
-  orderDetailesModalOpened: boolean;
+  orderDetailsModalOpened: boolean;
   error: string;
 };
 

@@ -27,8 +27,6 @@ export const Orders: FC = () => {
 
   const isOrdersLoaded = orders.length > 0;
 
-  console.log(orders);
-
   return (
     <Page contentClassNames={styles.wrapper}>
       {isOrdersLoaded && <OrdersList orders={orders} profileView />}

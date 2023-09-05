@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 import {
-  getBurgerIngredients,
   ordersAllWsConnectionStart,
   ordersWsConnectionClosed,
   setOrderDetails,
@@ -25,30 +25,21 @@ export const OrderDetails: FC = () => {
     ({ ordersWebSocket }: RootState) => ordersWebSocket.orders
   );
 
-  const orderDetails = useSelector(
-    ({ orderDetails }: RootState) => orderDetails.data
-  );
+  const { id: orderId } = useParams();
 
   useEffect(() => {
     dispatch(ordersAllWsConnectionStart());
-
-    if (burgerIngredients.length === 0) {
-      dispatch(getBurgerIngredients());
-    }
 
     return () => dispatch(ordersWsConnectionClosed());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (burgerIngredients && orders && !orderDetails) {
-      const currentUrl = window.location.href;
-      const orderId = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
-
+    if (burgerIngredients && orders) {
       const orderDetails = orders.find((item) => item._id === orderId);
 
       dispatch(setOrderDetails(orderDetails));
     }
-  }, [burgerIngredients, orders, orderDetails]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [burgerIngredients, orders]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Page columnContentAlignment contentClassNames={styles.wrapper}>

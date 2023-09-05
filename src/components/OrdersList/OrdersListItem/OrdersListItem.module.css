@@ -79,3 +79,8 @@
 
   position: absolute;
 }
+
+.link {
+  color: var(--text-primary-color);
+  text-decoration: none;
+}

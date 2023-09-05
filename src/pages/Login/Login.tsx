@@ -3,9 +3,12 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { FC } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import type { ChangeEvent, FC, FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import { RootState } from "~/services/types";
 
 import { login } from "../../services/actions";
 
@@ -13,27 +16,41 @@ import styles from "./Login.module.css";
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onChangeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const isUserLoginSuccessful = useSelector(
+    ({ user }: RootState) => user.loginSuccessful
+  );
+
+  const navigate = useNavigate();
+
+  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
 
-  const onChangePass = (evt) => {
-    setPassword(evt.target.value);
+  const onChangePass = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (event: FormEvent) => {
+    event.preventDefault();
     dispatch(login({ email, password }));
   };
+
+  useEffect(() => {
+    if (isUserLoginSuccessful) {
+      navigate("/");
+    }
+  }, [isUserLoginSuccessful]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <div className={styles.login}>
         <h1 className="text text_type_main-medium mb-6">Вход</h1>
 
-        <div className={styles.inputWrapper}>
+        <form className={styles.inputWrapper} onSubmit={handleLogin}>
           <EmailInput
             value={email}
             name="email"
@@ -49,37 +66,35 @@ export const Login: FC = () => {
             name="password"
             placeholder="Пароль"
           />
-        </div>
 
-        <div className="mt-6 mb-20">
           <Button
-            onClick={handleLogin}
-            htmlType="button"
+            extraClass="mt-6 mb-20"
+            htmlType="submit"
             type="primary"
             size="large"
           >
             Войти
           </Button>
-        </div>
+        </form>
 
         <span className="text text_type_main-default text_color_inactive mb-4">
           Вы - новый пользователь?{" "}
-          <a
-            href="/register"
+          <NavLink
+            to="/register"
             className={`${styles.link} text text_color_accent`}
           >
             Зарегистрироваться
-          </a>
+          </NavLink>
         </span>
 
         <span className="text text_type_main-default text_color_inactive">
           Забыли пароль?{" "}
-          <a
-            href="/forgot-password"
+          <NavLink
+            to="/forgot-password"
             className={`${styles.link} text text_color_accent`}
           >
             Восстановить пароль
-          </a>
+          </NavLink>
         </span>
       </div>
     </>

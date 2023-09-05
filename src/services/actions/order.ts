@@ -10,19 +10,18 @@ import {
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
 
-export const setOrderDetailesModalOpened = (
-  orderDetailesModalOpened: boolean
+export const setOrderDetailsModalOpened = (
+  orderDetailsModalOpened: boolean
 ): {
   type: string;
-  orderDetailesModalOpened: boolean;
+  orderDetailsModalOpened: boolean;
 } => ({
   type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
-  orderDetailesModalOpened,
+  orderDetailsModalOpened,
 });
 
 export const makeOrder = (ingredientIds: string[]) => {
-  // TODO: fix any
-  return (dispatch: Dispatch<any>): void => {
+  return (dispatch: Dispatch): void => {
     apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
       .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {
@@ -31,10 +30,7 @@ export const makeOrder = (ingredientIds: string[]) => {
           details: { name, order },
         });
 
-        dispatch({
-          type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
-          value: true,
-        });
+        dispatch(setOrderDetailsModalOpened(true));
 
         dispatch({
           type: BURGER_CONSTRUCTOR_RESET_DATA,

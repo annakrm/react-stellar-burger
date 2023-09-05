@@ -1,3 +1,4 @@
+import { redirect } from "react-router";
 import { Dispatch } from "redux";
 
 import { apiInstance } from "~/shared/api";
@@ -16,6 +17,8 @@ import {
   USER_SET_AUTH_CHECKED,
   USER_SET_USER_DATA,
   USER_RESET_DATA,
+  USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
+  USER_SET_LOGIN_SUCCESS,
 } from "../constants";
 
 export const resetUserData = (): {
@@ -42,6 +45,26 @@ export const setAuthChecked = (
 } => ({
   type: USER_SET_AUTH_CHECKED,
   authChecked,
+});
+
+export const setInitPasswordResetRequestSuccess = (
+  value: boolean
+): {
+  type: string;
+  passwordResetRequestSuccessful: boolean;
+} => ({
+  type: USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
+  passwordResetRequestSuccessful: value,
+});
+
+export const setLoginSuccess = (
+  value: boolean
+): {
+  type: string;
+  loginSuccessful: boolean;
+} => ({
+  type: USER_SET_LOGIN_SUCCESS,
+  loginSuccessful: value,
 });
 
 export const register = (requestData: RegisterRequest) => {
@@ -77,6 +100,7 @@ export const login = (requestData: LoginRequest) => {
 
           updateLocalStorageTokens(accessToken, refreshToken);
           dispatch(setUserData(user));
+          dispatch(setLoginSuccess(true));
         } else {
           return Promise.reject(SERVER_ERROR_MESSAGE);
         }
@@ -114,12 +138,12 @@ export const logout = () => {
 };
 
 export const initPasswordReset = (requestData: InitPasswordResetRequest) => {
-  return (): Promise<void> => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
       .initPasswordReset(requestData)
       .then((response) => {
         if (response.success) {
-          window.location.href = "/reset-password";
+          dispatch(setInitPasswordResetRequestSuccess(true));
         } else {
           return Promise.reject(SERVER_ERROR_MESSAGE);
         }
@@ -131,7 +155,7 @@ export const resetPassword = (requestData: ResetPasswordRequest) => {
   return (): Promise<void> => {
     return apiInstance.userApi.resetPassword(requestData).then((response) => {
       if (response.success) {
-        window.location.href = "/login";
+        redirect("/login");
       } else {
         return Promise.reject(SERVER_ERROR_MESSAGE);
       }

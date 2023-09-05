@@ -25,3 +25,8 @@
   top: 0;
   left: 100%;
 }
+
+.link {
+  color: var(--text-primary-color);
+  text-decoration: none;
+}
