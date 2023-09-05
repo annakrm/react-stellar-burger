@@ -16,7 +16,7 @@ export type OrdersAllWsConnectionStartAction = () => {
   type: string;
   allOrdersMode?: boolean;
 };
-export type OrdersWsConnectionStartAction = () => { type: string };
+export type OrdersWsConnectionStartAction = (url: string) => { type: string };
 export type OrdersWsConnectionSuccessAction = () => { type: string };
 export type OrdersWsConnectionErrorAction = () => { type: string };
 export type OrdersWsConnectionClosedAction = () => { type: string };

@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { useEffect } from "react";
 
 import {
-  ordersAllWsConnectionStart,
+  ordersWsConnectionStart,
   ordersWsConnectionClosed,
 } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
@@ -21,7 +21,7 @@ export const OrdersFeed: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(ordersAllWsConnectionStart());
+    dispatch(ordersWsConnectionStart("/all"));
 
     return () => dispatch(ordersWsConnectionClosed());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

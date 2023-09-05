@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 
 import {
-  ordersAllWsConnectionStart,
+  ordersWsConnectionStart,
   ordersWsConnectionClosed,
   setOrderDetails,
 } from "~/services/actions";
@@ -28,7 +28,7 @@ export const OrderDetails: FC = () => {
   const { id: orderId } = useParams();
 
   useEffect(() => {
-    dispatch(ordersAllWsConnectionStart());
+    dispatch(ordersWsConnectionStart("/all"));
 
     return () => dispatch(ordersWsConnectionClosed());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

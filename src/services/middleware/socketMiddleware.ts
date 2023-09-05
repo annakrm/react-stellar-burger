@@ -33,8 +33,8 @@ export const socketMiddleware = (
     let socket = null;
 
     return (next: WebSocketNextActionFunc) => (action: WebSocketAction) => {
-      const { dispatch, getState } = store;
-      const { type, payload, allOrdersMode } = action;
+      const { dispatch } = store;
+      const { type, payload } = action;
 
       const {
         wsInit,
@@ -45,20 +45,8 @@ export const socketMiddleware = (
         onMessage,
       } = wsActions;
 
-      const { userData } = getState().user;
-
       if (type === wsInit) {
-        if (userData) {
-          const accessToken = getAccessToken().split(" ")[1];
-
-          const targetUrl = allOrdersMode
-            ? `${wsUrl}/all`
-            : `${wsUrl}?token=${accessToken}`;
-
-          socket = new WebSocket(targetUrl);
-        } else if (allOrdersMode) {
-          socket = new WebSocket(`${wsUrl}/all`);
-        }
+        socket = new WebSocket(`${wsUrl}/${payload}`);
       }
 
       if (socket) {
