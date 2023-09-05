@@ -1,6 +1,13 @@
-import { redirect } from "react-router";
+import { Dispatch } from "redux";
 
 import { apiInstance } from "~/shared/api";
+import {
+  InitPasswordResetRequest,
+  LoginRequest,
+  RegisterRequest,
+  ResetPasswordRequest,
+  UpdateUserRequest,
+} from "~/shared/api/dto";
 import { getAccessToken, updateLocalStorageTokens } from "~/shared/lib/auth";
 import { removeLocalStorageTokens } from "~/shared/lib/auth/removeLocalStorageTokens";
 import { SERVER_ERROR_MESSAGE } from "~/shared/lib/constants";
@@ -9,54 +16,36 @@ import {
   USER_SET_AUTH_CHECKED,
   USER_SET_USER_DATA,
   USER_RESET_DATA,
-  USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
-  USER_SET_LOGIN_SUCCESS,
 } from "../constants";
-import {
-  AppDispatch,
-  ResetUserDataAction,
-  SetUserDataAction,
-  SetAuthCheckedAction,
-  SetInitPasswordResetRequestSuccessAction,
-  SetLoginSuccessAction,
-  RegisterThunkAction,
-  LoginThunkAction,
-  LogoutThunkAction,
-  InitPasswordResetThunkAction,
-  ResetPasswordThunkAction,
-  GetUserThunkAction,
-  UpdateUserThunkAction,
-  CheckUserAuthAction,
-} from "../types";
 
-export const resetUserData: ResetUserDataAction = () => ({
+export const resetUserData = (): {
+  type: string;
+} => ({
   type: USER_RESET_DATA,
 });
 
-export const setUserData: SetUserDataAction = (userData) => ({
+export const setUserData = (
+  userData: object
+): {
+  type: string;
+  userData: object;
+} => ({
   type: USER_SET_USER_DATA,
   userData,
 });
 
-export const setAuthChecked: SetAuthCheckedAction = (authChecked) => ({
+export const setAuthChecked = (
+  authChecked: boolean
+): {
+  type: string;
+  authChecked: boolean;
+} => ({
   type: USER_SET_AUTH_CHECKED,
   authChecked,
 });
 
-export const setInitPasswordResetRequestSuccess: SetInitPasswordResetRequestSuccessAction = (
-  value
-) => ({
-  type: USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
-  passwordResetRequestSuccessful: value,
-});
-
-export const setLoginSuccess: SetLoginSuccessAction = (value) => ({
-  type: USER_SET_LOGIN_SUCCESS,
-  loginSuccessful: value,
-});
-
-export const register: RegisterThunkAction = (requestData) => {
-  return (dispatch: AppDispatch) => {
+export const register = (requestData: RegisterRequest) => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
       .register(requestData)
       .then((response) => {
@@ -78,8 +67,8 @@ export const register: RegisterThunkAction = (requestData) => {
   };
 };
 
-export const login: LoginThunkAction = (requestData) => {
-  return (dispatch: AppDispatch) => {
+export const login = (requestData: LoginRequest) => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
       .login(requestData)
       .then((response) => {
@@ -88,7 +77,6 @@ export const login: LoginThunkAction = (requestData) => {
 
           updateLocalStorageTokens(accessToken, refreshToken);
           dispatch(setUserData(user));
-          dispatch(setLoginSuccess(true));
         } else {
           return Promise.reject(SERVER_ERROR_MESSAGE);
         }
@@ -102,8 +90,8 @@ export const login: LoginThunkAction = (requestData) => {
   };
 };
 
-export const logout: LogoutThunkAction = () => {
-  return (dispatch: AppDispatch) => {
+export const logout = () => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi
       .logout()
       .then((response) => {
@@ -125,15 +113,13 @@ export const logout: LogoutThunkAction = () => {
   };
 };
 
-export const initPasswordReset: InitPasswordResetThunkAction = (
-  requestData
-) => {
-  return (dispatch: AppDispatch) => {
+export const initPasswordReset = (requestData: InitPasswordResetRequest) => {
+  return (): Promise<void> => {
     return apiInstance.userApi
       .initPasswordReset(requestData)
       .then((response) => {
         if (response.success) {
-          dispatch(setInitPasswordResetRequestSuccess(true));
+          window.location.href = "/reset-password";
         } else {
           return Promise.reject(SERVER_ERROR_MESSAGE);
         }
@@ -141,11 +127,11 @@ export const initPasswordReset: InitPasswordResetThunkAction = (
   };
 };
 
-export const resetPassword: ResetPasswordThunkAction = (requestData) => {
-  return () => {
+export const resetPassword = (requestData: ResetPasswordRequest) => {
+  return (): Promise<void> => {
     return apiInstance.userApi.resetPassword(requestData).then((response) => {
       if (response.success) {
-        redirect("/login");
+        window.location.href = "/login";
       } else {
         return Promise.reject(SERVER_ERROR_MESSAGE);
       }
@@ -153,8 +139,8 @@ export const resetPassword: ResetPasswordThunkAction = (requestData) => {
   };
 };
 
-export const getUser: GetUserThunkAction = () => {
-  return (dispatch: AppDispatch) => {
+export const getUser = () => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi.getUser().then((response) => {
       if (response.success) {
         dispatch(setUserData(response.user));
@@ -165,8 +151,8 @@ export const getUser: GetUserThunkAction = () => {
   };
 };
 
-export const updateUser: UpdateUserThunkAction = (requestData) => {
-  return (dispatch: AppDispatch) => {
+export const updateUser = (requestData: UpdateUserRequest) => {
+  return (dispatch: Dispatch): Promise<void> => {
     return apiInstance.userApi.updateUser(requestData).then((response) => {
       if (response.success) {
         dispatch(setUserData(response.user));
@@ -177,12 +163,12 @@ export const updateUser: UpdateUserThunkAction = (requestData) => {
   };
 };
 
-export const checkUserAuth: CheckUserAuthAction = () => {
-  return (dispatch: AppDispatch): void => {
+export const checkUserAuth = () => {
+  return (dispatch: Dispatch): void => {
     const accessToken = getAccessToken();
 
     if (accessToken) {
-      dispatch(getUser() as any)
+      dispatch<any>(getUser()) // TODO: fix any
         .catch((error) => {
           console.error(error);
 

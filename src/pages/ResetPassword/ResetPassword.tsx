@@ -2,34 +2,19 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { ChangeEvent, FC, FormEvent } from "react";
-import { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import type { ChangeEvent, FC } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { resetPassword } from "~/services/actions/user";
-import { useAppDispatch } from "~/services/hooks";
 
 import styles from "./ResetPassword.module.css";
 
 export const ResetPassword: FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const [passwordInputValue, setPasswordInputValue] = useState("");
   const [codeInputValue, setCodeInputValue] = useState("");
-  const [isPageInited, setIsPageInited] = useState(false);
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const isFromForgotPasswordPath = location?.state?.fromForgotPassword;
-
-    if (isFromForgotPasswordPath) {
-      setIsPageInited(true);
-    } else {
-      navigate(-1);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePasswordInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordInputValue(event.target.value);
@@ -39,9 +24,7 @@ export const ResetPassword: FC = () => {
     setCodeInputValue(event.target.value);
   };
 
-  const handleResetPassword = (event: FormEvent) => {
-    event.preventDefault();
-
+  const handleResetPassword = () => {
     const requestData = {
       password: passwordInputValue,
       token: codeInputValue,
@@ -50,14 +33,14 @@ export const ResetPassword: FC = () => {
     dispatch(resetPassword(requestData));
   };
 
-  return isPageInited ? (
+  return (
     <>
       <div className={styles.login}>
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
 
-        <form className={styles.inputWrapper} onSubmit={handleResetPassword}>
+        <div className={styles.inputWrapper}>
           <Input
             onChange={handlePasswordInputChange}
             value={passwordInputValue}
@@ -70,24 +53,26 @@ export const ResetPassword: FC = () => {
             value={codeInputValue}
             placeholder="Введите код из письма"
           />
+        </div>
 
+        <div className="mt-6 mb-20">
           <Button
-            extraClass="mt-6 mb-20"
-            htmlType="submit"
+            htmlType="button"
             type="primary"
             size="large"
+            onClick={handleResetPassword}
           >
             Сохранить
           </Button>
-        </form>
+        </div>
 
         <span className="text text_type_main-default text_color_inactive mb-4">
           Вспомнили пароль?{" "}
-          <NavLink to="/" className={`${styles.link} text text_color_accent`}>
+          <a href="/" className={`${styles.link} text text_color_accent`}>
             Войти
-          </NavLink>
+          </a>
         </span>
       </div>
     </>
-  ) : null;
+  );
 };

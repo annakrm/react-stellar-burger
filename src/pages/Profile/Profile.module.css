@@ -1,11 +1,11 @@
 .profile {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 40px;
-
-  width: 100%;
+  align-items: center;
+  margin-top: 180px;
+  justify-content: flex-start;
+  width: calc(100% - 420px);
+  height: 320px;
 }
 
 .link {
@@ -35,9 +35,6 @@
 .navbarContainer {
   display: flex;
   flex-direction: column;
-
-  height: 320px;
-  margin-top: 120px;
 }
 
 .navbar {
@@ -54,6 +51,6 @@
   color: #8585AD
 }
 
-.contentWrapper > div {
-  width: max-content;
+.contentWeapper {
+  height: 100%;
 }

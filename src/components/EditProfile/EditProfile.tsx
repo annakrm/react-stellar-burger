@@ -3,22 +3,20 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { FC, ChangeEvent, FormEvent } from "react";
+import type { FC, ChangeEvent } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "~/services/actions/user";
-import { useAppDispatch, useAppSelector } from "~/services/hooks";
 
 import { RootState } from "../../services/types";
 
 import styles from "./EditProfile.module.css";
 
 export const EditProfile: FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-  const { name, email } = useAppSelector(
-    ({ user }: RootState) => user.userData
-  );
+  const { name, email } = useSelector(({ user }: RootState) => user.userData);
 
   const [nameInputValue, setNameInputValue] = useState(name);
   const [emailInputValue, setEmailInputValue] = useState(email);
@@ -50,9 +48,7 @@ export const EditProfile: FC = () => {
     }
   };
 
-  const handleUpdateUser = (event: FormEvent) => {
-    event.preventDefault();
-
+  const handleUpdateUser = () => {
     const requestData = {
       name: nameInputValue,
       email: emailInputValue,
@@ -74,7 +70,7 @@ export const EditProfile: FC = () => {
 
   return (
     <>
-      <form className={styles.wrapper} onSubmit={handleUpdateUser}>
+      <div className={styles.wrapper}>
         <Input
           onChange={handleNameInputChange}
           value={nameInputValue}
@@ -109,7 +105,12 @@ export const EditProfile: FC = () => {
               >
                 Отмена
               </Button>
-              <Button htmlType="submit" type="primary" size="medium">
+              <Button
+                htmlType="button"
+                type="primary"
+                size="medium"
+                onClick={handleUpdateUser}
+              >
                 Сохранить
               </Button>
             </div>
@@ -117,7 +118,7 @@ export const EditProfile: FC = () => {
         ) : (
           <div />
         )}
-      </form>
+      </div>
 
       <span className="text text_type_main-default text_color_inactive mb-4" />
     </>

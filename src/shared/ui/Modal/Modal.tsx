@@ -1,5 +1,4 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { FC } from "react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
@@ -8,12 +7,8 @@ import { closeByEsc } from "../../lib/closeByEsc";
 import styles from "./Modal.module.css";
 import { ModalOverlay } from "./ModalOverlay";
 
-type Props = {
-  onClose: () => void;
-};
-
-export const Modal: FC<Props> = ({ children, onClose }) => {
-  const handleCloseModal = (event: KeyboardEvent) => closeByEsc(event, onClose);
+export const Modal = ({ children, onClose }) => {
+  const handleCloseModal = (evt) => closeByEsc(evt, onClose);
 
   const modalsContainerElement = document.getElementById("modals");
 

@@ -3,18 +3,16 @@ import {
   EmailInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { ChangeEvent, FC, FormEvent } from "react";
+import type { ChangeEvent, FC } from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-
-import { useAppDispatch } from "~/services/hooks";
+import { useDispatch } from "react-redux";
 
 import { register } from "../../services/actions";
 
 import styles from "./Registration.module.css";
 
 export const Registration: FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,8 +30,7 @@ export const Registration: FC = () => {
     setName(event.target.value);
   };
 
-  const handleRegister = (event: FormEvent) => {
-    event.preventDefault();
+  const onClick = () => {
     dispatch(register({ email, password, name }));
   };
 
@@ -41,7 +38,7 @@ export const Registration: FC = () => {
     <>
       <div className={styles.registration}>
         <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-        <form className={styles.inputWrapper} onSubmit={handleRegister}>
+        <div className={styles.inputWrapper}>
           <Input
             onChange={onChangeName}
             value={name}
@@ -64,25 +61,24 @@ export const Registration: FC = () => {
             name="password"
             placeholder="Пароль"
           />
+        </div>
 
+        <div className="mt-6 mb-20">
           <Button
-            extraClass="mt-6 mb-20"
-            htmlType="submit"
+            htmlType="button"
             type="primary"
             size="large"
+            onClick={onClick}
           >
             Зарегистрироваться
           </Button>
-        </form>
+        </div>
 
         <span className="text text_type_main-default text_color_inactive mb-4">
           Уже зарегистрированы?{" "}
-          <NavLink
-            to="/login"
-            className={`${styles.link} text text_color_accent`}
-          >
+          <a href="/login" className={`${styles.link} text text_color_accent`}>
             Войти
-          </NavLink>
+          </a>
         </span>
       </div>
     </>
