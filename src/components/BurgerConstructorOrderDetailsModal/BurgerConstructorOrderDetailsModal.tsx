@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import { useSelector } from "react-redux";
 
+import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import DoneImage from "~assets/images/done.png";
 import { Modal } from "~shared/ui/Modal";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const BurgerConstructorOrderDetailsModal: FC<Props> = ({ onClose }) => {
-  const { details: orderDetails } = useSelector(
+  const { details: orderDetails } = useAppSelector(
     ({ order }: RootState) => order
   );
 

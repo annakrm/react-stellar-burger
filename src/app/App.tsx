@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import type { FC } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { EditProfile } from "~/pages/EditProfile";
 import { OrderDetails } from "~/pages/OrderDetails";
 import { getBurgerIngredients } from "~/services/actions";
+import { useAppDispatch } from "~/services/hooks";
 import { AppHeader } from "~components/AppHeader";
 import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
 import { BurgerConfiguration } from "~pages/BurgerConfiguration";
@@ -24,11 +24,11 @@ import styles from "./App.module.css";
 
 
 export const App: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const location = useLocation();
   const background = location.state && location.state.background;

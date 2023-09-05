@@ -4,9 +4,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 
 import { deleteSelectedBurgerIngredientsItem } from "~/services/actions";
+import { useAppDispatch } from "~/services/hooks";
 import type { BurgerIngredientDto } from "~/shared/api/dto";
 
 import styles from "./BurgerConstructor.module.css";
@@ -22,7 +22,7 @@ export const BurgerConstructorDraggableItem: FC<Props> = ({
   index,
   onReorder,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { _id: ingredientId, name, price, image } = data;
 

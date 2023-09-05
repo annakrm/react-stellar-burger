@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   ordersWsConnectionStart,
   ordersWsConnectionClosed,
 } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { Page } from "~/shared/ui/Page";
 import { OrdersList } from "~components/OrdersList";
@@ -13,9 +13,9 @@ import { OrdersList } from "~components/OrdersList";
 import styles from "./Orders.module.css";
 
 export const Orders: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const orders = useSelector(
+  const orders = useAppSelector(
     ({ ordersWebSocket }: RootState) => ordersWebSocket.orders
   );
 

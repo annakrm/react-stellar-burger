@@ -4,15 +4,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { resetPassword } from "~/services/actions/user";
+import { useAppDispatch } from "~/services/hooks";
 
 import styles from "./ResetPassword.module.css";
 
 export const ResetPassword: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [passwordInputValue, setPasswordInputValue] = useState("");
   const [codeInputValue, setCodeInputValue] = useState("");

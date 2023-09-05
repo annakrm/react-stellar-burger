@@ -1,7 +1,7 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { FC } from "react";
-import { useSelector } from "react-redux";
 
+import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { BurgerIngredientTab } from "~shared/lib/types";
 
@@ -9,7 +9,7 @@ import styles from "./BurgerIngredients.module.css";
 import { IngredientsList } from "./IngredientsList";
 
 export const BurgerIngredients: FC = () => {
-  const { activeTab } = useSelector(
+  const { activeTab } = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients
   );
 

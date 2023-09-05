@@ -1,7 +1,4 @@
-import { Dispatch } from "redux";
-
 import type { BurgerIngredientDto } from "~/shared/api/dto";
-import { BurgerIngredientTab } from "~/shared/lib/types";
 import { apiInstance } from "~shared/api";
 
 import {
@@ -9,9 +6,21 @@ import {
   BURGER_INGREDIENTS_GET_DATA_SUCCESS,
   BURGER_INGREDIENTS_SET_ACTIVE_TAB,
 } from "../constants";
+import {
+  AppDispatch,
+  GetBurgerIngredientsThunkAction,
+  SetBurgerIngredientsActiveTabAction,
+} from "../types";
 
-export const getBurgerIngredients = () => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const setBurgerIngredientsActiveTab: SetBurgerIngredientsActiveTabAction = (
+  activeTab
+) => ({
+  type: BURGER_INGREDIENTS_SET_ACTIVE_TAB,
+  activeTab,
+});
+
+export const getBurgerIngredients: GetBurgerIngredientsThunkAction = () => {
+  return (dispatch: AppDispatch): Promise<void> => {
     return apiInstance.burgerIngredientsApi
       .getBurgerIngredients()
       .then(({ data }: { data: BurgerIngredientDto[] }) => {
@@ -28,10 +37,3 @@ export const getBurgerIngredients = () => {
       });
   };
 };
-
-export const setBurgerIngredientsActiveTab = (
-  activeTab: BurgerIngredientTab
-): { type: string; activeTab: BurgerIngredientTab } => ({
-  type: BURGER_INGREDIENTS_SET_ACTIVE_TAB,
-  activeTab,
-});

@@ -8,3 +8,10 @@ export type BurgerIngredientDetailsState = {
 
 export type BurgerIngredientDetailsAction = Action<string> &
   BurgerIngredientDetailsState;
+
+export type SetBurgerIngredientDetailsAction = (
+  data: BurgerIngredientDto
+) => {
+  type: string;
+  data: BurgerIngredientDto;
+};

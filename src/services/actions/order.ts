@@ -1,5 +1,3 @@
-import { Dispatch } from "redux";
-
 import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
 
 import { apiInstance } from "../../shared/api";
@@ -9,19 +7,21 @@ import {
   MAKE_ORDER_SUCCESS,
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
+import {
+  AppDispatch,
+  MakeOrderThunkAction,
+  SetOrderDetailsModalOpenedAction,
+} from "../types";
 
-export const setOrderDetailsModalOpened = (
+export const setOrderDetailsModalOpened: SetOrderDetailsModalOpenedAction = (
   orderDetailsModalOpened: boolean
-): {
-  type: string;
-  orderDetailsModalOpened: boolean;
-} => ({
+) => ({
   type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
   orderDetailsModalOpened,
 });
 
-export const makeOrder = (ingredientIds: string[]) => {
-  return (dispatch: Dispatch): void => {
+export const makeOrder: MakeOrderThunkAction = (ingredientIds) => {
+  return (dispatch: AppDispatch): void => {
     apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
       .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {

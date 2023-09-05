@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
 
+import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 
 import styles from "./IngredientDetails.module.css";
 
 export const IngredientDetails: FC = () => {
-  const data = useSelector(
+  const data = useAppSelector(
     ({ burgerIngredientDetails }: RootState) => burgerIngredientDetails.data
   );
 

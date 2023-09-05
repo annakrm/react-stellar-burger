@@ -4,10 +4,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { FC } from "react";
 import { useMemo, Fragment } from "react";
-import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
+import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { OrderDto, OrderStatus } from "~/shared/api/dto";
 
@@ -36,7 +36,7 @@ export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
     status,
   } = data;
 
-  const burderIngredientsData = useSelector(
+  const burderIngredientsData = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 

@@ -7,3 +7,7 @@ export type OrderDetailsState = {
 };
 
 export type OrderDetailsAction = Action<string> & OrderDetailsState;
+
+export type SetOrderDetailsAction = (
+  data: OrderDto
+) => { type: string; data: OrderDto };
