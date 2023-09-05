@@ -5,9 +5,9 @@ import {
 import type { FC } from "react";
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { addSelectedBurgerIngredientsItem } from "~services/actions";
 import type { BurgerIngredientDto } from "~shared/api/dto";
@@ -23,9 +23,9 @@ export const IngredientsListItem: FC<Props> = ({
   data,
   onOpenIngredientDetails,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { data: selectedBurgerIngredients } = useSelector(
+  const { data: selectedBurgerIngredients } = useAppSelector(
     ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 

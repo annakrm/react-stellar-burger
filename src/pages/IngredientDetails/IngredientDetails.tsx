@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import { setBurgerIngredientDetails } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { IngredientDetails as IngredientDetailsComponent } from "~components/IngredientDetails";
 import { Page } from "~shared/ui/Page";
@@ -11,9 +11,9 @@ import { Page } from "~shared/ui/Page";
 import styles from "./IngredientDetails.module.css";
 
 export const IngredientDetails: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const burgerIngredients = useSelector(
+  const burgerIngredients = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 

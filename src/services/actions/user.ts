@@ -1,14 +1,6 @@
 import { redirect } from "react-router";
-import { Dispatch } from "redux";
 
 import { apiInstance } from "~/shared/api";
-import {
-  InitPasswordResetRequest,
-  LoginRequest,
-  RegisterRequest,
-  ResetPasswordRequest,
-  UpdateUserRequest,
-} from "~/shared/api/dto";
 import { getAccessToken, updateLocalStorageTokens } from "~/shared/lib/auth";
 import { removeLocalStorageTokens } from "~/shared/lib/auth/removeLocalStorageTokens";
 import { SERVER_ERROR_MESSAGE } from "~/shared/lib/constants";
@@ -20,55 +12,51 @@ import {
   USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
   USER_SET_LOGIN_SUCCESS,
 } from "../constants";
+import {
+  AppDispatch,
+  ResetUserDataAction,
+  SetUserDataAction,
+  SetAuthCheckedAction,
+  SetInitPasswordResetRequestSuccessAction,
+  SetLoginSuccessAction,
+  RegisterThunkAction,
+  LoginThunkAction,
+  LogoutThunkAction,
+  InitPasswordResetThunkAction,
+  ResetPasswordThunkAction,
+  GetUserThunkAction,
+  UpdateUserThunkAction,
+  CheckUserAuthAction,
+} from "../types";
 
-export const resetUserData = (): {
-  type: string;
-} => ({
+export const resetUserData: ResetUserDataAction = () => ({
   type: USER_RESET_DATA,
 });
 
-export const setUserData = (
-  userData: object
-): {
-  type: string;
-  userData: object;
-} => ({
+export const setUserData: SetUserDataAction = (userData) => ({
   type: USER_SET_USER_DATA,
   userData,
 });
 
-export const setAuthChecked = (
-  authChecked: boolean
-): {
-  type: string;
-  authChecked: boolean;
-} => ({
+export const setAuthChecked: SetAuthCheckedAction = (authChecked) => ({
   type: USER_SET_AUTH_CHECKED,
   authChecked,
 });
 
-export const setInitPasswordResetRequestSuccess = (
-  value: boolean
-): {
-  type: string;
-  passwordResetRequestSuccessful: boolean;
-} => ({
+export const setInitPasswordResetRequestSuccess: SetInitPasswordResetRequestSuccessAction = (
+  value
+) => ({
   type: USER_SET_INIT_PASSWORD_RESET_REQUEST_SUCCESS,
   passwordResetRequestSuccessful: value,
 });
 
-export const setLoginSuccess = (
-  value: boolean
-): {
-  type: string;
-  loginSuccessful: boolean;
-} => ({
+export const setLoginSuccess: SetLoginSuccessAction = (value) => ({
   type: USER_SET_LOGIN_SUCCESS,
   loginSuccessful: value,
 });
 
-export const register = (requestData: RegisterRequest) => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const register: RegisterThunkAction = (requestData) => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi
       .register(requestData)
       .then((response) => {
@@ -90,8 +78,8 @@ export const register = (requestData: RegisterRequest) => {
   };
 };
 
-export const login = (requestData: LoginRequest) => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const login: LoginThunkAction = (requestData) => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi
       .login(requestData)
       .then((response) => {
@@ -114,8 +102,8 @@ export const login = (requestData: LoginRequest) => {
   };
 };
 
-export const logout = () => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const logout: LogoutThunkAction = () => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi
       .logout()
       .then((response) => {
@@ -137,8 +125,10 @@ export const logout = () => {
   };
 };
 
-export const initPasswordReset = (requestData: InitPasswordResetRequest) => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const initPasswordReset: InitPasswordResetThunkAction = (
+  requestData
+) => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi
       .initPasswordReset(requestData)
       .then((response) => {
@@ -151,8 +141,8 @@ export const initPasswordReset = (requestData: InitPasswordResetRequest) => {
   };
 };
 
-export const resetPassword = (requestData: ResetPasswordRequest) => {
-  return (): Promise<void> => {
+export const resetPassword: ResetPasswordThunkAction = (requestData) => {
+  return () => {
     return apiInstance.userApi.resetPassword(requestData).then((response) => {
       if (response.success) {
         redirect("/login");
@@ -163,8 +153,8 @@ export const resetPassword = (requestData: ResetPasswordRequest) => {
   };
 };
 
-export const getUser = () => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const getUser: GetUserThunkAction = () => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi.getUser().then((response) => {
       if (response.success) {
         dispatch(setUserData(response.user));
@@ -175,8 +165,8 @@ export const getUser = () => {
   };
 };
 
-export const updateUser = (requestData: UpdateUserRequest) => {
-  return (dispatch: Dispatch): Promise<void> => {
+export const updateUser: UpdateUserThunkAction = (requestData) => {
+  return (dispatch: AppDispatch) => {
     return apiInstance.userApi.updateUser(requestData).then((response) => {
       if (response.success) {
         dispatch(setUserData(response.user));
@@ -187,12 +177,12 @@ export const updateUser = (requestData: UpdateUserRequest) => {
   };
 };
 
-export const checkUserAuth = () => {
-  return (dispatch: Dispatch): void => {
+export const checkUserAuth: CheckUserAuthAction = () => {
+  return (dispatch: AppDispatch): void => {
     const accessToken = getAccessToken();
 
     if (accessToken) {
-      dispatch<any>(getUser()) // TODO: fix any
+      dispatch(getUser() as any)
         .catch((error) => {
           console.error(error);
 

@@ -5,18 +5,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { FC, ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "~/services/actions/user";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 
 import { RootState } from "../../services/types";
 
 import styles from "./EditProfile.module.css";
 
 export const EditProfile: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { name, email } = useSelector(({ user }: RootState) => user.userData);
+  const { name, email } = useAppSelector(
+    ({ user }: RootState) => user.userData
+  );
 
   const [nameInputValue, setNameInputValue] = useState(name);
   const [emailInputValue, setEmailInputValue] = useState(email);

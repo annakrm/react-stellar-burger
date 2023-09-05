@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { setOrderDetails } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { OrderDto } from "~/shared/api/dto";
 import { Modal } from "~/shared/ui/Modal";
@@ -18,9 +18,9 @@ type Props = {
 };
 
 export const OrdersList: FC<Props> = ({ orders, profileView }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const orderDetails = useSelector(
+  const orderDetails = useAppSelector(
     ({ orderDetails }: RootState) => orderDetails.data
   );
 

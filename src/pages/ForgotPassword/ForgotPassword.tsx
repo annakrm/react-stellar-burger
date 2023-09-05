@@ -4,22 +4,22 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { FC, FormEvent } from "react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { initPasswordReset } from "~/services/actions/user";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 
 import styles from "./ForgotPassword.module.css";
 
 export const ForgotPassword: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [emailInputValue, setEmailInputValue] = useState("");
 
   const navigate = useNavigate();
 
-  const isPasswordResetRequestSuccessful = useSelector(
+  const isPasswordResetRequestSuccessful = useAppSelector(
     ({ user }: RootState) => user.passwordResetRequestSuccessful
   );
 

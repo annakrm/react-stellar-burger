@@ -3,8 +3,8 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC } from "react";
-import { useSelector } from "react-redux";
 
+import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { OrderStatus } from "~/shared/api/dto";
 
@@ -16,9 +16,11 @@ type Props = {
 };
 
 export const OrderDetails: FC<Props> = ({ pageView }) => {
-  const data = useSelector(({ orderDetails }: RootState) => orderDetails.data);
+  const data = useAppSelector(
+    ({ orderDetails }: RootState) => orderDetails.data
+  );
 
-  const burgerIngredients = useSelector(
+  const burgerIngredients = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 

@@ -5,15 +5,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+
+import { useAppDispatch } from "~/services/hooks";
 
 import { register } from "../../services/actions";
 
 import styles from "./Registration.module.css";
 
 export const Registration: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

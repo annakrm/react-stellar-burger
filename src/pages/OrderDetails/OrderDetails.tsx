@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 import {
@@ -8,6 +7,7 @@ import {
   ordersWsConnectionClosed,
   setOrderDetails,
 } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { OrderDetails as OrderDetailsComponent } from "~components/OrderDetails";
 import { Page } from "~shared/ui/Page";
@@ -15,13 +15,13 @@ import { Page } from "~shared/ui/Page";
 import styles from "./OrderDetails.module.css";
 
 export const OrderDetails: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const burgerIngredients = useSelector(
+  const burgerIngredients = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 
-  const orders = useSelector(
+  const orders = useAppSelector(
     ({ ordersWebSocket }: RootState) => ordersWebSocket.orders
   );
 

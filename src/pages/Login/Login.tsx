@@ -5,9 +5,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import type { ChangeEvent, FC, FormEvent } from "react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 
 import { login } from "../../services/actions";
@@ -15,12 +15,12 @@ import { login } from "../../services/actions";
 import styles from "./Login.module.css";
 
 export const Login: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const isUserLoginSuccessful = useSelector(
+  const isUserLoginSuccessful = useAppSelector(
     ({ user }: RootState) => user.loginSuccessful
   );
 

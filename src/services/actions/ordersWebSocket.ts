@@ -6,51 +6,55 @@ import {
   ORDERS_WS_SEND_MESSAGE,
   ORDERS_WS_CONNECTION_START,
 } from "../constants";
+import {
+  OrdersAllWsConnectionStartAction,
+  OrdersWsConnectionStartAction,
+  OrdersWsConnectionSuccessAction,
+  OrdersWsConnectionErrorAction,
+  OrdersWsConnectionClosedAction,
+  OrdersWsGetMessageAction,
+  OrdersWsSendMessageAction,
+} from "../types";
 
-export const ordersAllWsConnectionStart = (): {
-  type: string;
-  allOrdersMode?: boolean;
-} => {
+export const ordersAllWsConnectionStart: OrdersAllWsConnectionStartAction = () => {
   return {
     type: ORDERS_WS_CONNECTION_START,
     allOrdersMode: true,
   };
 };
 
-export const ordersWsConnectionStart = (): { type: string } => {
+export const ordersWsConnectionStart: OrdersWsConnectionStartAction = () => {
   return {
     type: ORDERS_WS_CONNECTION_START,
   };
 };
 
-export const ordersWsConnectionSuccess = (): { type: string } => {
+export const ordersWsConnectionSuccess: OrdersWsConnectionSuccessAction = () => {
   return {
     type: ORDERS_WS_CONNECTION_SUCCESS,
   };
 };
 
-export const ordersWsConnectionError = (): { type: string } => {
+export const ordersWsConnectionError: OrdersWsConnectionErrorAction = () => {
   return {
     type: ORDERS_WS_CONNECTION_ERROR,
   };
 };
 
-export const ordersWsConnectionClosed = (): { type: string } => {
+export const ordersWsConnectionClosed: OrdersWsConnectionClosedAction = () => {
   return {
     type: ORDERS_WS_CONNECTION_CLOSED,
   };
 };
 
-export const ordersWsGetMessage = (message): { type: string; payload: any } => {
+export const ordersWsGetMessage: OrdersWsGetMessageAction = (message) => {
   return {
     type: ORDERS_WS_GET_MESSAGE,
     payload: message,
   };
 };
 
-export const ordersWsSendMessage = (
-  message
-): { type: string; payload: any } => {
+export const ordersWsSendMessage: OrdersWsSendMessageAction = (message) => {
   return {
     type: ORDERS_WS_SEND_MESSAGE,
     payload: message,

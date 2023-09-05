@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   setBurgerIngredientDetails,
   setBurgerIngredientsActiveTab,
 } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import type { BurgerIngredientDto } from "~/shared/api/dto";
@@ -19,13 +19,13 @@ import { IngredientsCategory } from "./IngredientsCategory";
 import styles from "./IngredientsList.module.css";
 
 export const IngredientsList: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { data: ingredientsData, activeTab } = useSelector(
+  const { data: ingredientsData, activeTab } = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients
   );
 
-  const { data: burgerIngredientDetails } = useSelector(
+  const { data: burgerIngredientDetails } = useAppSelector(
     ({ burgerIngredientDetails }: RootState) => burgerIngredientDetails
   );
 
