@@ -7,7 +7,7 @@ import { OrderAction, OrderState } from "../types";
 
 const initialState: OrderState = {
   details: null,
-  orderDetailesModalOpened: false,
+  orderDetailsModalOpened: false,
   error: "",
 };
 
@@ -34,11 +34,11 @@ export const orderReducer = (
     }
 
     case ORDER_DETAILS_MODAL_OPENED_SET_VALUE: {
-      const { orderDetailesModalOpened } = action;
+      const { orderDetailsModalOpened } = action;
 
       return {
         ...state,
-        orderDetailesModalOpened,
+        orderDetailsModalOpened,
       };
     }
 

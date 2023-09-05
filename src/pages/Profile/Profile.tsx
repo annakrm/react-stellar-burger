@@ -1,13 +1,13 @@
 import type { FC } from "react";
-import { useDispatch } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
 
 import { logout } from "~/services/actions/user";
+import { useAppDispatch } from "~/services/hooks";
 
 import styles from "./Profile.module.css";
 
 export const Profile: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const setActiveText = ({ isActive }) => {
     return isActive ? styles.linkActive : styles.link;
@@ -27,7 +27,7 @@ export const Profile: FC = () => {
           <NavLink to="/profile/orders" className={setActiveText}>
             История заказов
           </NavLink>
-          <NavLink to="#" className={setActiveText} onClick={handleLogout}>
+          <NavLink to="#" className={styles.link} onClick={handleLogout}>
             Выход
           </NavLink>
         </div>
@@ -42,7 +42,7 @@ export const Profile: FC = () => {
         </div>
       </div>
 
-      <div className={styles.contentWeapper}>
+      <div className={styles.contentWrapper}>
         {" "}
         <Outlet />
       </div>

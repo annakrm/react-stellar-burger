@@ -6,33 +6,36 @@ import {
 import type { FC } from "react";
 import { useCallback, useMemo } from "react";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { makeOrder } from "~/services/actions";
-import { setOrderDetailesModalOpened } from "~/services/actions/order";
+import { setOrderDetailsModalOpened } from "~/services/actions/order";
 import { reorderSelectedBurgerIngredients } from "~/services/actions/selectedBurgerIngredients";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import { hasBuns } from "~/shared/lib/hasBuns";
 
-import { OrderDetails } from "../OrderDetails";
+import { BurgerConstructorOrderDetailsModal } from "../BurgerConstructorOrderDetailsModal";
 
 import styles from "./BurgerConstructor.module.css";
 import { BurgerConstructorBunPlaceholder } from "./BurgerConstructorBunPlaceholder";
 import { BurgerConstructorDraggableItem as DraggableItem } from "./BurgerConstructorDraggableItem";
 
 export const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { data: selectedBurgerIngredients } = useSelector(
+  const { data: selectedBurgerIngredients } = useAppSelector(
     ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 
-  const { orderDetailesModalOpened } = useSelector(
-    ({ order }: RootState) => order
+  const orderDetailsModalOpened = useAppSelector(
+    ({ order }: RootState) => order.orderDetailsModalOpened
   );
 
-  const userData = useSelector(({ user }: RootState) => user.userData);
+  const userData = useAppSelector(({ user }: RootState) => user.userData);
+
+  const navigate = useNavigate();
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "BurgerIngredientItem",
@@ -94,7 +97,7 @@ export const BurgerConstructor: FC = () => {
 
       dispatch(makeOrder(ingredientIds));
     } else {
-      window.location.href = "/login";
+      navigate("/login");
     }
   };
 
@@ -179,9 +182,9 @@ export const BurgerConstructor: FC = () => {
         </span>
       </div>
 
-      {orderDetailesModalOpened && (
-        <OrderDetails
-          onClose={() => dispatch(setOrderDetailesModalOpened(false))}
+      {orderDetailsModalOpened && (
+        <BurgerConstructorOrderDetailsModal
+          onClose={() => dispatch(setOrderDetailsModalOpened(false))}
         />
       )}
     </div>
