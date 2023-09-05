@@ -1,13 +1,9 @@
 /* eslint-disable prettier/prettier */
 import type { FC } from "react";
-import { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import { EditProfile } from "~/pages/EditProfile";
-import { OrderDetails } from "~/pages/OrderDetails";
-import { getBurgerIngredients } from "~/services/actions";
-import { useAppDispatch } from "~/services/hooks";
 import { AppHeader } from "~components/AppHeader";
+import { EditProfile } from "~components/EditProfile";
 import { OnlyAuth, OnlyUnauth } from "~components/ProtectedRoute";
 import { BurgerConfiguration } from "~pages/BurgerConfiguration";
 import { ForgotPassword } from "~pages/ForgotPassword";
@@ -24,25 +20,15 @@ import styles from "./App.module.css";
 
 
 export const App: FC = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const location = useLocation();
-  const background = location.state && location.state.background;
-
   return (
     <div className={styles.app}>
-      <Routes location={background || location}>
+      <Routes>
         <Route path="/" element={<AppHeader />}>
           <Route path="/" element={<BurgerConfiguration />} />
 
-          <Route path="/feed" element={<OrdersFeed />} />
-          <Route path="/feed/:id" element={<OrderDetails />} />
+          <Route path="feed" element={<OnlyAuth component={<OrdersFeed />} />} />
 
-          <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
+          <Route path="profile" element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<EditProfile />} />
             <Route path="orders" element={<Orders />} />
           </Route>
@@ -53,20 +39,11 @@ export const App: FC = () => {
           <Route path="/reset-password" element={<OnlyUnauth component={<ResetPassword />} />} />
 
           <Route path="/login" element={<OnlyUnauth component={<Login />} />} />
+          <Route path="/login" element={<OnlyUnauth component={<Login />} />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
-
-      {background && (
-        <Routes>
-          <Route path="/" element={<AppHeader />}>
-            <Route path="/ingredients/:id" element={<IngredientDetails />} />
-            <Route path="/feed/:id" element={<OrderDetails />} />
-            <Route path="/profile/:id" element={<OrderDetails />} />
-          </Route>
-        </Routes>
-      )}
     </div>
   );
 };

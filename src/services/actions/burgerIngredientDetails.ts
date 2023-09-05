@@ -1,9 +1,13 @@
-import { BURGER_INGREDIENT_DETAILS_SET_DATA } from "../constants";
-import { SetBurgerIngredientDetailsAction } from "../types";
+import type { BurgerIngredientDto } from "~/shared/api/dto";
 
-export const setBurgerIngredientDetails: SetBurgerIngredientDetailsAction = (
-  data
-) => ({
+import { BURGER_INGREDIENT_DETAILS_SET_DATA } from "../constants";
+
+export const setBurgerIngredientDetails = (
+  data: BurgerIngredientDto
+): {
+  type: string;
+  data: BurgerIngredientDto;
+} => ({
   type: BURGER_INGREDIENT_DETAILS_SET_DATA,
   data,
 });

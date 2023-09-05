@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
+  getBurgerIngredients,
   setBurgerIngredientDetails,
   setBurgerIngredientsActiveTab,
 } from "~/services/actions";
-import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import type { BurgerIngredientDto } from "~/shared/api/dto";
@@ -19,13 +20,13 @@ import { IngredientsCategory } from "./IngredientsCategory";
 import styles from "./IngredientsList.module.css";
 
 export const IngredientsList: FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-  const { data: ingredientsData, activeTab } = useAppSelector(
+  const { data: ingredientsData, activeTab } = useSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients
   );
 
-  const { data: burgerIngredientDetails } = useAppSelector(
+  const { data: burgerIngredientDetails } = useSelector(
     ({ burgerIngredientDetails }: RootState) => burgerIngredientDetails
   );
 
@@ -37,6 +38,8 @@ export const IngredientsList: FC = () => {
   }>({});
 
   useEffect(() => {
+    dispatch(getBurgerIngredients());
+
     const handleScroll = () => {
       const bunsCategory = document.getElementById("buns-category");
       const saucesCategory = document.getElementById("sauces-category");
@@ -125,6 +128,12 @@ export const IngredientsList: FC = () => {
   const isMainVisible = Boolean(main && main.length);
 
   const handleBurgerIngredientClick = (data: BurgerIngredientDto) => {
+    window.history.replaceState(
+      {},
+      "",
+      data ? `/ingredients/${data._id}` : "/"
+    );
+
     dispatch(setBurgerIngredientDetails(data));
   };
 

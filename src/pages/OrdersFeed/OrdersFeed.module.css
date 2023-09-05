@@ -1,6 +1,4 @@
-.wrapper {
+.feed {
   display: flex;
-  justify-content: center;
-
-  gap: 56px;
+  margin: 40px 0 0 0;
 }

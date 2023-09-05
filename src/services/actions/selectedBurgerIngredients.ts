@@ -5,15 +5,8 @@ import {
   SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
   SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
 } from "../constants";
-import {
-  AddSelectedBurgerIngredientsItemAction,
-  DeleteSelectedBurgerIngredientsItemAction,
-  ReorderSelectedBurgerIngredientsAction,
-} from "../types";
 
-export const addSelectedBurgerIngredientsItem: AddSelectedBurgerIngredientsItemAction = (
-  item
-) => ({
+export const addSelectedBurgerIngredientsItem = (item) => ({
   type: SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
   item: {
     ...item,
@@ -21,14 +14,12 @@ export const addSelectedBurgerIngredientsItem: AddSelectedBurgerIngredientsItemA
   },
 });
 
-export const deleteSelectedBurgerIngredientsItem: DeleteSelectedBurgerIngredientsItemAction = (
-  itemIndex
-) => ({
+export const deleteSelectedBurgerIngredientsItem = (itemIndex) => ({
   type: SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
   itemIndex,
 });
 
-export const reorderSelectedBurgerIngredients: ReorderSelectedBurgerIngredientsAction = ({
+export const reorderSelectedBurgerIngredients = ({
   dragIndex,
   hoverIndex,
 }) => ({

@@ -1,95 +1,40 @@
-import {
-  CurrencyIcon,
-  FormattedDate,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import type { FC } from "react";
+import { useSelector } from "react-redux";
 
-import { useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
-import { OrderStatus } from "~/shared/api/dto";
+import DoneImage from "~assets/images/done.png";
+import { Modal } from "~shared/ui/Modal";
 
-import { IngredientsList } from "./IngredientsList";
 import styles from "./OrderDetails.module.css";
 
 type Props = {
-  pageView?: boolean;
+  onClose: () => void;
 };
 
-export const OrderDetails: FC<Props> = ({ pageView }) => {
-  const data = useAppSelector(
-    ({ orderDetails }: RootState) => orderDetails.data
+export const OrderDetails: FC<Props> = ({ onClose }) => {
+  const { details: orderDetails } = useSelector(
+    ({ order }: RootState) => order
   );
 
-  const burgerIngredients = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
-  );
+  return (
+    <Modal onClose={onClose}>
+      <div className={`${styles.contentWrapper}`}>
+        <span className="text text_type_digits-large mt-30">
+          {orderDetails.order.number}
+        </span>
+        <span className="text text_type_main-medium mt-8">
+          идентификатор заказа
+        </span>
 
-  if (data) {
-    const { number: orderNumber, name, status, ingredients, createdAt } = data;
+        <img src={DoneImage} className="m-15" alt="Иконка готовности заказа" />
 
-    const isDone = status === OrderStatus.DONE;
-    const isPending = status === OrderStatus.PENDING;
-    const isCreated = status === OrderStatus.CREATED;
-
-    const ingredientsData = ingredients.map((ingredientId) =>
-      burgerIngredients.find(({ _id }) => _id === ingredientId)
-    );
-
-    const orderPrice = ingredientsData.reduce(
-      (sum, currentOrder) => sum + currentOrder.price,
-      0
-    );
-
-    return (
-      <div
-        className={`${styles.wrapper} ${
-          pageView ? "" : styles.wrapperWithPadding
-        }`}
-      >
-        <div className={styles.header}>
-          <span
-            className={`${styles.orderNumber} ${
-              pageView ? styles.orderNumberCentered : ""
-            } text text_type_digits-default`}
-          >
-            {`#${orderNumber}`}
-          </span>
-
-          <div className={`${styles.description}`}>
-            <span className={`${styles.orderName} text text_type_main-medium`}>
-              {name}
-            </span>
-            <span
-              className={`${
-                isDone ? styles.statusDone : ""
-              } text text_type_main-default`}
-            >
-              {isDone && "Выполнен"}
-              {isPending && "Готовится"}
-              {isCreated && "Создан"}
-            </span>
-          </div>
-        </div>
-
-        <div className={`${styles.content} mt-15`}>
-          <span className="text text_type_main-medium">Состав:</span>
-          <IngredientsList data={ingredientsData} />
-        </div>
-
-        <div className={`${styles.footer} mt-10 mb-10`}>
-          <FormattedDate
-            className="text text_type_main-default text_color_inactive"
-            date={new Date(createdAt)}
-          />
-
-          <span className={`${styles.price} text text_type_digits-default`}>
-            {orderPrice}
-            <CurrencyIcon type="primary" />
-          </span>
-        </div>
+        <span className="text text_type_main-default mb-2">
+          Ваш заказ начали готовить
+        </span>
+        <span className="text text_type_main-default text_color_inactive mb-30">
+          Дождитесь готовности на орбитальной станции
+        </span>
       </div>
-    );
-  }
-
-  return null;
+    </Modal>
+  );
 };

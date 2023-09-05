@@ -1,4 +1,6 @@
-import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
+import { Dispatch } from "redux";
+
+import type { OrderDetailsDto } from "~/shared/api/dto";
 
 import { apiInstance } from "../../shared/api";
 import {
@@ -7,30 +9,32 @@ import {
   MAKE_ORDER_SUCCESS,
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
 } from "../constants";
-import {
-  AppDispatch,
-  MakeOrderThunkAction,
-  SetOrderDetailsModalOpenedAction,
-} from "../types";
 
-export const setOrderDetailsModalOpened: SetOrderDetailsModalOpenedAction = (
-  orderDetailsModalOpened: boolean
-) => ({
+export const setOrderDetailesModalOpened = (
+  orderDetailesModalOpened: boolean
+): {
+  type: string;
+  orderDetailesModalOpened: boolean;
+} => ({
   type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
-  orderDetailsModalOpened,
+  orderDetailesModalOpened,
 });
 
-export const makeOrder: MakeOrderThunkAction = (ingredientIds) => {
-  return (dispatch: AppDispatch): void => {
+export const makeOrder = (ingredientIds: string[]) => {
+  // TODO: fix any
+  return (dispatch: Dispatch<any>): void => {
     apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
-      .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {
+      .then(({ name, order }: OrderDetailsDto) => {
         dispatch({
           type: MAKE_ORDER_SUCCESS,
           details: { name, order },
         });
 
-        dispatch(setOrderDetailsModalOpened(true));
+        dispatch({
+          type: ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
+          value: true,
+        });
 
         dispatch({
           type: BURGER_CONSTRUCTOR_RESET_DATA,
