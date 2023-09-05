@@ -5,6 +5,7 @@ import {
 import type { FC } from "react";
 import { useMemo, Fragment } from "react";
 import { useSelector } from "react-redux";
+import { NavLink, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import { RootState } from "~/services/types";
@@ -26,11 +27,20 @@ type Props = {
 };
 
 export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
-  const { ingredients, name, createdAt, number: orderNumber, status } = data;
+  const {
+    _id: orderId,
+    ingredients,
+    name,
+    createdAt,
+    number: orderNumber,
+    status,
+  } = data;
 
   const burderIngredientsData = useSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
+
+  const location = useLocation();
 
   const orderPrice = useMemo(() => {
     return ingredients.reduce((targetPrice, currentIngredientId) => {
@@ -72,88 +82,96 @@ export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
   const isCreated = status === OrderStatus.CREATED;
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{ height, minHeight: height }}
-      onClick={onClick}
+    <NavLink
+      className={styles.link}
+      to={`/${profileView ? "profile" : "feed"}/${orderId}`}
+      state={{ background: location }}
     >
-      <div className={`${styles.header} mt-6 pl-6 pr-6`}>
-        <span className="text text_type_digits-default">
-          {`#${orderNumber}`}
-        </span>
-        <FormattedDate
-          className="text text_type_main-default text_color_inactive"
-          date={new Date(createdAt)}
-        />
-      </div>
-
-      <div className={styles.description}>
-        <span
-          className={`${styles.orderName} text text_type_main-medium pl-6 pr-6`}
-        >
-          {name}
-        </span>
-        {profileView && (
-          <span
-            className={`${
-              isDone ? styles.statusDone : ""
-            } text text_type_main-default pl-6`}
-          >
-            {isDone && "Выполнен"}
-            {isPending && "Готовится"}
-            {isCreated && "Создан"}
+      <div
+        className={styles.wrapper}
+        style={{ height, minHeight: height }}
+        onClick={onClick}
+      >
+        <div className={`${styles.header} mt-6 pl-6 pr-6`}>
+          <span className="text text_type_digits-default">
+            {`#${orderNumber}`}
           </span>
-        )}
-      </div>
-
-      <div className={`${styles.footer} mb-6 pl-6 pr-6`}>
-        <div className={styles.ingredientImagesWrapper}>
-          {ingredientImages
-            .splice(0, MAX_VISIBLE_INGREDIENT_IMAGES)
-            .map(({ id, name, image }, index) => {
-              const isLastVisibleItem =
-                index === LAST_VISIBLE_INGREDIENT_IMAGE_INDEX;
-
-              const isMoreThanMaxAvaiable =
-                ingredientImages.length > MAX_VISIBLE_INGREDIENT_IMAGES;
-
-              const hasHiddenItemsCountLabel =
-                isMoreThanMaxAvaiable && isLastVisibleItem;
-
-              return (
-                <Fragment key={id}>
-                  <div
-                    className={styles.ingredientImagePositionWrapper}
-                    style={{ zIndex: TOP_INGREDIENT_IMAGE_Z_INDEX - index }}
-                  >
-                    <div className={styles.ingredientImageWrapper}>
-                      <img
-                        src={image}
-                        className={styles.ingredientImage}
-                        style={{ opacity: hasHiddenItemsCountLabel ? 0.5 : 1 }}
-                        alt={name}
-                      />
-
-                      {hasHiddenItemsCountLabel && (
-                        <span
-                          className={`${styles.hiddenItemsCountLabel} text text_type_main-default`}
-                        >{`+${
-                          ingredientImages.length -
-                          MAX_VISIBLE_INGREDIENT_IMAGES
-                        }`}</span>
-                      )}
-                    </div>
-                  </div>
-                </Fragment>
-              );
-            })}
+          <FormattedDate
+            className="text text_type_main-default text_color_inactive"
+            date={new Date(createdAt)}
+          />
         </div>
 
-        <span className={`${styles.price} text text_type_digits-default`}>
-          {orderPrice}
-          <CurrencyIcon type="primary" />
-        </span>
+        <div className={styles.description}>
+          <span
+            className={`${styles.orderName} text text_type_main-medium pl-6 pr-6`}
+          >
+            {name}
+          </span>
+          {profileView && (
+            <span
+              className={`${
+                isDone ? styles.statusDone : ""
+              } text text_type_main-default pl-6`}
+            >
+              {isDone && "Выполнен"}
+              {isPending && "Готовится"}
+              {isCreated && "Создан"}
+            </span>
+          )}
+        </div>
+
+        <div className={`${styles.footer} mb-6 pl-6 pr-6`}>
+          <div className={styles.ingredientImagesWrapper}>
+            {ingredientImages
+              .splice(0, MAX_VISIBLE_INGREDIENT_IMAGES)
+              .map(({ id, name, image }, index) => {
+                const isLastVisibleItem =
+                  index === LAST_VISIBLE_INGREDIENT_IMAGE_INDEX;
+
+                const isMoreThanMaxAvaiable =
+                  ingredientImages.length > MAX_VISIBLE_INGREDIENT_IMAGES;
+
+                const hasHiddenItemsCountLabel =
+                  isMoreThanMaxAvaiable && isLastVisibleItem;
+
+                return (
+                  <Fragment key={id}>
+                    <div
+                      className={styles.ingredientImagePositionWrapper}
+                      style={{ zIndex: TOP_INGREDIENT_IMAGE_Z_INDEX - index }}
+                    >
+                      <div className={styles.ingredientImageWrapper}>
+                        <img
+                          src={image}
+                          className={styles.ingredientImage}
+                          style={{
+                            opacity: hasHiddenItemsCountLabel ? 0.5 : 1,
+                          }}
+                          alt={name}
+                        />
+
+                        {hasHiddenItemsCountLabel && (
+                          <span
+                            className={`${styles.hiddenItemsCountLabel} text text_type_main-default`}
+                          >{`+${
+                            ingredientImages.length -
+                            MAX_VISIBLE_INGREDIENT_IMAGES
+                          }`}</span>
+                        )}
+                      </div>
+                    </div>
+                  </Fragment>
+                );
+              })}
+          </div>
+
+          <span className={`${styles.price} text text_type_digits-default`}>
+            {orderPrice}
+            <CurrencyIcon type="primary" />
+          </span>
+        </div>
       </div>
-    </div>
+    </NavLink>
   );
 };

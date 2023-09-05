@@ -7,9 +7,10 @@ import type { FC } from "react";
 import { useCallback, useMemo } from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { makeOrder } from "~/services/actions";
-import { setOrderDetailesModalOpened } from "~/services/actions/order";
+import { setOrderDetailsModalOpened } from "~/services/actions/order";
 import { reorderSelectedBurgerIngredients } from "~/services/actions/selectedBurgerIngredients";
 import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
@@ -28,11 +29,13 @@ export const BurgerConstructor: FC = () => {
     ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 
-  const { orderDetailesModalOpened } = useSelector(
-    ({ order }: RootState) => order
+  const orderDetailsModalOpened = useSelector(
+    ({ order }: RootState) => order.orderDetailsModalOpened
   );
 
   const userData = useSelector(({ user }: RootState) => user.userData);
+
+  const navigate = useNavigate();
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "BurgerIngredientItem",
@@ -94,7 +97,7 @@ export const BurgerConstructor: FC = () => {
 
       dispatch(makeOrder(ingredientIds));
     } else {
-      window.location.href = "/login";
+      navigate("/login");
     }
   };
 
@@ -179,9 +182,9 @@ export const BurgerConstructor: FC = () => {
         </span>
       </div>
 
-      {orderDetailesModalOpened && (
+      {orderDetailsModalOpened && (
         <BurgerConstructorOrderDetailsModal
-          onClose={() => dispatch(setOrderDetailesModalOpened(false))}
+          onClose={() => dispatch(setOrderDetailsModalOpened(false))}
         />
       )}
     </div>

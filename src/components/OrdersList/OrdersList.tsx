@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getBurgerIngredients, setOrderDetails } from "~/services/actions";
+import { setOrderDetails } from "~/services/actions";
 import { RootState } from "~/services/types";
 import { OrderDto } from "~/shared/api/dto";
 import { Modal } from "~/shared/ui/Modal";
@@ -20,28 +20,11 @@ type Props = {
 export const OrdersList: FC<Props> = ({ orders, profileView }) => {
   const dispatch = useDispatch();
 
-  const burgerIngredients = useSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
-  );
-
   const orderDetails = useSelector(
     ({ orderDetails }: RootState) => orderDetails.data
   );
 
-  useEffect(() => {
-    if (burgerIngredients.length === 0) {
-      dispatch(getBurgerIngredients());
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleOrderClick = (data: OrderDto) => {
-    const parentRoute = profileView ? "profile" : "feed";
-    window.history.replaceState(
-      {},
-      "",
-      data ? `/${parentRoute}/${data._id}` : "/"
-    );
-
     dispatch(setOrderDetails(data));
   };
 
