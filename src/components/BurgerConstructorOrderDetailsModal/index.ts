@@ -1,0 +1,1 @@
+export { BurgerConstructorOrderDetailsModal } from "./BurgerConstructorOrderDetailsModal";

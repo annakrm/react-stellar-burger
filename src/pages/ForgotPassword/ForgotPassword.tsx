@@ -2,26 +2,41 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import type { FC } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import type { FC, FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { initPasswordReset } from "~/services/actions/user";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
+import { RootState } from "~/services/types";
 
 import styles from "./ForgotPassword.module.css";
 
 export const ForgotPassword: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [emailInputValue, setEmailInputValue] = useState("");
+
+  const navigate = useNavigate();
+
+  const isPasswordResetRequestSuccessful = useAppSelector(
+    ({ user }: RootState) => user.passwordResetRequestSuccessful
+  );
 
   const onEmailInputValueChange = (e) => {
     setEmailInputValue(e.target.value);
   };
 
-  const handleInitPasswordReset = () => {
+  const handleInitPasswordReset = (event: FormEvent) => {
+    event.preventDefault();
     dispatch(initPasswordReset({ email: emailInputValue }));
   };
+
+  useEffect(() => {
+    if (isPasswordResetRequestSuccessful) {
+      navigate("/reset-password", { state: { fromForgotPassword: true } });
+    }
+  }, [isPasswordResetRequestSuccessful]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -30,7 +45,10 @@ export const ForgotPassword: FC = () => {
           Восстановление пароля
         </h1>
 
-        <div className={styles.inputWrapper}>
+        <form
+          className={styles.inputWrapper}
+          onSubmit={handleInitPasswordReset}
+        >
           <EmailInput
             onChange={onEmailInputValueChange}
             value={emailInputValue}
@@ -39,28 +57,25 @@ export const ForgotPassword: FC = () => {
             isIcon={false}
             extraClass="mb-6"
           />
-        </div>
 
-        <div className="mt-6 mb-20">
           <Button
-            htmlType="button"
+            extraClass="mt-6 mb-20"
+            htmlType="submit"
             type="primary"
             size="large"
-            onClick={handleInitPasswordReset}
           >
             Восстановить
           </Button>
-        </div>
+        </form>
 
         <span className="text text_type_main-default text_color_inactive mb-4">
           Вспомнили пароль?{" "}
-          <a
-            href="/login"
-            onClick={() => null}
+          <NavLink
+            to="/reset-password"
             className={`${styles.link} text text_color_accent`}
           >
             Войти
-          </a>
+          </NavLink>
         </span>
       </div>
     </>

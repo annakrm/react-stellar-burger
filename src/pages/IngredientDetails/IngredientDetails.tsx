@@ -1,11 +1,9 @@
 import type { FC } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-import {
-  getBurgerIngredients,
-  setBurgerIngredientDetails,
-} from "~/services/actions";
+import { setBurgerIngredientDetails } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { IngredientDetails as IngredientDetailsComponent } from "~components/IngredientDetails";
 import { Page } from "~shared/ui/Page";
@@ -13,32 +11,25 @@ import { Page } from "~shared/ui/Page";
 import styles from "./IngredientDetails.module.css";
 
 export const IngredientDetails: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector(
+  const burgerIngredients = useAppSelector(
     ({ burgerIngredients }: RootState) => burgerIngredients.data
   );
 
-  useEffect(() => {
-    if (data.length === 0) {
-      dispatch(getBurgerIngredients());
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const { id: ingredientId } = useParams();
+
+  useEffect(() => () => dispatch(setBurgerIngredientDetails(null)), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (data) {
-      const currentUrl = window.location.href;
-      const ingredientId = currentUrl.substring(
-        currentUrl.lastIndexOf("/") + 1
-      );
-
-      const burgerIngredientDetails = data.find(
+    if (burgerIngredients) {
+      const burgerIngredientDetails = burgerIngredients.find(
         (item) => item._id === ingredientId
       );
 
       dispatch(setBurgerIngredientDetails(burgerIngredientDetails));
     }
-  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [burgerIngredients]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Page columnContentAlignment contentClassNames={styles.wrapper}>

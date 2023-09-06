@@ -5,8 +5,9 @@ import {
 import type { FC } from "react";
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useLocation } from "react-router-dom";
 
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { RootState } from "~/services/types";
 import { addSelectedBurgerIngredientsItem } from "~services/actions";
 import type { BurgerIngredientDto } from "~shared/api/dto";
@@ -22,13 +23,15 @@ export const IngredientsListItem: FC<Props> = ({
   data,
   onOpenIngredientDetails,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { data: selectedBurgerIngredients } = useSelector(
+  const { data: selectedBurgerIngredients } = useAppSelector(
     ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
   );
 
   const { _id: ingredientId, image: imageUrl, name, price } = data;
+
+  const location = useLocation();
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const [_, drag] = useDrag(
@@ -57,27 +60,33 @@ export const IngredientsListItem: FC<Props> = ({
   );
 
   return (
-    <div
-      ref={drag}
-      className={styles.wrapper}
-      onClick={() => onOpenIngredientDetails(data)}
+    <NavLink
+      className={styles.link}
+      to={`/ingredients/${ingredientId}`}
+      state={{ background: location }}
     >
-      <img src={imageUrl} alt={`Изображение ингредиента бургера: ${name}`} />
-
-      <span
-        className={`${styles.price} text text_type_digits-default mt-1 mb-1`}
+      <div
+        ref={drag}
+        className={styles.wrapper}
+        onClick={() => onOpenIngredientDetails(data)}
       >
-        {price}
-        <CurrencyIcon type="primary" />
-      </span>
+        <img src={imageUrl} alt={`Изображение ингредиента бургера: ${name}`} />
 
-      <span className="text text_type_main-default">{name}</span>
+        <span
+          className={`${styles.price} text text_type_digits-default mt-1 mb-1`}
+        >
+          {price}
+          <CurrencyIcon type="primary" />
+        </span>
 
-      {Boolean(addedCount) && (
-        <div className={styles.counterWrapper}>
-          <Counter count={addedCount} />
-        </div>
-      )}
-    </div>
+        <span className="text text_type_main-default">{name}</span>
+
+        {Boolean(addedCount) && (
+          <div className={styles.counterWrapper}>
+            <Counter count={addedCount} />
+          </div>
+        )}
+      </div>
+    </NavLink>
   );
 };

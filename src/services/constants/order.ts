@@ -1,0 +1,4 @@
+/* eslint-disable prettier/prettier */
+export const ORDER_DETAILS_MODAL_OPENED_SET_VALUE = 'ORDER_DETAILS_MODAL_OPENED_SET_VALUE';
+export const MAKE_ORDER_SUCCESS = 'MAKE_ORDER_SUCCESS';
+export const MAKE_ORDER_FAILED = 'MAKE_ORDER_FAILED';
