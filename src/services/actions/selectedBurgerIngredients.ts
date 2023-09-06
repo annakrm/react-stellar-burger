@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 import {
   REORDER_SELECTED_BURGER_INGREDIENTS,
   SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
@@ -15,10 +13,7 @@ export const addSelectedBurgerIngredientsItem: AddSelectedBurgerIngredientsItemA
   item
 ) => ({
   type: SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
-  item: {
-    ...item,
-    uniqueId: uuidv4(),
-  },
+  item,
 });
 
 export const deleteSelectedBurgerIngredientsItem: DeleteSelectedBurgerIngredientsItemAction = (

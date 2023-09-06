@@ -6,6 +6,7 @@ import type { FC } from "react";
 import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { NavLink, useLocation } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { addSelectedBurgerIngredientsItem } from "~services/actions";
@@ -41,7 +42,12 @@ export const IngredientsListItem: FC<Props> = ({
         const dropResult = monitor.getDropResult();
 
         if (ingredient && dropResult) {
-          dispatch(addSelectedBurgerIngredientsItem(ingredient));
+          dispatch(
+            addSelectedBurgerIngredientsItem({
+              ...ingredient,
+              uniqueId: uuidv4(),
+            })
+          );
         }
       },
       collect: (monitor) => ({

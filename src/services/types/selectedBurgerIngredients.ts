@@ -1,6 +1,5 @@
 import { Action } from "redux";
 
-import { BurgerIngredientDto } from "~/shared/api/dto";
 import { AddedBurgerIngredient } from "~/shared/lib/types";
 
 export type SelectedBurgerIngredientsState = {
@@ -15,10 +14,10 @@ export type SelectedBurgerIngredientsAction = Action<string> &
   SelectedBurgerIngredientsState;
 
 export type AddSelectedBurgerIngredientsItemAction = (
-  item: BurgerIngredientDto
+  item: AddedBurgerIngredient
 ) => {
   type: string;
-  item: BurgerIngredientDto & { uniqueId: string };
+  item: AddedBurgerIngredient;
 };
 
 export type DeleteSelectedBurgerIngredientsItemAction = (

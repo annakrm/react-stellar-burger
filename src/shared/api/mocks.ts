@@ -1,4 +1,4 @@
-import { OrderStatus, BurgerIngredientDto, OrderDto } from "./dto";
+import { BurgerIngredientDto, OrderDto } from "./dto";
 
 export const mockedBurgerIngredients: BurgerIngredientDto[] = [
   {
@@ -390,7 +390,6 @@ export const mockedConfigurationData: BurgerIngredientDto[] = [
       "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
     __v: 0,
   },
-];
 
 export const mockedConfigurationPrice = mockedConfigurationData.reduce(
   (acc, currentItem) => acc + currentItem.price,
