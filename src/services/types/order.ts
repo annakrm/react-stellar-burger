@@ -1,9 +1,8 @@
-import { Action, AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
 
 import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
 
-import { RootState } from "./common";
+import { AppThunk } from "./common";
 
 export type OrderState = {
   details: BurgerConstructorOrderDetailsDto | null;
@@ -20,6 +19,4 @@ export type SetOrderDetailsModalOpenedAction = (
   orderDetailsModalOpened: boolean;
 };
 
-export type MakeOrderThunkAction = (
-  ingredientIds: string[]
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+export type MakeOrderThunkAction = (ingredientIds: string[]) => AppThunk;

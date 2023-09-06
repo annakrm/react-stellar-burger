@@ -5,7 +5,6 @@ import {
 import { FC } from "react";
 
 import { useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { OrderStatus } from "~/shared/api/dto";
 
 import { IngredientsList } from "./IngredientsList";
@@ -16,12 +15,10 @@ type Props = {
 };
 
 export const OrderDetails: FC<Props> = ({ pageView }) => {
-  const data = useAppSelector(
-    ({ orderDetails }: RootState) => orderDetails.data
-  );
+  const data = useAppSelector(({ orderDetails }) => orderDetails.data);
 
   const burgerIngredients = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
+    ({ burgerIngredients }) => burgerIngredients.data
   );
 
   if (data) {

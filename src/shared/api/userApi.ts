@@ -32,7 +32,7 @@ const refreshToken = (): Promise<RefreshTokenResponse> => {
   });
 };
 
-const requestWithRefresh = async <T>(
+export const requestWithRefresh = async <T>(
   endpoint: string,
   options: RequestOptions
 ): Promise<T> => {

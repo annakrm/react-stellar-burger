@@ -9,16 +9,12 @@ import { useState } from "react";
 import { updateUser } from "~/services/actions/user";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
 
-import { RootState } from "../../services/types";
-
 import styles from "./EditProfile.module.css";
 
 export const EditProfile: FC = () => {
   const dispatch = useAppDispatch();
 
-  const { name, email } = useAppSelector(
-    ({ user }: RootState) => user.userData
-  );
+  const { name, email } = useAppSelector(({ user }) => user.userData);
 
   const [nameInputValue, setNameInputValue] = useState(name);
   const [emailInputValue, setEmailInputValue] = useState(email);

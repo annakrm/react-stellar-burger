@@ -8,7 +8,6 @@ import {
   setOrderDetails,
 } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { OrderDetails as OrderDetailsComponent } from "~components/OrderDetails";
 import { Page } from "~shared/ui/Page";
 
@@ -18,11 +17,11 @@ export const OrderDetails: FC = () => {
   const dispatch = useAppDispatch();
 
   const burgerIngredients = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
+    ({ burgerIngredients }) => burgerIngredients.data
   );
 
   const orders = useAppSelector(
-    ({ ordersWebSocket }: RootState) => ordersWebSocket.orders
+    ({ ordersWebSocket }) => ordersWebSocket.orders
   );
 
   const { id: orderId } = useParams();

@@ -1,10 +1,9 @@
-import { Action, AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
 
 import type { BurgerIngredientDto } from "~/shared/api/dto";
 import { BurgerIngredientTab } from "~/shared/lib/types";
 
-import { RootState } from "./common";
+import { AppThunk } from "./common";
 
 export type BurgerIngredientsState = {
   data: BurgerIngredientDto[];
@@ -21,9 +20,4 @@ export type SetBurgerIngredientsActiveTabAction = (
   activeTab: BurgerIngredientTab;
 };
 
-export type GetBurgerIngredientsThunkAction = () => ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type GetBurgerIngredientsThunkAction = () => AppThunk;

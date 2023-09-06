@@ -8,7 +8,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import { initPasswordReset } from "~/services/actions/user";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 
 import styles from "./ForgotPassword.module.css";
 
@@ -20,7 +19,7 @@ export const ForgotPassword: FC = () => {
   const navigate = useNavigate();
 
   const isPasswordResetRequestSuccessful = useAppSelector(
-    ({ user }: RootState) => user.passwordResetRequestSuccessful
+    ({ user }) => user.passwordResetRequestSuccessful
   );
 
   const onEmailInputValueChange = (e) => {

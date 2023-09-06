@@ -4,7 +4,6 @@ import { useParams } from "react-router";
 
 import { setBurgerIngredientDetails } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { IngredientDetails as IngredientDetailsComponent } from "~components/IngredientDetails";
 import { Page } from "~shared/ui/Page";
 
@@ -14,7 +13,7 @@ export const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch();
 
   const burgerIngredients = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
+    ({ burgerIngredients }) => burgerIngredients.data
   );
 
   const { id: ingredientId } = useParams();

@@ -1,5 +1,4 @@
-import { Action, AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { Action } from "redux";
 
 import type {
   InitPasswordResetRequest,
@@ -10,7 +9,7 @@ import type {
   UserDto,
 } from "~/shared/api/dto";
 
-import { RootState } from "./common";
+import { AppThunk } from "./common";
 
 export type UserState = {
   userData: UserDto | null;
@@ -51,43 +50,24 @@ export type SetLoginSuccessAction = (
   loginSuccessful: boolean;
 };
 
-export type RegisterThunkAction = (
-  requestData: RegisterRequest
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+export type RegisterThunkAction = (requestData: RegisterRequest) => AppThunk;
 
-export type LoginThunkAction = (
-  requestData: LoginRequest
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+export type LoginThunkAction = (requestData: LoginRequest) => AppThunk;
 
-export type LogoutThunkAction = () => ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type LogoutThunkAction = () => AppThunk;
 
 export type InitPasswordResetThunkAction = (
   requestData: InitPasswordResetRequest
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+) => AppThunk;
 
 export type ResetPasswordThunkAction = (
   requestData: ResetPasswordRequest
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+) => AppThunk;
 
-export type GetUserThunkAction = () => ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type GetUserThunkAction = () => AppThunk;
 
 export type UpdateUserThunkAction = (
   requestData: UpdateUserRequest
-) => ThunkAction<void, RootState, unknown, AnyAction>;
+) => AppThunk;
 
-export type CheckUserAuthAction = () => ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
->;
+export type CheckUserAuthAction = () => AppThunk;

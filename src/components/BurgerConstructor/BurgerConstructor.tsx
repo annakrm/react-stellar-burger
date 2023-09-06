@@ -12,7 +12,6 @@ import { makeOrder } from "~/services/actions";
 import { setOrderDetailsModalOpened } from "~/services/actions/order";
 import { reorderSelectedBurgerIngredients } from "~/services/actions/selectedBurgerIngredients";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import { hasBuns } from "~/shared/lib/hasBuns";
 
@@ -26,14 +25,14 @@ export const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
 
   const { data: selectedBurgerIngredients } = useAppSelector(
-    ({ selectedBurgerIngredients }: RootState) => selectedBurgerIngredients
+    ({ selectedBurgerIngredients }) => selectedBurgerIngredients
   );
 
   const orderDetailsModalOpened = useAppSelector(
-    ({ order }: RootState) => order.orderDetailsModalOpened
+    ({ order }) => order.orderDetailsModalOpened
   );
 
-  const userData = useAppSelector(({ user }: RootState) => user.userData);
+  const userData = useAppSelector(({ user }) => user.userData);
 
   const navigate = useNavigate();
 

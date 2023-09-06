@@ -1,12 +1,12 @@
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   setBurgerIngredientDetails,
   setBurgerIngredientsActiveTab,
 } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { BurgerIngredientType } from "~/shared/api/dto";
 import type { BurgerIngredientDto } from "~/shared/api/dto";
 import { BurgerIngredientTab } from "~/shared/lib/types";
@@ -22,11 +22,11 @@ export const IngredientsList: FC = () => {
   const dispatch = useAppDispatch();
 
   const { data: ingredientsData, activeTab } = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients
+    ({ burgerIngredients }) => burgerIngredients
   );
 
   const { data: burgerIngredientDetails } = useAppSelector(
-    ({ burgerIngredientDetails }: RootState) => burgerIngredientDetails
+    ({ burgerIngredientDetails }) => burgerIngredientDetails
   );
 
   const wrapperRef = useRef(null);
@@ -35,6 +35,8 @@ export const IngredientsList: FC = () => {
     saucesTopPosition?: number;
     mainTopPosition?: number;
   }>({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,6 +130,11 @@ export const IngredientsList: FC = () => {
     dispatch(setBurgerIngredientDetails(data));
   };
 
+  const handleBurgerIngredientModalClose = () => {
+    handleBurgerIngredientClick(null);
+    navigate("/");
+  };
+
   return (
     <div ref={wrapperRef} className={`${styles.wrapper} custom-scroll`}>
       {isBunsVisible && (
@@ -158,7 +165,7 @@ export const IngredientsList: FC = () => {
       )}
 
       {Boolean(burgerIngredientDetails) && (
-        <Modal onClose={() => handleBurgerIngredientClick(null)}>
+        <Modal onClose={handleBurgerIngredientModalClose}>
           <IngredientDetails />
         </Modal>
       )}

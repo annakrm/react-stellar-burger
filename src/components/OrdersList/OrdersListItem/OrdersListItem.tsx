@@ -8,7 +8,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { OrderDto, OrderStatus } from "~/shared/api/dto";
 
 import styles from "./OrdersListItem.module.css";
@@ -37,7 +36,7 @@ export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
   } = data;
 
   const burderIngredientsData = useAppSelector(
-    ({ burgerIngredients }: RootState) => burgerIngredients.data
+    ({ burgerIngredients }) => burgerIngredients.data
   );
 
   const location = useLocation();
@@ -84,7 +83,7 @@ export const OrdersListItem: FC<Props> = ({ data, onClick, profileView }) => {
   return (
     <NavLink
       className={styles.link}
-      to={`/${profileView ? "profile" : "feed"}/${orderId}`}
+      to={`/${profileView ? "profile/orders" : "feed"}/${orderId}`}
       state={{ background: location }}
     >
       <div

@@ -8,7 +8,9 @@
   width: 272px;
   height: 208px;
 
+  color: var(--text-primary-color);
   text-align: center;
+  text-decoration: none;
 
   cursor: pointer;
 }
@@ -24,9 +26,4 @@
   position: absolute;
   top: 0;
   left: 100%;
-}
-
-.link {
-  color: var(--text-primary-color);
-  text-decoration: none;
 }

@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 
 import { login } from "../../services/actions";
 
@@ -21,7 +20,7 @@ export const Login: FC = () => {
   const [password, setPassword] = useState("");
 
   const isUserLoginSuccessful = useAppSelector(
-    ({ user }: RootState) => user.loginSuccessful
+    ({ user }) => user.loginSuccessful
   );
 
   const navigate = useNavigate();

@@ -46,7 +46,7 @@ export const socketMiddleware = (
       } = wsActions;
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}/${payload}`);
+        socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
       if (socket) {
