@@ -3,7 +3,7 @@ import { apiConfig } from "./config";
 export type RequestOptions = Partial<
   Omit<Request, "body" | "headers"> & {
     body: string;
-    headers: { authorization: string };
+    headers: Record<string, string>;
   }
 >;
 

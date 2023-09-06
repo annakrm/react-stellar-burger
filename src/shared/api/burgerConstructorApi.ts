@@ -1,11 +1,17 @@
+import { getAccessToken } from "../lib/auth";
+
 import type { MakeOrderRequest, MakeOrderResponse } from "./dto";
-import { request } from "./lib";
+import { requestWithRefresh } from "./userApi";
 
 const makeOrder = ({
   ingredientIds,
 }: MakeOrderRequest): Promise<MakeOrderResponse> => {
-  return request<MakeOrderResponse>("orders", {
+  return requestWithRefresh<MakeOrderResponse>("orders", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: getAccessToken(),
+    },
     body: JSON.stringify({ ingredients: ingredientIds }),
   });
 };

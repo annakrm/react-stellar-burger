@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 
 import { checkUserAuth, setAuthChecked } from "../../services/actions";
 
@@ -23,9 +22,7 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
     dispatch(checkUserAuth());
   }, [dispatch]);
 
-  const { userData, authChecked } = useAppSelector(
-    ({ user }: RootState) => user
-  );
+  const { userData, authChecked } = useAppSelector(({ user }) => user);
   const location = useLocation();
 
   if (!authChecked) {

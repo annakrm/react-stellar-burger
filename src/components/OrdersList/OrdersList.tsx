@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Fragment } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 import { setOrderDetails } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { OrderDto } from "~/shared/api/dto";
 import { Modal } from "~/shared/ui/Modal";
 
@@ -20,12 +20,23 @@ type Props = {
 export const OrdersList: FC<Props> = ({ orders, profileView }) => {
   const dispatch = useAppDispatch();
 
-  const orderDetails = useAppSelector(
-    ({ orderDetails }: RootState) => orderDetails.data
-  );
+  const orderDetails = useAppSelector(({ orderDetails }) => orderDetails.data);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleOrderClick = (data: OrderDto) => {
     dispatch(setOrderDetails(data));
+  };
+
+  const handleOrderDetailsModalClose = () => {
+    const pathnameTokens = location.pathname.split("/");
+    const parentPath = pathnameTokens.includes("profile")
+      ? "profile/orders"
+      : "feed";
+
+    handleOrderClick(null);
+    navigate(`/${parentPath}`);
   };
 
   return (
@@ -45,7 +56,7 @@ export const OrdersList: FC<Props> = ({ orders, profileView }) => {
       ))}
 
       {Boolean(orderDetails) && (
-        <Modal onClose={() => handleOrderClick(null)}>
+        <Modal onClose={handleOrderDetailsModalClose}>
           <OrderDetails />
         </Modal>
       )}

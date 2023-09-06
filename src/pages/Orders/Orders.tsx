@@ -6,7 +6,6 @@ import {
   ordersWsConnectionClosed,
 } from "~/services/actions";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { RootState } from "~/services/types";
 import { getAccessToken } from "~/shared/lib/auth";
 import { Page } from "~/shared/ui/Page";
 import { OrdersList } from "~components/OrdersList";
@@ -17,7 +16,7 @@ export const Orders: FC = () => {
   const dispatch = useAppDispatch();
 
   const orders = useAppSelector(
-    ({ ordersWebSocket }: RootState) => ordersWebSocket.orders
+    ({ ordersWebSocket }) => ordersWebSocket.orders
   );
 
   useEffect(() => {
