@@ -16,7 +16,7 @@ ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
-        <BrowserRouter basename="/react-stellar-burger">
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <App />
         </BrowserRouter>
       </DndProvider>

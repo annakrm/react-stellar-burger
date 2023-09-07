@@ -111,11 +111,11 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "PUBLIC_URL='/' node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "predeploy": "npm run build",
+    "predeploy": "PUBLIC_URL='/react-stellar-burger' npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

@@ -1,9 +1,8 @@
 import { defineConfig } from "cypress";
-// import webpackConfig from './config/webpack.config';
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3000/',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
@@ -13,7 +12,6 @@ export default defineConfig({
     devServer: {
       framework: "react",
       bundler: "webpack",
-      // webpackConfig,
     },
   },
   env: {
