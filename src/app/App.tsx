@@ -64,8 +64,8 @@ export const App: FC = () => {
         <Routes>
           <Route path="/" element={<AppHeader />}>
             <Route path="/ingredients/:id" element={<IngredientDetails />} />
-            <Route path="/feed/:id" element={<div />} />
-            <Route path="/profile/orders/:id" element={<div />} />
+            <Route path="/feed/:id" element={<OrderDetails />} />
+            <Route path="/profile/orders/:id" element={<OrderDetails />} />
           </Route>
         </Routes>
       )}
