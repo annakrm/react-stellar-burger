@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 import { mockedBurgerIngredients } from "../../shared/api/mocks";
 import * as types from "../constants";
 
@@ -22,15 +20,15 @@ describe("Test updateSelectedBurgerIngredientsItem action", () => {
     const data = [
       {
         ...mockedBurgerIngredients[0],
-        uniqueId: uuidv4(),
+        uniqueId: "1",
       },
       {
         ...mockedBurgerIngredients[1],
-        uniqueId: uuidv4(),
+        uniqueId: "12",
       },
       {
         ...mockedBurgerIngredients[2],
-        uniqueId: uuidv4(),
+        uniqueId: "123",
       },
     ];
 
