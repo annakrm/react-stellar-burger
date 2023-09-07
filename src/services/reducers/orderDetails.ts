@@ -1,7 +1,7 @@
 import { ORDER_DETAILS_SET_DATA } from "../constants";
 import { OrderDetailsState, OrderDetailsAction } from "../types";
 
-const initialState: OrderDetailsState = {
+export const initialState: OrderDetailsState = {
   data: null,
 };
 
@@ -19,8 +19,7 @@ export const orderDetailsReducer = (
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };

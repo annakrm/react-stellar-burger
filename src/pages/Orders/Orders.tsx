@@ -24,7 +24,8 @@ export const Orders: FC = () => {
 
     dispatch(ordersWsConnectionStart(`?token=${accessToken}`));
 
-    return () => dispatch(ordersWsConnectionClosed());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return () => dispatch(ordersWsConnectionClosed()) as any;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const isOrdersLoaded = orders.length > 0;

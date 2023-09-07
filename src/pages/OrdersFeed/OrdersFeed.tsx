@@ -22,7 +22,8 @@ export const OrdersFeed: FC = () => {
   useEffect(() => {
     dispatch(ordersWsConnectionStart("/all"));
 
-    return () => dispatch(ordersWsConnectionClosed());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return () => dispatch(ordersWsConnectionClosed()) as any;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const isOrdersLoaded = orders.length > 0;

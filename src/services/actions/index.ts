@@ -6,8 +6,8 @@ export {
 } from "./burgerIngredients";
 
 export {
-  addSelectedBurgerIngredientsItem,
-  deleteSelectedBurgerIngredientsItem,
+  resetSelectedBurgerIngredientsData,
+  updateSelectedBurgerIngredientsData,
 } from "./selectedBurgerIngredients";
 
 export { makeOrder } from "./order";

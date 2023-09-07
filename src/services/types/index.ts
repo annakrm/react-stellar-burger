@@ -42,9 +42,8 @@ export type {
 export type {
   SelectedBurgerIngredientsAction,
   SelectedBurgerIngredientsState,
-  AddSelectedBurgerIngredientsItemAction,
-  DeleteSelectedBurgerIngredientsItemAction,
-  ReorderSelectedBurgerIngredientsAction,
+  ResetSelectedBurgerIngredientsDataAction,
+  UpdateSelectedBurgerIngredientsDataAction,
 } from "./selectedBurgerIngredients";
 
 export type {

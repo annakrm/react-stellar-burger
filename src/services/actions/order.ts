@@ -2,7 +2,7 @@ import type { BurgerConstructorOrderDetailsDto } from "~/shared/api/dto";
 
 import { apiInstance } from "../../shared/api";
 import {
-  BURGER_CONSTRUCTOR_RESET_DATA,
+  SELECTED_BURGER_INGREDIENTS_RESET_DATA,
   MAKE_ORDER_FAILED,
   MAKE_ORDER_SUCCESS,
   ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
@@ -21,8 +21,8 @@ export const setOrderDetailsModalOpened: SetOrderDetailsModalOpenedAction = (
 });
 
 export const makeOrder: MakeOrderThunkAction = (ingredientIds) => {
-  return (dispatch: AppDispatch): void => {
-    apiInstance.burgerConstructorApi
+  return (dispatch: AppDispatch) => {
+    return apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
       .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {
         dispatch({
@@ -33,7 +33,7 @@ export const makeOrder: MakeOrderThunkAction = (ingredientIds) => {
         dispatch(setOrderDetailsModalOpened(true));
 
         dispatch({
-          type: BURGER_CONSTRUCTOR_RESET_DATA,
+          type: SELECTED_BURGER_INGREDIENTS_RESET_DATA,
         });
       })
       .catch((err) => {

@@ -1,38 +1,22 @@
-import { v4 as uuidv4 } from "uuid";
-
 import {
-  REORDER_SELECTED_BURGER_INGREDIENTS,
-  SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
-  SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
+  SELECTED_BURGER_INGREDIENTS_RESET_DATA,
+  SELECTED_BURGER_INGREDIENTS_UPDATE_DATA,
 } from "../constants";
 import {
-  AddSelectedBurgerIngredientsItemAction,
-  DeleteSelectedBurgerIngredientsItemAction,
-  ReorderSelectedBurgerIngredientsAction,
+  ResetSelectedBurgerIngredientsDataAction,
+  UpdateSelectedBurgerIngredientsDataAction,
 } from "../types";
 
-export const addSelectedBurgerIngredientsItem: AddSelectedBurgerIngredientsItemAction = (
+export const resetSelectedBurgerIngredientsData: ResetSelectedBurgerIngredientsDataAction = (
   item
 ) => ({
-  type: SELECTED_BURGER_INGREDIENTS_ADD_ITEM,
-  item: {
-    ...item,
-    uniqueId: uuidv4(),
-  },
+  type: SELECTED_BURGER_INGREDIENTS_RESET_DATA,
+  item,
 });
 
-export const deleteSelectedBurgerIngredientsItem: DeleteSelectedBurgerIngredientsItemAction = (
-  itemIndex
+export const updateSelectedBurgerIngredientsData: UpdateSelectedBurgerIngredientsDataAction = (
+  data
 ) => ({
-  type: SELECTED_BURGER_INGREDIENTS_DELETE_ITEM,
-  itemIndex,
-});
-
-export const reorderSelectedBurgerIngredients: ReorderSelectedBurgerIngredientsAction = ({
-  dragIndex,
-  hoverIndex,
-}) => ({
-  type: REORDER_SELECTED_BURGER_INGREDIENTS,
-  dragIndex,
-  hoverIndex,
+  type: SELECTED_BURGER_INGREDIENTS_UPDATE_DATA,
+  data,
 });

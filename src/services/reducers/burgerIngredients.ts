@@ -6,7 +6,7 @@ import {
 } from "../constants";
 import { BurgerIngredientsAction, BurgerIngredientsState } from "../types";
 
-const initialState: BurgerIngredientsState = {
+export const initialState: BurgerIngredientsState = {
   data: [],
   activeTab: BurgerIngredientTab.BUNS,
   error: "",
@@ -43,8 +43,7 @@ export const burgerIngredientsReducer = (
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };

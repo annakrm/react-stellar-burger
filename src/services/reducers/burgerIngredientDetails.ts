@@ -4,7 +4,7 @@ import {
   BurgerIngredientDetailsAction,
 } from "../types";
 
-const initialState: BurgerIngredientDetailsState = {
+export const initialState: BurgerIngredientDetailsState = {
   data: null,
 };
 
@@ -22,8 +22,7 @@ export const burgerIngredientDetailsReducer = (
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };

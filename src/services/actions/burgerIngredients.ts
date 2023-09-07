@@ -1,6 +1,5 @@
-import type { BurgerIngredientDto } from "~/shared/api/dto";
-import { apiInstance } from "~shared/api";
-
+import { apiInstance } from "../../shared/api";
+import type { BurgerIngredientDto } from "../../shared/api/dto";
 import {
   BURGER_INGREDIENTS_GET_DATA_FAILED,
   BURGER_INGREDIENTS_GET_DATA_SUCCESS,

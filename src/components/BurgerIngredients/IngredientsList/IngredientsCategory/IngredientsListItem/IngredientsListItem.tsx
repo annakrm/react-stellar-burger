@@ -8,7 +8,8 @@ import { useDrag } from "react-dnd";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
-import { addSelectedBurgerIngredientsItem } from "~services/actions";
+import { addItemToIngredientsArray } from "~/shared/lib/burgerConstructor";
+import { updateSelectedBurgerIngredientsData } from "~services/actions";
 import type { BurgerIngredientDto } from "~shared/api/dto";
 
 import styles from "./IngredientsListItem.module.css";
@@ -41,14 +42,21 @@ export const IngredientsListItem: FC<Props> = ({
         const dropResult = monitor.getDropResult();
 
         if (ingredient && dropResult) {
-          dispatch(addSelectedBurgerIngredientsItem(ingredient));
+          const updatedSelectedIngredientsData = addItemToIngredientsArray(
+            ingredient,
+            selectedBurgerIngredients
+          );
+
+          dispatch(
+            updateSelectedBurgerIngredientsData(updatedSelectedIngredientsData)
+          );
         }
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [data]
+    [data, selectedBurgerIngredients]
   );
 
   const addedCount = useMemo(
