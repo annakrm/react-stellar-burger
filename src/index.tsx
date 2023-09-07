@@ -3,7 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import { App } from "./app";
@@ -16,9 +16,9 @@ ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
-        <HashRouter>
+        <BrowserRouter basename="/react-stellar-burger">
           <App />
-        </HashRouter>
+        </BrowserRouter>
       </DndProvider>
     </Provider>
   </StrictMode>,

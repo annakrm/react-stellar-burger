@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "Anna Karmyzova",
-  "main": "./src/index.tsx",
-  "homepage": "https://annakrm.github.io/react-stellar-burger/",
+  "homepage": "./",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
