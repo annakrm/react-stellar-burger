@@ -215,7 +215,7 @@ export const mockedBurgerIngredients: BurgerIngredientDto[] = [
   },
 ];
 
-export const mockedConfigurationData: BurgerIngredientDto[] = [
+export const mockedBurgerConstructorData: BurgerIngredientDto[] = [
   {
     _id: "60666c42cc7b410027a1a9b9",
     name: "Соус традиционный галактический",
@@ -390,8 +390,9 @@ export const mockedConfigurationData: BurgerIngredientDto[] = [
       "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
     __v: 0,
   },
+];
 
-export const mockedConfigurationPrice = mockedConfigurationData.reduce(
+export const mockedConfigurationPrice = mockedBurgerConstructorData.reduce(
   (acc, currentItem) => acc + currentItem.price,
   0
 );

@@ -21,8 +21,8 @@ export const setOrderDetailsModalOpened: SetOrderDetailsModalOpenedAction = (
 });
 
 export const makeOrder: MakeOrderThunkAction = (ingredientIds) => {
-  return (dispatch: AppDispatch): void => {
-    apiInstance.burgerConstructorApi
+  return (dispatch: AppDispatch) => {
+    return apiInstance.burgerConstructorApi
       .makeOrder({ ingredientIds })
       .then(({ name, order }: BurgerConstructorOrderDetailsDto) => {
         dispatch({

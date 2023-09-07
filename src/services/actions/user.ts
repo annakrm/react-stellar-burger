@@ -1,10 +1,12 @@
 import { redirect } from "react-router";
 
-import { apiInstance } from "~/shared/api";
-import { getAccessToken, updateLocalStorageTokens } from "~/shared/lib/auth";
-import { removeLocalStorageTokens } from "~/shared/lib/auth/removeLocalStorageTokens";
-import { SERVER_ERROR_MESSAGE } from "~/shared/lib/constants";
-
+import { apiInstance } from "../../shared/api";
+import {
+  getAccessToken,
+  updateLocalStorageTokens,
+} from "../../shared/lib/auth";
+import { removeLocalStorageTokens } from "../../shared/lib/auth/removeLocalStorageTokens";
+import { SERVER_ERROR_MESSAGE } from "../../shared/lib/constants";
 import {
   USER_SET_AUTH_CHECKED,
   USER_SET_USER_DATA,
