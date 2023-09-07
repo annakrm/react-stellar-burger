@@ -41,10 +41,12 @@ export const App: FC = () => {
 
           <Route path="/feed" element={<OrdersFeed />} />
           <Route path="/feed/:id" element={<OrderDetails />} />
+          <Route path="/profile/orders/:id" element={<OrderDetails />} />
 
           <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<EditProfile />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="orders/:id" element={<OrderDetails />} />
           </Route>
 
           <Route path="/ingredients/:id" element={<IngredientDetails />} />
@@ -61,7 +63,7 @@ export const App: FC = () => {
       {background && (
         <Routes>
           <Route path="/" element={<AppHeader />}>
-            <Route path="/ingredients/:id" element={<div />} />
+            <Route path="/ingredients/:id" element={<IngredientDetails />} />
             <Route path="/feed/:id" element={<div />} />
             <Route path="/profile/orders/:id" element={<div />} />
           </Route>

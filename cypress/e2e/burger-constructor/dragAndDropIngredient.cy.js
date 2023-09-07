@@ -2,7 +2,7 @@
 
 context('Drag & drop an ingredient to the Burger Constructor', () => {
   before(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
 

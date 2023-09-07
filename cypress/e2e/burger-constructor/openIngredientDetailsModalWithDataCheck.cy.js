@@ -2,7 +2,7 @@
 
 context('Open ingredient details modal and check its content', () => {
   before(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('should open ingredient details modal and check its content', () => {

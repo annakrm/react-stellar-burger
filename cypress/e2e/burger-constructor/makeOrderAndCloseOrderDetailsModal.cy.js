@@ -2,7 +2,7 @@
 
 context('Drag & drop an ingredient to the Burger Constructor', () => {
   before(() => {
-    cy.visit('http://localhost:3000/login');
+    cy.visit('/login');
     cy.clearLocalStorage();
     cy.get('[class^=Login_inputWrapper__] input[name="email"]').first().type('alll.laaaa@yandex.com');
     cy.get('[class^=Login_inputWrapper__] input[name="password"]').first().type('1231231235');
