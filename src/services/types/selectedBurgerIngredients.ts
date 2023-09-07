@@ -4,34 +4,20 @@ import { AddedBurgerIngredient } from "~/shared/lib/types";
 
 export type SelectedBurgerIngredientsState = {
   data: AddedBurgerIngredient[];
-  item: AddedBurgerIngredient | null;
-  itemIndex: number;
-  dragIndex: number;
-  hoverIndex: number;
 };
 
 export type SelectedBurgerIngredientsAction = Action<string> &
   SelectedBurgerIngredientsState;
 
-export type AddSelectedBurgerIngredientsItemAction = (
+export type ResetSelectedBurgerIngredientsDataAction = (
   item: AddedBurgerIngredient
 ) => {
   type: string;
-  item: AddedBurgerIngredient;
 };
 
-export type DeleteSelectedBurgerIngredientsItemAction = (
-  itemIndex: number
+export type UpdateSelectedBurgerIngredientsDataAction = (
+  data: AddedBurgerIngredient[]
 ) => {
   type: string;
-  itemIndex: number;
-};
-
-export type ReorderSelectedBurgerIngredientsAction = (options: {
-  dragIndex: number;
-  hoverIndex: number;
-}) => {
-  type: string;
-  dragIndex: number;
-  hoverIndex: number;
+  data: AddedBurgerIngredient[];
 };

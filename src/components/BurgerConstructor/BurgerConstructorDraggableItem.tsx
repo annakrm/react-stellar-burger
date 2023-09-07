@@ -2,12 +2,14 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useRef } from "react";
+import type { FC } from "react";
+import { useCallback, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import { deleteSelectedBurgerIngredientsItem } from "~/services/actions";
-import { useAppDispatch } from "~/services/hooks";
+import { updateSelectedBurgerIngredientsData } from "~/services/actions";
+import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import type { BurgerIngredientDto } from "~/shared/api/dto";
+import { removeItemFromIngredientsArray } from "~/shared/lib/burgerConstructor/removeItemFromIngredientsArray";
 
 import styles from "./BurgerConstructor.module.css";
 
@@ -25,6 +27,10 @@ export const BurgerConstructorDraggableItem: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const { _id: ingredientId, name, price, image } = data;
+
+  const { data: selectedBurgerIngredients } = useAppSelector(
+    ({ selectedBurgerIngredients }) => selectedBurgerIngredients
+  );
 
   const ref = useRef(null);
   const [{ handlerId }, drop] = useDrop({
@@ -76,9 +82,19 @@ export const BurgerConstructorDraggableItem: FC<Props> = ({
     }),
   });
 
-  const handleDeleteIngredient = (ingredientIndex) => {
-    dispatch(deleteSelectedBurgerIngredientsItem(ingredientIndex));
-  };
+  const handleRemoveIngredient = useCallback(
+    (ingredientIndex) => {
+      const updatedSelectedIngredientsData = removeItemFromIngredientsArray(
+        ingredientIndex,
+        selectedBurgerIngredients
+      );
+
+      dispatch(
+        updateSelectedBurgerIngredientsData(updatedSelectedIngredientsData)
+      );
+    },
+    [dispatch, selectedBurgerIngredients]
+  );
 
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
@@ -95,7 +111,7 @@ export const BurgerConstructorDraggableItem: FC<Props> = ({
         text={name}
         price={price}
         thumbnail={image}
-        handleClose={() => handleDeleteIngredient(index)}
+        handleClose={() => handleRemoveIngredient(index)}
       />
     </div>
   );

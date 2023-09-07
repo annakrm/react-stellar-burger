@@ -5,7 +5,7 @@ import {
 } from "../constants";
 import { OrderAction, OrderState } from "../types";
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   details: null,
   orderDetailsModalOpened: false,
   error: "",
@@ -42,8 +42,7 @@ export const orderReducer = (
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };

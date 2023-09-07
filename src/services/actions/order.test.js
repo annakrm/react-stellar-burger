@@ -51,7 +51,7 @@ describe("Test makeOrder action", () => {
         type: types.ORDER_DETAILS_MODAL_OPENED_SET_VALUE,
         orderDetailsModalOpened: true,
       },
-      { type: types.BURGER_CONSTRUCTOR_RESET_DATA },
+      { type: types.SELECTED_BURGER_INGREDIENTS_RESET_DATA },
     ];
 
     const store = mockStore();

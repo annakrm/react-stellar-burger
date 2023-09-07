@@ -10,9 +10,10 @@ import { useNavigate } from "react-router";
 
 import { makeOrder } from "~/services/actions";
 import { setOrderDetailsModalOpened } from "~/services/actions/order";
-import { reorderSelectedBurgerIngredients } from "~/services/actions/selectedBurgerIngredients";
+import { updateSelectedBurgerIngredientsData } from "~/services/actions/selectedBurgerIngredients";
 import { useAppDispatch, useAppSelector } from "~/services/hooks";
 import { BurgerIngredientType } from "~/shared/api/dto";
+import { reorderItemInIngredientsArray } from "~/shared/lib/burgerConstructor";
 import { hasBuns } from "~/shared/lib/hasBuns";
 
 import { BurgerConstructorOrderDetailsModal } from "../BurgerConstructorOrderDetailsModal";
@@ -102,9 +103,17 @@ export const BurgerConstructor: FC = () => {
 
   const handleReorder = useCallback(
     (dragIndex, hoverIndex) => {
-      dispatch(reorderSelectedBurgerIngredients({ dragIndex, hoverIndex }));
+      const updatedSelectedIngredientsData = reorderItemInIngredientsArray(
+        dragIndex,
+        hoverIndex,
+        selectedBurgerIngredients
+      );
+
+      dispatch(
+        updateSelectedBurgerIngredientsData(updatedSelectedIngredientsData)
+      );
     },
-    [dispatch]
+    [dispatch, selectedBurgerIngredients]
   );
 
   return (

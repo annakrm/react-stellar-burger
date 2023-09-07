@@ -6,7 +6,7 @@ import {
 } from "../constants";
 import { OrdersWebSocketAction, OrdersWebSocketState } from "../types";
 
-const initialState: OrdersWebSocketState = {
+export const initialState: OrdersWebSocketState = {
   wsConnected: false,
   orders: [],
   total: 0,

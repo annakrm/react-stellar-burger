@@ -7,7 +7,7 @@ import {
 } from "../constants";
 import { UserAction, UserState } from "../types";
 
-const initialState: UserState = {
+export const initialState: UserState = {
   userData: null,
   authChecked: false,
   passwordResetRequestSuccessful: false,
@@ -49,8 +49,7 @@ export const userReducer = (
       };
     }
 
-    default: {
+    default:
       return state;
-    }
   }
 };
