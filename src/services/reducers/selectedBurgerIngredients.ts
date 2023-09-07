@@ -23,8 +23,6 @@ export const selectedBurgerIngredientsReducer = (
     case SELECTED_BURGER_INGREDIENTS_UPDATE_DATA: {
       const { data } = action;
 
-      console.log(data);
-
       return {
         ...state,
         data,

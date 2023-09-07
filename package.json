@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "author": "Anna Karmyzova",
-  "main": "./src/index.js",
+  "main": "./src/index.tsx",
+  "homepage": "./",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -94,6 +95,7 @@
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-testing-library": "5.0.0",
     "fetch-mock": "^9.11.0",
+    "gh-pages": "^6.0.0",
     "immutability-helper": "^3.1.1",
     "jest": "28.0.0",
     "jest-config": "28.0.0",
@@ -113,7 +115,9 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
