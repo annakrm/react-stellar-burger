@@ -18,7 +18,10 @@ export const IngredientDetails: FC = () => {
 
   const { id: ingredientId } = useParams();
 
-  useEffect(() => () => dispatch(setBurgerIngredientDetails(null)), []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return () => dispatch(setBurgerIngredientDetails(null)) as any;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (burgerIngredients) {

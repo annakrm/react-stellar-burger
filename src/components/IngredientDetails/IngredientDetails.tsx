@@ -24,14 +24,16 @@ export const IngredientDetails: FC = () => {
             alt={`Изображение ингредиента бургера: ${name}`}
           />
 
-          <span className="text text_type_main-medium mt-4 mb-8">{name}</span>
+          <span className="ingredientDetailsName text text_type_main-medium mt-4 mb-8">
+            {name}
+          </span>
 
           <span className={styles.ingredientProperties}>
             <span className={styles.ingredientProperty}>
               <span className="text text_type_main-default text_color_inactive">
                 Калории, ккал
               </span>
-              <span className="text text_type_main-default text_color_inactive">
+              <span className="ingredientDetailsCallories text text_type_main-default text_color_inactive">
                 {calories}
               </span>
             </span>
@@ -39,7 +41,7 @@ export const IngredientDetails: FC = () => {
               <span className="text text_type_main-default text_color_inactive">
                 Белки, г
               </span>
-              <span className="text text_type_main-default text_color_inactive">
+              <span className="ingredientDetailsProteins text text_type_main-default text_color_inactive">
                 {proteins}
               </span>
             </span>
@@ -47,7 +49,7 @@ export const IngredientDetails: FC = () => {
               <span className="text text_type_main-default text_color_inactive">
                 Жиры, г
               </span>
-              <span className="text text_type_main-default text_color_inactive">
+              <span className="ingredientDetailsFats text text_type_main-default text_color_inactive">
                 {fat}
               </span>
             </span>
@@ -55,7 +57,7 @@ export const IngredientDetails: FC = () => {
               <span className="text text_type_main-default text_color_inactive">
                 Углеводы, г
               </span>
-              <span className="text text_type_main-default text_color_inactive">
+              <span className="ingredientDetailsCarbs text text_type_main-default text_color_inactive">
                 {carbohydrates}
               </span>
             </span>
